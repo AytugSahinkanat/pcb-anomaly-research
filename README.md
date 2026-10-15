@@ -12,7 +12,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
-- Nineteen unit tests and a GitHub Actions workflow.
+- Paired rotation/resolution sensitivity with a fixed reference bank.
+- Twenty-three unit tests and a GitHub Actions workflow.
 
 The audited archive contains 47 matched images and 8,016 component annotations across 31 categories. See the [data audit (Turkish)](docs/data-audit.tr.md) for provenance and limitations.
 
@@ -69,6 +70,18 @@ Open the local `index.html` to compare same-category nearest/farthest crops and 
 Call `validate_splits` before evaluating precomputed features. Keep all views, crops and augmentations of a board together. For unseen-layout experiments, group by layout family. Build reference banks per category, calibrate thresholds on separate normal samples, and evaluate against independent annotations. Unknown classes require abstention.
 
 `knn_scores` excludes the query's own sample ID. Accurate IDs and label provenance are the caller's responsibility. Synthetic perturbation results must be separated from real-defect results.
+
+## Rotation and resolution sensitivity
+
+Run the calibration-only sensitivity experiment (cached baseline weights required):
+
+```console
+python -m pcb_anomaly.sensitivity --features data/features-resnet18-v1 --crops data/crops-v1 --output data/sensitivity-v2
+```
+
+It compares identity, 90/180/270-degree rotations and native-crop downsampling to 50%/25% per dimension. Original reference embeddings stay fixed. Outputs include paired per-sample metrics, category/board/size summaries and transformed embeddings. Only `run.json` with `status=complete` confirms completion. Top-1 retention measures the same exact reference sample; top-5 overlap is intersection size divided by the available k (at most 5). These are representation stability measures, not defect accuracy.
+
+See the [measured sensitivity results (Turkish)](docs/sensitivity.tr.md). The full run covers 1,156 calibration queries; no test queries are used. On CPUs with excessive BLAS threading, set `OPENBLAS_NUM_THREADS=1` before starting Python.
 
 ## Roadmap
 
