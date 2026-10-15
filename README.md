@@ -13,7 +13,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
 - Paired rotation/resolution sensitivity with a fixed reference bank.
-- Twenty-three unit tests and a GitHub Actions workflow.
+- Four-orientation mean pooling and comparison with the single-view baseline.
+- Twenty-seven unit tests and a GitHub Actions workflow.
 
 The audited archive contains 47 matched images and 8,016 component annotations across 31 categories. See the [data audit (Turkish)](docs/data-audit.tr.md) for provenance and limitations.
 
@@ -82,6 +83,16 @@ python -m pcb_anomaly.sensitivity --features data/features-resnet18-v1 --crops d
 It compares identity, 90/180/270-degree rotations and native-crop downsampling to 50%/25% per dimension. Original reference embeddings stay fixed. Outputs include paired per-sample metrics, category/board/size summaries and transformed embeddings. Only `run.json` with `status=complete` confirms completion. Top-1 retention measures the same exact reference sample; top-5 overlap is intersection size divided by the available k (at most 5). These are representation stability measures, not defect accuracy.
 
 See the [measured sensitivity results (Turkish)](docs/sensitivity.tr.md). The full run covers 1,156 calibration queries; no test queries are used. On CPUs with excessive BLAS threading, set `OPENBLAS_NUM_THREADS=1` before starting Python.
+
+## Four-orientation pooling
+
+Compare four-view pooled features with the single-view sensitivity results:
+
+```console
+python -m pcb_anomaly.multiview --features data/features-resnet18-v1 --sensitivity data/sensitivity-v2 --crops data/crops-v1 --output data/multiview-v1
+```
+
+Both queries and reference crops use the mean of four normalized 0/90/180/270-degree embeddings, followed by L2 normalization. The representation remains 512-dimensional. Right-angle invariance is structural; resolution robustness is measured separately. See the [four-view experiment (Turkish)](docs/multiview.tr.md).
 
 ## Roadmap
 
