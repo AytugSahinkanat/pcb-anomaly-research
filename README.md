@@ -10,7 +10,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 - Quoted multi-word category parsing and unique annotation IDs.
 - Reproducible candidate board-group splits with class coverage reports.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
-- Thirteen unit tests and a GitHub Actions workflow.
+- Visual review sheets, lossless component crops and frozen ResNet18 features.
+- Seventeen unit tests and a GitHub Actions workflow.
 
 The audited archive contains 47 matched images and 8,016 component annotations across 31 categories. See the [data audit (Turkish)](docs/data-audit.tr.md) for provenance and limitations.
 
@@ -39,6 +40,21 @@ The output directory must not already exist. The command produces `audit.json` (
 
 Component annotations are not defect labels. Defect labels remain unknown. Filename-based board groups require visual review before experiments; rare categories may lack reference or calibration samples.
 
+## Visual review, crops and features
+
+The initial review covers all 47 board images and 141 sampled boxes, not every annotation. See [review findings (Turkish)](docs/visual-review.tr.md). Board identities and layout families remain provisional.
+
+```console
+python -m pcb_anomaly.review /path/to/pcb_wacv_2019.zip --audit data/audit-v1 --output data/review-v1
+python -m pcb_anomaly.crops /path/to/pcb_wacv_2019.zip --manifest data/audit-v1/manifest.jsonl --output data/crops-v1
+python -m pip install -e ".[features]"
+python -m pcb_anomaly.features --manifest data/crops-v1/manifest.jsonl --output data/features-resnet18-v1
+```
+
+For CPU-only PyTorch, first install `torch==2.10.0 torchvision==0.25.0` with `--index-url https://download.pytorch.org/whl/cpu`. The feature command runs on CPU and downloads official ImageNet weights on first use to `data/torch-cache`. The extraction was run with Python 3.12; use a Python/platform combination with compatible PyTorch wheels.
+
+Crops retain original pixels and all 8,016 eligible samples; small and elongated crops carry quality flags. Features use square padding to preserve the whole component, bilinear resize to 224, ImageNet normalization, frozen ResNet18 pooling and L2 normalization. This deliberately differs from torchvision's default center-crop transform. Outputs contain ordered sample metadata, hashes and run provenance. Output directories must be new; only a `run.json` with `status=complete` confirms completion. No defect labels are inferred.
+
 ## Evaluation contract
 
 Call `validate_splits` before evaluating precomputed features. Keep all views, crops and augmentations of a board together. For unseen-layout experiments, group by layout family. Build reference banks per category, calibrate thresholds on separate normal samples, and evaluate against independent annotations. Unknown classes require abstention.
@@ -47,8 +63,8 @@ Call `validate_splits` before evaluating precomputed features. Keep all views, c
 
 ## Roadmap
 
-1. Visually review board identities, near duplicates and bounding boxes.
-2. Add manifest-based crop and feature extraction.
+1. Extend sampled visual review to physical identities, layout families and near duplicates.
+2. Inspect category-specific feature neighborhoods and collect independent defect labels.
 3. Add VisA PCB evaluation with fixed configurations.
 4. Compare corrected ResNet18+kNN, PatchCore, EfficientAD and AnomalyDINO.
 5. Measure the effect of board context at controlled false-alarm budgets.

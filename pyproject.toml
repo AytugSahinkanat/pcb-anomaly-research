@@ -7,7 +7,10 @@ name = "pcb-anomaly-research"
 version = "0.1.0"
 description = "Evaluation guardrails for PCB component anomaly research"
 requires-python = ">=3.10"
-dependencies = ["numpy>=1.24,<3", "Pillow>=10,<13"]
+dependencies = ["numpy>=1.24,<3", "Pillow>=10.1,<13"]
+
+[project.optional-dependencies]
+features = ["torch==2.10.0", "torchvision==0.25.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
