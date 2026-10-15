@@ -11,7 +11,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 - Reproducible candidate board-group splits with class coverage reports.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
-- Seventeen unit tests and a GitHub Actions workflow.
+- Calibration-to-reference neighbor galleries with cross-board filtering.
+- Nineteen unit tests and a GitHub Actions workflow.
 
 The audited archive contains 47 matched images and 8,016 component annotations across 31 categories. See the [data audit (Turkish)](docs/data-audit.tr.md) for provenance and limitations.
 
@@ -56,6 +57,14 @@ For CPU-only PyTorch, first install `torch==2.10.0 torchvision==0.25.0` with `--
 Crops retain original pixels and all 8,016 eligible samples; small and elongated crops carry quality flags. Features use square padding to preserve the whole component, bilinear resize to 224, ImageNet normalization, frozen ResNet18 pooling and L2 normalization. This deliberately differs from torchvision's default center-crop transform. Outputs contain ordered sample metadata, hashes and run provenance. Output directories must be new; only a `run.json` with `status=complete` confirms completion. No defect labels are inferred.
 
 ## Evaluation contract
+
+Inspect feature neighborhoods without using the held-out test set:
+
+```console
+python -m pcb_anomaly.neighbors --features data/features-resnet18-v1 --crops data/crops-v1 --output data/neighbors-v1
+```
+
+Open the local `index.html` to compare same-category nearest/farthest crops and unrestricted nearest neighbors. The [initial review (Turkish)](docs/neighbor-review.tr.md) covers 61 selected queries across 22 categories. Category agreement is exploratory and must not be interpreted as defect detection accuracy.
 
 Call `validate_splits` before evaluating precomputed features. Keep all views, crops and augmentations of a board together. For unseen-layout experiments, group by layout family. Build reference banks per category, calibrate thresholds on separate normal samples, and evaluate against independent annotations. Unknown classes require abstention.
 
