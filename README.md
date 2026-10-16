@@ -4,6 +4,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 
 **Status:** research infrastructure. No trained detector or validated real-defect benchmark is provided yet.
 
+See the [project status and research roadmap (Turkish)](docs/project-status.tr.md) for completed evidence, missing validation and publication goals.
+
 ## Implemented
 
 - Read-only ZIP audit, image/XML matching and bounding-box validation.
@@ -14,7 +16,8 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 - Calibration-to-reference neighbor galleries with cross-board filtering.
 - Paired rotation/resolution sensitivity with a fixed reference bank.
 - Four-orientation mean pooling and comparison with the single-view baseline.
-- Twenty-seven unit tests and a GitHub Actions workflow.
+- Resolution-augmented reference banks with unique-component neighbor ranking.
+- Thirty unit tests and a GitHub Actions workflow.
 
 The audited archive contains 47 matched images and 8,016 component annotations across 31 categories. See the [data audit (Turkish)](docs/data-audit.tr.md) for provenance and limitations.
 
@@ -93,6 +96,18 @@ python -m pcb_anomaly.multiview --features data/features-resnet18-v1 --sensitivi
 ```
 
 Both queries and reference crops use the mean of four normalized 0/90/180/270-degree embeddings, followed by L2 normalization. The representation remains 512-dimensional. Right-angle invariance is structural; resolution robustness is measured separately. See the [four-view experiment (Turkish)](docs/multiview.tr.md).
+
+## Resolution-augmented reference bank
+
+Evaluate the original/50%/25% reference bank using fixed single-view queries:
+
+```console
+python -m pcb_anomaly.scale_bank --features data/features-resnet18-v1 --sensitivity data/sensitivity-v2 --crops data/crops-v1 --output data/scale-bank-v1
+```
+
+Each reference component contributes its maximum cosine across three resolutions; top-k counts distinct component IDs, not augmented views. Original reference vectors are reused, and only reference downsampling features are newly extracted. Test data is excluded. `run.json` with `status=complete` confirms completion.
+
+See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Category agreement improves for degraded queries, but exact-neighbor stability has mixed results; real-defect performance remains untested.
 
 ## Roadmap
 
