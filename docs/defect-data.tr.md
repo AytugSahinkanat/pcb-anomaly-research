@@ -75,6 +75,8 @@ python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-au
 
 ## Sonraki deney
 
+Güncelleme: aşağıda tarif edilen ilk görüntü düzeyi karşılaştırması [tamamlandı ve raporlandı](visa-benchmark.tr.md). 64 referans/kategori, global ResNet18 ve PatchCore–ResNet18 varyantı kullanıldı; lokalizasyon ve daha güçlü omurga karşılaştırması bekliyor.
+
 Önce VisA'da sabit bir ResNet18 başlangıç sonucu ve yama tabanlı PatchCore karşılaştırması kurulmalı. Referans bütçesi, giriş çözünürlüğü ve dönüşümler test skorları görülmeden sabitlenmeli. Kalibrasyon yalnızca normal veride eşik belirler; testte görüntü AUROC/AP, eşikte duyarlılık ve gerçekleşen yanlış alarm oranı raporlanır. Yüz normal kalibrasyon örneğiyle %1 yanlış alarm hedefi çok kaba ve belirsizdir; garanti olarak sunulmaz. Lokalizasyon için piksel değerlendirmesi ayrıca gerekir.
 
 SolDef_AI, komponent/lehim odaklı ikinci değerlendirme için uygundur; ancak fiziksel örnek/açı grupları ve etiket semantiği çözülmeden rastgele görüntü bölmesiyle sonuç üretilmemeli. Dört yönelim ve çok çözünürlüklü referans yaklaşımının kusurları da benzerleştirerek gizleyip gizlemediği bu bağımsız etiketlerle sınanmalı.

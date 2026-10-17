@@ -2,7 +2,9 @@
 
 17 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
 
-Son güncelleme: [kusur verileri indirildi ve denetlendi](defect-data.tr.md). VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı. Toplam 37 test geçti. Bu, veri hazırlığının tamamlanmasıdır; henüz gerçek kusur üzerinde model sonucu yok.
+Son güncelleme: [ilk gerçek-kusur benchmarkı tamamlandı](visa-benchmark.tr.md). Aynı 64 normal referans/kategori ve ResNet18 omurgasında, global 3NN ile PatchCore varyantı karşılaştırıldı. Makro AUROC %85,52→%86,16; kusur yakalama %51,25→%59,50; test yanlış alarmı %6,97→%5,47. AUROC farkının bootstrap aralığı sıfırı içeriyor; PCB1 geriliyor, PCB4 iyileşiyor. Tek seed ve özel PatchCore ayarlarıyla genel üstünlük iddia edilmiyor. Toplam 42 test geçti.
+
+[Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı.
 
 ## Bugün elimizde ne var?
 
@@ -12,7 +14,7 @@ Son güncelleme: [kusur verileri indirildi ve denetlendi](defect-data.tr.md). Vi
 - Donmuş ResNet18, komşuluk görselleri, kontrollü yönelim/çözünürlük deneyi, dört yönelim ortalaması ve otomatik doğrulamalar.
 - Dört yönelim ortalaması 90° katlarında değişmez; buna karşılık çözünürlük kararlılığı genel olarak iyileşmedi. Özgün sorgularda kategori uyumu %58,8→%56,3. Bu sonuçlar kusur doğruluğu değildir.
 
-Yazılım altyapısı bir araştırma başlangıç noktasıdır. Gerçek kusurlu/normal benchmark, kusur lokalizasyonu, üretim hattı performansı veya yayınlanabilir özgün yöntem henüz gösterilmedi. Mevcut veri komponent tespiti anotasyonları içerir; anotasyonlu bir parçayı otomatik olarak hatasız sayamayız. Var olan parçaları kırpmak eksik komponenti tespit etmek için yeterli değildir.
+Yazılım altyapısı ve ilk VisA görüntü düzeyi benchmarkı bir araştırma başlangıç noktasıdır. Nicel kusur lokalizasyonu, üretim hattı performansı veya yayınlanabilir özgün yöntem henüz gösterilmedi. Kuo verisi komponent tespiti anotasyonları içerir; anotasyonlu bir parçayı otomatik olarak hatasız sayamayız. Var olan parçaları kırpmak eksik komponenti tespit etmek için yeterli değildir.
 
 ## Savunulabilir araştırma sorusu
 

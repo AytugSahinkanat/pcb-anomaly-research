@@ -113,7 +113,7 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 
 1. Extend sampled visual review to physical identities, layout families and near duplicates.
 2. Inspect category-specific feature neighborhoods and collect independent defect labels.
-3. Add VisA PCB evaluation with fixed configurations.
+3. Extend the completed fixed-configuration VisA PCB baseline to multiple reference seeds and budgets.
 4. Compare corrected ResNet18+kNN, PatchCore, EfficientAD and AnomalyDINO.
 5. Measure the effect of board context at controlled false-alarm budgets.
 
@@ -130,6 +130,17 @@ python -m pcb_anomaly.soldef acquire --root data/soldef-ai
 python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-audit-v1
 ```
 
-VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal; its split remains unassigned pending source/view grouping. These are data preparation steps, not measured defect-detection results.
+VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal; its split remains unassigned pending source/view grouping.
+
+## First real-defect benchmark
+
+The matched-backbone, 64-reference-per-category comparison is complete: global ResNet18+3NN versus a PatchCore–ResNet18 implementation variant, at 224 pixels. Macro image AUROC is 85.52% versus 86.16%. At independently calibrated category thresholds, sensitivity is 51.25% versus 59.50%, with observed false-positive rates of 6.97% versus 5.47%. The paired bootstrap interval for the AUROC difference includes zero, and PCB1 regresses. This is not a reproduction of the original WideResNet50 configuration or a production-quality detector. See the [full benchmark report (Turkish)](docs/visa-benchmark.tr.md).
+
+```console
+python -m pcb_anomaly.visa_benchmark --output data/visa-benchmark-v1
+python -m pcb_anomaly.benchmark_review --benchmark data/visa-benchmark-v1
+```
+
+Use a new output directory for a new run. The experiment saves its fixed protocol and reference IDs before computing test scores. Raw predictions, memory banks and qualitative patch maps stay local. Pixel-level localization metrics have not yet been evaluated.
 
 Raw data, weights, local analyses and project reports are excluded from Git. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.
