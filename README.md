@@ -113,7 +113,7 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 
 1. Extend sampled visual review to physical identities, layout families and near duplicates.
 2. Inspect category-specific feature neighborhoods and collect independent defect labels.
-3. Extend the completed five-reference-selection study with matched preprocessing and memory budgets.
+3. Extend the completed matched-preprocessing/memory study with independent validation and controlled false-alarm operating points.
 4. Compare corrected ResNet18+kNN, PatchCore, EfficientAD and AnomalyDINO.
 5. Measure the effect of board context at controlled false-alarm budgets.
 
@@ -166,4 +166,30 @@ python -m pcb_anomaly.multiseed_report
 
 Fetch upstream code once into the ignored data directory. Use a fresh `--output` directory for a new study. A stopped WRN run can continue with `wrn --resume`. The tests do not require downloading models or installing the benchmark extra. Tested benchmark environment: Python 3.12, CPU PyTorch 2.10.0.
 
-Raw data, weights, local analyses and project reports are excluded from Git. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.
+## Matched preprocessing and memory ablation
+
+The 2-backbone × 2-preprocessing × 2-bank-budget study is complete across five reference selections and four PCB categories: 160 evaluations, including 20 exact prior configurations reused with prediction checks. Both backbones use the same pinned upstream PatchCore implementation, 1,024-dimensional float32 features and identical bank bytes.
+
+With common resize256/center-crop224 preprocessing:
+
+| Backbone | Feature-bank MiB | Macro AUROC (%) | Sensitivity (%) | Observed FPR (%) |
+|---|---:|---:|---:|---:|
+| ResNet18 | 1.96 | 91.06 ± 0.95 | 68.50 ± 3.05 | 5.77 ± 0.64 |
+| WideResNet50-2 | 1.96 | 94.36 ± 0.29 | 78.20 ± 3.59 | 6.57 ± 1.38 |
+| ResNet18 | 19.60 | 94.84 ± 0.31 | 78.90 ± 4.13 | 6.57 ± 2.73 |
+| WideResNet50-2 | 19.60 | 95.73 ± 0.19 | 82.10 ± 2.79 | 7.16 ± 1.03 |
+
+The matched large-bank backbone gap is **0.89 ± 0.28 AUROC percentage points**, compared with the historical configuration gap of 8.24 points. The small-bank gap is **3.31 ± 1.13 points**. Preprocessing and bank size explain much of the historical difference along the documented sequential comparison; effects interact, so there is no unique additive attribution. Bank equality excludes backbone parameters and activation memory. The same inspected test set is reused; this is a descriptive ablation, not independent final validation.
+
+See the [full factorial report (Turkish)](docs/visa-controlled.tr.md), [comparison figure](docs/figures/visa-controlled.png), [preprocessing examples](docs/figures/visa-controlled-preprocessing.png), and [results/provenance](reports/visa-controlled-v1.json).
+
+```console
+python -m pcb_anomaly.controlled plan
+python -m pcb_anomaly.controlled run
+python -m pcb_anomaly.preprocessing_review
+python -m pcb_anomaly.controlled_report
+```
+
+Requires the completed previous study and cached data/weights. Use a fresh `--output` for a new plan; rerun `run` to continue interrupted evaluations from atomic checkpoints. New bank indices/hashes and all predictions remain local. All 160 first-query checks agree exactly with upstream full prediction; 24,040 nested-bank distance checks and 48 unit tests pass. Timing is not an isolated speed benchmark.
+
+Raw data, weights, local analyses and original project reports are excluded from Git. Selected numerical summaries and attributed research figures are versioned. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.
