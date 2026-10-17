@@ -2,6 +2,8 @@
 
 17 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
 
+Son güncelleme: [kusur verileri indirildi ve denetlendi](defect-data.tr.md). VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı. Toplam 37 test geçti. Bu, veri hazırlığının tamamlanmasıdır; henüz gerçek kusur üzerinde model sonucu yok.
+
 ## Bugün elimizde ne var?
 
 - 47 kaynak görüntü, 29 aday kart grubu, 31 kategori ve 8.016 komponent kırpması; dosya/örnek kimlikleri ve kaynak özetleri izlenebilir.

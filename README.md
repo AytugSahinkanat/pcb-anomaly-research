@@ -121,6 +121,15 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 
 Kuo, Ashmore, Huggins and Kira, *Data-Efficient Graph Embedding Learning for PCB Component Detection*, WACV 2019. [Paper](https://arxiv.org/abs/1811.06994).
 
-Candidate anomaly benchmark: [VisA / SPot-the-Difference](https://github.com/amazon-science/spot-diff).
+Defect-data preparation is implemented for [VisA / SPot-the-Difference](https://github.com/amazon-science/spot-diff) PCB1–PCB4 and an annotation inventory for [SolDef_AI](https://www.kaggle.com/datasets/mauriziocalabrese/soldef-ai-pcb-dataset-for-defect-detection). See the [data audit and evaluation protocol (Turkish)](docs/defect-data.tr.md).
+
+```console
+python -m pcb_anomaly.visa acquire --root data/visa-pcb-v2 --archive data/downloads/VisA_20220922.tar
+python -m pcb_anomaly.visa audit --root data/visa-pcb-v2 --output data/visa-audit-v1
+python -m pcb_anomaly.soldef acquire --root data/soldef-ai
+python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-audit-v1
+```
+
+VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal; its split remains unassigned pending source/view grouping. These are data preparation steps, not measured defect-detection results.
 
 Raw data, weights, local analyses and project reports are excluded from Git. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.
