@@ -2,7 +2,7 @@
 
 17 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
 
-Son güncelleme: [ilk gerçek-kusur benchmarkı tamamlandı](visa-benchmark.tr.md). Aynı 64 normal referans/kategori ve ResNet18 omurgasında, global 3NN ile PatchCore varyantı karşılaştırıldı. Makro AUROC %85,52→%86,16; kusur yakalama %51,25→%59,50; test yanlış alarmı %6,97→%5,47. AUROC farkının bootstrap aralığı sıfırı içeriyor; PCB1 geriliyor, PCB4 iyileşiyor. Tek seed ve özel PatchCore ayarlarıyla genel üstünlük iddia edilmiyor. Toplam 42 test geçti.
+Son güncelleme: [beş referans seçimi ve resmî WideResNet50 PatchCore karşılaştırması tamamlandı](visa-five-seeds.tr.md). Aynı 64 normal referans/kategori, aynı 802 test görüntüsü ve seed 42–46 ile toplam 60 yöntem/kategori/seed değerlendirmesi yapıldı. Ortalama AUROC global ResNet18'de %84,93, ResNet18 PatchCore varyantında %87,49, resmî WideResNet50 ayarında %95,73. Kusur yakalama sırasıyla %48,10 / %60,35 / %82,10; yanlış alarm %5,67 / %6,47 / %7,16. WideResNet50 daha büyük bellek ve farklı ön işleme kullanıyor; fark yalnızca omurgaya atfedilemez. 43 kusur bu yöntemin beş koşusunun tamamında kaçtı. Toplam 45 test geçti. İlk tek-seed çalışma [ayrı raporda](visa-benchmark.tr.md) tarihsel başlangıç sonucu olarak korunuyor.
 
 [Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı.
 

@@ -113,7 +113,7 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 
 1. Extend sampled visual review to physical identities, layout families and near duplicates.
 2. Inspect category-specific feature neighborhoods and collect independent defect labels.
-3. Extend the completed fixed-configuration VisA PCB baseline to multiple reference seeds and budgets.
+3. Extend the completed five-reference-selection study with matched preprocessing and memory budgets.
 4. Compare corrected ResNet18+kNN, PatchCore, EfficientAD and AnomalyDINO.
 5. Measure the effect of board context at controlled false-alarm budgets.
 
@@ -142,5 +142,28 @@ python -m pcb_anomaly.benchmark_review --benchmark data/visa-benchmark-v1
 ```
 
 Use a new output directory for a new run. The experiment saves its fixed protocol and reference IDs before computing test scores. Raw predictions, memory banks and qualitative patch maps stay local. Pixel-level localization metrics have not yet been evaluated.
+
+## Five reference selections and official WideResNet50 PatchCore
+
+The study is complete for seeds 42–46, with 64 normal references/category and the same 802 test images throughout. The official PatchCore implementation is pinned to commit `fcaa92f124fb1ad74a7acf56726decd4b27cbcad` and uses the README's 224-pixel WideResNet50 setup with a 10% coreset.
+
+| Method | Macro AUROC (%) | Sensitivity (%) | Observed FPR (%) |
+|---|---:|---:|---:|
+| Global ResNet18 + 3NN | 84.93 ± 0.68 | 48.10 ± 2.17 | 5.67 ± 1.13 |
+| PatchCore–ResNet18 variant | 87.49 ± 1.33 | 60.35 ± 5.11 | 6.47 ± 2.37 |
+| Official PatchCore–WideResNet50 | 95.73 ± 0.19 | 82.10 ± 2.79 | 7.16 ± 1.03 |
+
+Values are mean ± sample SD across reference selections, not confidence intervals. Backbone, preprocessing and memory size differ; this is a comparison of full configurations. The WideResNet50 model misses 43 defects in all five runs. See the [full study and category results (Turkish)](docs/visa-five-seeds.tr.md), [plot](docs/figures/visa-five-seeds.png), and [machine-readable results](reports/visa-five-seeds-v1.json).
+
+```console
+python -m pip install -e ".[features,benchmark]"
+python -m pcb_anomaly.upstream_patchcore
+python -m pcb_anomaly.multiseed plan
+python -m pcb_anomaly.multiseed rn
+python -m pcb_anomaly.multiseed wrn
+python -m pcb_anomaly.multiseed_report
+```
+
+Fetch upstream code once into the ignored data directory. Use a fresh `--output` directory for a new study. A stopped WRN run can continue with `wrn --resume`. The tests do not require downloading models or installing the benchmark extra. Tested benchmark environment: Python 3.12, CPU PyTorch 2.10.0.
 
 Raw data, weights, local analyses and project reports are excluded from Git. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.

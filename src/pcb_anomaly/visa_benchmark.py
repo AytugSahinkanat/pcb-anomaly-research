@@ -95,7 +95,7 @@ def nearest_distances(query, bank, chunk=2048):
     return np.concatenate(result)
 
 
-def run(root, audit, output, cache):
+def run(root, audit, output, cache, reference_seed=42):
     import torch
     import torch.nn.functional as F
     import torchvision
@@ -105,9 +105,9 @@ def run(root, audit, output, cache):
     root, audit, output, cache = map(Path, (root, audit, output, cache))
     if json.loads((audit/'audit.json').read_text())['status'] != 'complete':
         raise ValueError('Require completed data audit')
-    groups = choose_samples(read_rows(audit/'manifest.jsonl'))
+    groups = choose_samples(read_rows(audit/'manifest.jsonl'), seed=reference_seed)
     output.mkdir(parents=True, exist_ok=False)
-    plan = dict(PROTOCOL, manifest_sha256=sha256(audit/'manifest.jsonl'),
+    plan = dict(PROTOCOL, reference_seed=reference_seed, manifest_sha256=sha256(audit/'manifest.jsonl'),
                 source_sha256=sha256(Path(__file__)),
                 selection={c: [{'image': r['image'], 'split': r['split']} for r in rows] for c, rows in groups.items()})
     (output/'protocol.json').write_text(json.dumps(plan, indent=2))
@@ -227,8 +227,9 @@ def main():
     parser.add_argument('--audit', type=Path, default=Path('data/visa-audit-v1'))
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--cache', type=Path, default=Path('data/torch-cache'))
+    parser.add_argument('--reference-seed', type=int, default=42)
     args = parser.parse_args()
-    run(args.root, args.audit, args.output, args.cache)
+    run(args.root, args.audit, args.output, args.cache, args.reference_seed)
 
 
 if __name__ == '__main__':
