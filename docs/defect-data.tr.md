@@ -83,4 +83,6 @@ SolDef_AI anotasyonları için konum görevi altı, lehim görevi üç kaynak-PC
 
 SolDef_AI, komponent/lehim odaklı ikinci değerlendirme için uygundur; ancak fiziksel örnek/açı grupları ve etiket semantiği çözülmeden rastgele görüntü bölmesiyle sonuç üretilmemeli. Dört yönelim ve çok çözünürlüklü referans yaklaşımının kusurları da benzerleştirerek gizleyip gizlemediği bu bağımsız etiketlerle sınanmalı.
 
+Güncelleme: `CS1`–`CS6` kaynak PCB kimliklerini koruyan [kart ayrımlı bölme planı](soldef-board-splits.tr.md) ve bunun üzerinde ilk [donmuş ResNet18 ROI baseline'ı](soldef-resnet18.tr.md) üretildi. Bu sonuçlar anotasyon poligon sınıflandırmasıdır; VisA görüntü düzeyi anomalisiyle aynı görev değildir.
+
 Özellikle kartın kameraya göre dönmesiyle, komponentin karta göre yanlış yönde monte edilmesi aynı durum değildir. Komponent kırpmasını yönelimden bağımsız yapmak ikinci kusurun sinyalini silebilir. Bu nedenle yönelim kararlılığı tek başına kalite ölçütü olmamalı; kart bağlamı ve kusur türüne göre duyarlılık ayrıca incelenmeli.

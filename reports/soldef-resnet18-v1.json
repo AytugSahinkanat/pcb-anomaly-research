@@ -1,0 +1,925 @@
+{
+  "status": "complete_descriptive_board_held_out_baseline",
+  "split_manifest": "data\\soldef-board-splits-v1\\manifest.jsonl",
+  "split_manifest_sha256": "3d910f7dffecc93732204aa0a9f3f500fc791ff7b9fb28ae197d61f3a25d1e03",
+  "source_archive_sha256": "4712db2e90f2b1541f40d61cfe5d170fd7ec3b6759a0804561b657563d41c7d0",
+  "unique_polygons": 671,
+  "runner_sha256": "410500f4fc97fdc044e1a2ae4ca8372ddb32e36492bb10bb9b563f486243b83f",
+  "model": {
+    "architecture": "torchvision ResNet18, fc=Identity, frozen global-average-pooled features",
+    "weights": "ResNet18_Weights.IMAGENET1K_V1",
+    "weights_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "torch": "2.10.0+cpu",
+    "torchvision": "0.25.0+cpu",
+    "python": "3.12.14",
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 32,
+    "preprocessing": "polygon bounding box with 20% relative context; aspect-ratio-preserving 224x224 letterbox RGB(124,116,104); ImageNet normalization; L2-normalized 512D embedding"
+  },
+  "classifier": "cosine nearest class centroid fit on each fold's training-board embeddings; no hyperparameter tuning",
+  "tasks": {
+    "position": {
+      "out_of_fold": {
+        "n": 228,
+        "accuracy": 0.5789473684210527,
+        "balanced_accuracy": 0.5735837438423645,
+        "macro_f1": 0.5323076923076923,
+        "recall_by_class": {
+          "good": 0.26785714285714285,
+          "no_good": 0.8793103448275862
+        },
+        "f1_by_class": {
+          "good": 0.3846153846153846,
+          "no_good": 0.6799999999999999
+        },
+        "confusion_matrix_labels": [
+          "good",
+          "no_good"
+        ],
+        "confusion_matrix": [
+          [
+            30,
+            82
+          ],
+          [
+            14,
+            102
+          ]
+        ]
+      },
+      "majority_control_out_of_fold": {
+        "n": 228,
+        "accuracy": 0.4298245614035088,
+        "balanced_accuracy": 0.42641625615763545,
+        "macro_f1": 0.40563086548488003,
+        "recall_by_class": {
+          "good": 0.23214285714285715,
+          "no_good": 0.6206896551724138
+        },
+        "f1_by_class": {
+          "good": 0.2857142857142857,
+          "no_good": 0.5255474452554744
+        },
+        "confusion_matrix_labels": [
+          "good",
+          "no_good"
+        ],
+        "confusion_matrix": [
+          [
+            26,
+            86
+          ],
+          [
+            44,
+            72
+          ]
+        ]
+      },
+      "folds": [
+        {
+          "fold": "position-holdout-cs1",
+          "held_out_boards": [
+            "CS1"
+          ],
+          "training_majority_label": "good",
+          "training_class_counts": {
+            "good": 104,
+            "no_good": 94
+          },
+          "majority_control": {
+            "n": 30,
+            "accuracy": 0.26666666666666666,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.2105263157894737,
+            "recall_by_class": {
+              "good": 1.0,
+              "no_good": 0.0
+            },
+            "f1_by_class": {
+              "good": 0.4210526315789474,
+              "no_good": 0.0
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                8,
+                0
+              ],
+              [
+                22,
+                0
+              ]
+            ]
+          },
+          "n": 30,
+          "accuracy": 0.7666666666666667,
+          "balanced_accuracy": 0.6818181818181819,
+          "macro_f1": 0.6888888888888889,
+          "recall_by_class": {
+            "good": 0.5,
+            "no_good": 0.8636363636363636
+          },
+          "f1_by_class": {
+            "good": 0.5333333333333333,
+            "no_good": 0.8444444444444444
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              4,
+              4
+            ],
+            [
+              3,
+              19
+            ]
+          ]
+        },
+        {
+          "fold": "position-holdout-cs2",
+          "held_out_boards": [
+            "CS2"
+          ],
+          "training_majority_label": "no_good",
+          "training_class_counts": {
+            "good": 92,
+            "no_good": 96
+          },
+          "majority_control": {
+            "n": 40,
+            "accuracy": 0.5,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.3333333333333333,
+            "recall_by_class": {
+              "good": 0.0,
+              "no_good": 1.0
+            },
+            "f1_by_class": {
+              "good": 0.0,
+              "no_good": 0.6666666666666666
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                0,
+                20
+              ],
+              [
+                0,
+                20
+              ]
+            ]
+          },
+          "n": 40,
+          "accuracy": 0.625,
+          "balanced_accuracy": 0.625,
+          "macro_f1": 0.5943204868154157,
+          "recall_by_class": {
+            "good": 0.35,
+            "no_good": 0.9
+          },
+          "f1_by_class": {
+            "good": 0.48275862068965514,
+            "no_good": 0.7058823529411764
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              7,
+              13
+            ],
+            [
+              2,
+              18
+            ]
+          ]
+        },
+        {
+          "fold": "position-holdout-cs3",
+          "held_out_boards": [
+            "CS3"
+          ],
+          "training_majority_label": "no_good",
+          "training_class_counts": {
+            "good": 97,
+            "no_good": 101
+          },
+          "majority_control": {
+            "n": 30,
+            "accuracy": 0.5,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.3333333333333333,
+            "recall_by_class": {
+              "good": 0.0,
+              "no_good": 1.0
+            },
+            "f1_by_class": {
+              "good": 0.0,
+              "no_good": 0.6666666666666666
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                0,
+                15
+              ],
+              [
+                0,
+                15
+              ]
+            ]
+          },
+          "n": 30,
+          "accuracy": 0.6,
+          "balanced_accuracy": 0.6,
+          "macro_f1": 0.5238095238095238,
+          "recall_by_class": {
+            "good": 0.2,
+            "no_good": 1.0
+          },
+          "f1_by_class": {
+            "good": 0.33333333333333337,
+            "no_good": 0.7142857142857143
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              3,
+              12
+            ],
+            [
+              0,
+              15
+            ]
+          ]
+        },
+        {
+          "fold": "position-holdout-cs4",
+          "held_out_boards": [
+            "CS4"
+          ],
+          "training_majority_label": "good",
+          "training_class_counts": {
+            "good": 94,
+            "no_good": 94
+          },
+          "majority_control": {
+            "n": 40,
+            "accuracy": 0.45,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.3103448275862069,
+            "recall_by_class": {
+              "good": 1.0,
+              "no_good": 0.0
+            },
+            "f1_by_class": {
+              "good": 0.6206896551724138,
+              "no_good": 0.0
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                18,
+                0
+              ],
+              [
+                22,
+                0
+              ]
+            ]
+          },
+          "n": 40,
+          "accuracy": 0.625,
+          "balanced_accuracy": 0.5984848484848485,
+          "macro_f1": 0.5807127882599581,
+          "recall_by_class": {
+            "good": 0.3333333333333333,
+            "no_good": 0.8636363636363636
+          },
+          "f1_by_class": {
+            "good": 0.4444444444444444,
+            "no_good": 0.7169811320754716
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              6,
+              12
+            ],
+            [
+              3,
+              19
+            ]
+          ]
+        },
+        {
+          "fold": "position-holdout-cs5",
+          "held_out_boards": [
+            "CS5"
+          ],
+          "training_majority_label": "no_good",
+          "training_class_counts": {
+            "good": 93,
+            "no_good": 95
+          },
+          "majority_control": {
+            "n": 40,
+            "accuracy": 0.525,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.34426229508196726,
+            "recall_by_class": {
+              "good": 0.0,
+              "no_good": 1.0
+            },
+            "f1_by_class": {
+              "good": 0.0,
+              "no_good": 0.6885245901639345
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                0,
+                19
+              ],
+              [
+                0,
+                21
+              ]
+            ]
+          },
+          "n": 40,
+          "accuracy": 0.625,
+          "balanced_accuracy": 0.6203007518796992,
+          "macro_f1": 0.6190476190476191,
+          "recall_by_class": {
+            "good": 0.5263157894736842,
+            "no_good": 0.7142857142857143
+          },
+          "f1_by_class": {
+            "good": 0.5714285714285714,
+            "no_good": 0.6666666666666666
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              10,
+              9
+            ],
+            [
+              6,
+              15
+            ]
+          ]
+        },
+        {
+          "fold": "position-holdout-cs6",
+          "held_out_boards": [
+            "CS6"
+          ],
+          "training_majority_label": "no_good",
+          "training_class_counts": {
+            "good": 80,
+            "no_good": 100
+          },
+          "majority_control": {
+            "n": 48,
+            "accuracy": 0.3333333333333333,
+            "balanced_accuracy": 0.5,
+            "macro_f1": 0.25,
+            "recall_by_class": {
+              "good": 0.0,
+              "no_good": 1.0
+            },
+            "f1_by_class": {
+              "good": 0.0,
+              "no_good": 0.5
+            },
+            "confusion_matrix_labels": [
+              "good",
+              "no_good"
+            ],
+            "confusion_matrix": [
+              [
+                0,
+                32
+              ],
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          "n": 48,
+          "accuracy": 0.3333333333333333,
+          "balanced_accuracy": 0.5,
+          "macro_f1": 0.25,
+          "recall_by_class": {
+            "good": 0.0,
+            "no_good": 1.0
+          },
+          "f1_by_class": {
+            "good": 0.0,
+            "no_good": 0.5
+          },
+          "confusion_matrix_labels": [
+            "good",
+            "no_good"
+          ],
+          "confusion_matrix": [
+            [
+              0,
+              32
+            ],
+            [
+              0,
+              16
+            ]
+          ]
+        }
+      ],
+      "fold_mean_balanced_accuracy": 0.6042672970304549,
+      "fold_sd_balanced_accuracy": 0.05937065292440579,
+      "fold_mean_macro_f1": 0.542796551136901,
+      "fold_sd_macro_f1": 0.1531926114779273
+    },
+    "solder": {
+      "out_of_fold": {
+        "n": 443,
+        "accuracy": 0.49887133182844245,
+        "balanced_accuracy": 0.5230119216961322,
+        "macro_f1": 0.4788101702853625,
+        "recall_by_class": {
+          "exc_solder": 0.32967032967032966,
+          "good": 0.6216216216216216,
+          "poor_solder": 0.45614035087719296,
+          "spike": 0.6846153846153846
+        },
+        "f1_by_class": {
+          "exc_solder": 0.47430830039525695,
+          "good": 0.49462365591397844,
+          "poor_solder": 0.34899328859060397,
+          "spike": 0.5973154362416107
+        },
+        "confusion_matrix_labels": [
+          "exc_solder",
+          "good",
+          "poor_solder",
+          "spike"
+        ],
+        "confusion_matrix": [
+          [
+            60,
+            45,
+            33,
+            44
+          ],
+          [
+            1,
+            46,
+            14,
+            13
+          ],
+          [
+            0,
+            9,
+            26,
+            22
+          ],
+          [
+            10,
+            12,
+            19,
+            89
+          ]
+        ]
+      },
+      "majority_control_out_of_fold": {
+        "n": 443,
+        "accuracy": 0.2595936794582393,
+        "balanced_accuracy": 0.1793956043956044,
+        "macro_f1": 0.14830526723803783,
+        "recall_by_class": {
+          "exc_solder": 0.4175824175824176,
+          "good": 0.0,
+          "poor_solder": 0.0,
+          "spike": 0.3
+        },
+        "f1_by_class": {
+          "exc_solder": 0.3502304147465438,
+          "good": 0.0,
+          "poor_solder": 0.0,
+          "spike": 0.24299065420560748
+        },
+        "confusion_matrix_labels": [
+          "exc_solder",
+          "good",
+          "poor_solder",
+          "spike"
+        ],
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0,
+            106
+          ],
+          [
+            42,
+            0,
+            0,
+            32
+          ],
+          [
+            43,
+            0,
+            0,
+            14
+          ],
+          [
+            91,
+            0,
+            0,
+            39
+          ]
+        ]
+      },
+      "folds": [
+        {
+          "fold": "solder-holdout-cs1",
+          "held_out_boards": [
+            "CS1"
+          ],
+          "training_majority_label": "exc_solder",
+          "training_class_counts": {
+            "exc_solder": 142,
+            "good": 44,
+            "poor_solder": 20,
+            "spike": 104
+          },
+          "majority_control": {
+            "n": 133,
+            "accuracy": 0.3007518796992481,
+            "balanced_accuracy": 0.25,
+            "macro_f1": 0.11560693641618497,
+            "recall_by_class": {
+              "exc_solder": 1.0,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 0.0
+            },
+            "f1_by_class": {
+              "exc_solder": 0.4624277456647399,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 0.0
+            },
+            "confusion_matrix_labels": [
+              "exc_solder",
+              "good",
+              "poor_solder",
+              "spike"
+            ],
+            "confusion_matrix": [
+              [
+                40,
+                0,
+                0,
+                0
+              ],
+              [
+                30,
+                0,
+                0,
+                0
+              ],
+              [
+                37,
+                0,
+                0,
+                0
+              ],
+              [
+                26,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "n": 133,
+          "accuracy": 0.40601503759398494,
+          "balanced_accuracy": 0.45322245322245325,
+          "macro_f1": 0.38335732076786083,
+          "recall_by_class": {
+            "exc_solder": 0.1,
+            "good": 0.4,
+            "poor_solder": 0.35135135135135137,
+            "spike": 0.9615384615384616
+          },
+          "f1_by_class": {
+            "exc_solder": 0.1777777777777778,
+            "good": 0.4528301886792453,
+            "poor_solder": 0.4482758620689656,
+            "spike": 0.45454545454545453
+          },
+          "confusion_matrix_labels": [
+            "exc_solder",
+            "good",
+            "poor_solder",
+            "spike"
+          ],
+          "confusion_matrix": [
+            [
+              4,
+              7,
+              3,
+              26
+            ],
+            [
+              1,
+              12,
+              4,
+              13
+            ],
+            [
+              0,
+              4,
+              13,
+              20
+            ],
+            [
+              0,
+              0,
+              1,
+              25
+            ]
+          ]
+        },
+        {
+          "fold": "solder-holdout-cs2",
+          "held_out_boards": [
+            "CS2"
+          ],
+          "training_majority_label": "exc_solder",
+          "training_class_counts": {
+            "exc_solder": 146,
+            "good": 62,
+            "poor_solder": 51,
+            "spike": 65
+          },
+          "majority_control": {
+            "n": 119,
+            "accuracy": 0.3025210084033613,
+            "balanced_accuracy": 0.25,
+            "macro_f1": 0.11612903225806451,
+            "recall_by_class": {
+              "exc_solder": 1.0,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 0.0
+            },
+            "f1_by_class": {
+              "exc_solder": 0.46451612903225803,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 0.0
+            },
+            "confusion_matrix_labels": [
+              "exc_solder",
+              "good",
+              "poor_solder",
+              "spike"
+            ],
+            "confusion_matrix": [
+              [
+                36,
+                0,
+                0,
+                0
+              ],
+              [
+                12,
+                0,
+                0,
+                0
+              ],
+              [
+                6,
+                0,
+                0,
+                0
+              ],
+              [
+                65,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          "n": 119,
+          "accuracy": 0.5378151260504201,
+          "balanced_accuracy": 0.6013888888888889,
+          "macro_f1": 0.4591162258087724,
+          "recall_by_class": {
+            "exc_solder": 0.3055555555555556,
+            "good": 0.8333333333333334,
+            "poor_solder": 0.6666666666666666,
+            "spike": 0.6
+          },
+          "f1_by_class": {
+            "exc_solder": 0.44897959183673475,
+            "good": 0.4347826086956522,
+            "poor_solder": 0.25,
+            "spike": 0.7027027027027027
+          },
+          "confusion_matrix_labels": [
+            "exc_solder",
+            "good",
+            "poor_solder",
+            "spike"
+          ],
+          "confusion_matrix": [
+            [
+              11,
+              14,
+              6,
+              5
+            ],
+            [
+              0,
+              10,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              4,
+              2
+            ],
+            [
+              2,
+              10,
+              14,
+              39
+            ]
+          ]
+        },
+        {
+          "fold": "solder-holdout-cs6",
+          "held_out_boards": [
+            "CS6"
+          ],
+          "training_majority_label": "spike",
+          "training_class_counts": {
+            "exc_solder": 76,
+            "good": 42,
+            "poor_solder": 43,
+            "spike": 91
+          },
+          "majority_control": {
+            "n": 191,
+            "accuracy": 0.20418848167539266,
+            "balanced_accuracy": 0.25,
+            "macro_f1": 0.08478260869565217,
+            "recall_by_class": {
+              "exc_solder": 0.0,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 1.0
+            },
+            "f1_by_class": {
+              "exc_solder": 0.0,
+              "good": 0.0,
+              "poor_solder": 0.0,
+              "spike": 0.3391304347826087
+            },
+            "confusion_matrix_labels": [
+              "exc_solder",
+              "good",
+              "poor_solder",
+              "spike"
+            ],
+            "confusion_matrix": [
+              [
+                0,
+                0,
+                0,
+                106
+              ],
+              [
+                0,
+                0,
+                0,
+                32
+              ],
+              [
+                0,
+                0,
+                0,
+                14
+              ],
+              [
+                0,
+                0,
+                0,
+                39
+              ]
+            ]
+          },
+          "n": 191,
+          "accuracy": 0.5392670157068062,
+          "balanced_accuracy": 0.6146027714423941,
+          "macro_f1": 0.5180493172233631,
+          "recall_by_class": {
+            "exc_solder": 0.42452830188679247,
+            "good": 0.75,
+            "poor_solder": 0.6428571428571429,
+            "spike": 0.6410256410256411
+          },
+          "f1_by_class": {
+            "exc_solder": 0.5660377358490566,
+            "good": 0.5517241379310345,
+            "poor_solder": 0.3050847457627119,
+            "spike": 0.6493506493506495
+          },
+          "confusion_matrix_labels": [
+            "exc_solder",
+            "good",
+            "poor_solder",
+            "spike"
+          ],
+          "confusion_matrix": [
+            [
+              45,
+              24,
+              24,
+              13
+            ],
+            [
+              0,
+              24,
+              8,
+              0
+            ],
+            [
+              0,
+              5,
+              9,
+              0
+            ],
+            [
+              8,
+              2,
+              4,
+              25
+            ]
+          ]
+        }
+      ],
+      "fold_mean_balanced_accuracy": 0.556404704517912,
+      "fold_sd_balanced_accuracy": 0.08960236832714784,
+      "fold_mean_macro_f1": 0.4535076212666655,
+      "fold_sd_macro_f1": 0.06752092868862637
+    }
+  },
+  "elapsed_seconds": 42.86,
+  "limits": [
+    "Three solder-board groups provide only a pilot estimate.",
+    "All held-out folds are used for the cross-validated summary; selecting methods on these scores requires a new independent test.",
+    "ROI boxes and labels are annotation-supervised; this is not unsupervised PatchCore or full-image anomaly detection."
+  ]
+}

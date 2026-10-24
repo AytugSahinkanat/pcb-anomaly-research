@@ -129,13 +129,13 @@ python -m pcb_anomaly.visa acquire --root data/visa-pcb-v2 --archive data/downlo
 python -m pcb_anomaly.visa audit --root data/visa-pcb-v2 --output data/visa-audit-v1
 python -m pcb_anomaly.soldef acquire --root data/soldef-ai
 python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-audit-v1
-```
-
-VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal. A task-specific, source-PCB-grouped split plan is now available for its position and solder annotations; no SolDef model has been evaluated yet. See the [board-separated split report (Turkish)](docs/soldef-board-splits.tr.md).
-
-```console
 python -m pcb_anomaly.soldef_split --manifest data/soldef-audit-v1/annotations.jsonl --output data/soldef-board-splits-v1
+python -m pcb_anomaly.soldef_resnet --split-manifest data/soldef-board-splits-v1/manifest.jsonl --archive data/soldef-ai/archive.zip --output data/soldef-resnet18-new
 ```
+
+VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal. A task-specific source-PCB split plan and first frozen ResNet18 ROI-classification baseline are available. See the [board-separated split report](docs/soldef-board-splits.tr.md) and [first results (Turkish)](docs/soldef-resnet18.tr.md).
+
+The initial board-held-out baseline reaches 57.4% / 52.3% pooled balanced accuracy for position / solder classification. It is a small descriptive result, not full-image anomaly detection or independent final validation. See the [fold and class metrics](docs/soldef-resnet18.tr.md).
 
 ## First real-defect benchmark
 
