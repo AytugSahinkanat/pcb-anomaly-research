@@ -30,7 +30,7 @@ Makaledeki 1.150 görüntü ifadesi, indirilen arşivin bu envanteriyle aynı sa
 
 Bu sayılar görüntü veya bağımsız komponent sayısı değildir. Bir görüntüde birden fazla poligon ve hem `good` hem kusur etiketi bulunabilir. 117 görüntü yalnızca `good` poligonları içeriyor; bunun tüm sahnenin kusursuzluğu anlamına geldiği varsayılmadı. Etiketsiz görüntüler normal sınıfına atanmadı.
 
-428 anotasyonlu görüntünün her biri aynı dosya içeriğine sahip tek bir `Dataset/CS*/komponent/V*/Setup*` kaynak yoluna eşleşiyor. `Labeled/` kopyalarını bağımsız örnek saymak veri sızıntısına yol açar. Farklı açılar/kurulumlar ve aynı fiziksel örneklerin ilişkisi ayrıca doğrulanmalı. Bu nedenle henüz train/test ayrımı üretilmedi; bütün kayıtlar `unassigned`.
+428 anotasyonlu görüntünün her biri aynı dosya içeriğine sahip tek bir `Dataset/CS*/komponent/V*/Setup*` kaynak yoluna eşleşiyor. `Labeled/` kopyalarını bağımsız örnek saymak veri sızıntısına yol açar. Makale altı ayrı PCB bildiriyor; kaynak arşivde bunlar `CS1`–`CS6` klasörleriyle temsil ediliyor. Bu kimlikleri koruyan görev bazlı leave-one-board-out planı artık [ayrı raporda](soldef-board-splits.tr.md) kayıtlı. Plan, model performansı veya bütün açılarda eşleşen aynı fiziksel komponentlerin kesin izlenmesi anlamına gelmez.
 
 Her etiketin dosya sırasındaki ilk örneği görsel olarak incelendi: poligonlar komponent veya lehim bölgelerine oturuyor. Etiketlerin kapsamı aynı değil: `good`/`no_good` komponent gövdesini, lehim etiketleri daha küçük bölgeleri çevreleyebiliyor. Bunları tek tip piksel kusur maskesine çevirmek ek semantik karar gerektirir. Örneklem kontrolü bütün anotasyonların uzman doğrulaması değildir.
 
@@ -76,6 +76,8 @@ python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-au
 ## Sonraki deney
 
 Güncelleme: aşağıda tarif edilen ilk görüntü düzeyi karşılaştırması [tamamlandı ve raporlandı](visa-benchmark.tr.md). 64 referans/kategori, global ResNet18 ve PatchCore–ResNet18 varyantı kullanıldı; lokalizasyon ve daha güçlü omurga karşılaştırması bekliyor.
+
+SolDef_AI anotasyonları için konum görevi altı, lehim görevi üç kaynak-PCB-dışarıda fold ile [bölme taslağı](soldef-board-splits.tr.md) hazırlandı. Bu bölmelerle henüz model eğitilmedi; anotasyonsuz görüntüler normal sayılmadı.
 
 Önce VisA'da sabit bir ResNet18 başlangıç sonucu ve yama tabanlı PatchCore karşılaştırması kurulmalı. Referans bütçesi, giriş çözünürlüğü ve dönüşümler test skorları görülmeden sabitlenmeli. Kalibrasyon yalnızca normal veride eşik belirler; testte görüntü AUROC/AP, eşikte duyarlılık ve gerçekleşen yanlış alarm oranı raporlanır. Yüz normal kalibrasyon örneğiyle %1 yanlış alarm hedefi çok kaba ve belirsizdir; garanti olarak sunulmaz. Lokalizasyon için piksel değerlendirmesi ayrıca gerekir.
 

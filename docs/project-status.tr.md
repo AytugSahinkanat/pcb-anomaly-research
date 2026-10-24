@@ -6,9 +6,11 @@ Son güncelleme: [ortak ön işleme ve eşit yama belleği deneyi tamamlandı](v
 
 Yeni [kalibrasyon eşiği ve hata incelemesi](visa-operating-points.tr.md) tamamlandı. %5 kalibrasyon hedefinde büyük bankalı ResNet18 ve küçük bankalı WideResNet50 testte %6,57 yanlış alarm ve yaklaşık %78 kusur yakalama veriyor. Büyük WRN %82,1 kusur yakalıyor, %7,16 yanlış alarm veriyor. İki büyük bankalı modelin 400 kusurdan 29 ortak kalıcı kaçırması var; küçük anotasyonlar ve PCB3 daha zor. Sonraki adım daha fazla normal kalibrasyon görüntüsü ve fiziksel kart/oturum bazında ayrılmış bağımsız test. Bu test kümesi eşik seçimi ya da yeni performans iddiası için kullanılmamalı.
 
+SolDef_AI'da kaynak PCB kimlikleriyle yeni bir [kart ayrımlı doğrulama planı](soldef-board-splits.tr.md) hazırlandı: üstten komponent konumu için 6 kart/fold, lehim görüntüleri için 3 kart/fold. Bu, bağımsız performans sonucu değil; sonraki aşamada iki görevi ayrı baseline'larla değerlendirmek için sızıntısız bir iskelet.
+
 Önceki [beş referans çalışması](visa-five-seeds.tr.md) ve [ilk tek-seed çalışma](visa-benchmark.tr.md) tarihsel başlangıç sonuçları olarak korunuyor.
 
-[Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı.
+[Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı. Kaynak `CS1`–`CS6` PCB gruplarıyla konum için 6 kat, lehim için 3 kat leave-one-board-out bölme planı hazır; model sonucu henüz yok ([rapor](soldef-board-splits.tr.md)).
 
 ## Bugün elimizde ne var?
 

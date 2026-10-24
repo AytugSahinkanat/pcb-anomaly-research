@@ -11,6 +11,7 @@ See the [project status and research roadmap (Turkish)](docs/project-status.tr.m
 - Read-only ZIP audit, image/XML matching and bounding-box validation.
 - Quoted multi-word category parsing and unique annotation IDs.
 - Reproducible candidate board-group splits with class coverage reports.
+- Task-specific leave-one-source-PCB-out split manifests for SolDef_AI annotations.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
@@ -130,7 +131,11 @@ python -m pcb_anomaly.soldef acquire --root data/soldef-ai
 python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-audit-v1
 ```
 
-VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal; its split remains unassigned pending source/view grouping.
+VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal. A task-specific, source-PCB-grouped split plan is now available for its position and solder annotations; no SolDef model has been evaluated yet. See the [board-separated split report (Turkish)](docs/soldef-board-splits.tr.md).
+
+```console
+python -m pcb_anomaly.soldef_split --manifest data/soldef-audit-v1/annotations.jsonl --output data/soldef-board-splits-v1
+```
 
 ## First real-defect benchmark
 

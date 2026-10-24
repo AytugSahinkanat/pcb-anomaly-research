@@ -1,0 +1,536 @@
+{
+  "status": "split_plan_complete_not_model_evaluated",
+  "grouping": "source PCB directory CS1-CS6; all views and component types from one CS stay together",
+  "normality_policy": "Only explicitly annotated polygons are included; unannotated images are not labeled normal",
+  "tasks": {
+    "position": {
+      "views": [
+        "V1"
+      ],
+      "labels": [
+        "good",
+        "no_good"
+      ],
+      "source_boards": [
+        "CS1",
+        "CS2",
+        "CS3",
+        "CS4",
+        "CS5",
+        "CS6"
+      ],
+      "all_annotations": {
+        "images": 228,
+        "images_with_label": {
+          "good": 112,
+          "no_good": 116
+        },
+        "polygons": {
+          "good": 112,
+          "no_good": 116
+        }
+      },
+      "by_board": {
+        "CS1": {
+          "images": 30,
+          "images_with_label": {
+            "good": 8,
+            "no_good": 22
+          },
+          "polygons": {
+            "good": 8,
+            "no_good": 22
+          }
+        },
+        "CS2": {
+          "images": 40,
+          "images_with_label": {
+            "good": 20,
+            "no_good": 20
+          },
+          "polygons": {
+            "good": 20,
+            "no_good": 20
+          }
+        },
+        "CS3": {
+          "images": 30,
+          "images_with_label": {
+            "good": 15,
+            "no_good": 15
+          },
+          "polygons": {
+            "good": 15,
+            "no_good": 15
+          }
+        },
+        "CS4": {
+          "images": 40,
+          "images_with_label": {
+            "good": 18,
+            "no_good": 22
+          },
+          "polygons": {
+            "good": 18,
+            "no_good": 22
+          }
+        },
+        "CS5": {
+          "images": 40,
+          "images_with_label": {
+            "good": 19,
+            "no_good": 21
+          },
+          "polygons": {
+            "good": 19,
+            "no_good": 21
+          }
+        },
+        "CS6": {
+          "images": 48,
+          "images_with_label": {
+            "good": 32,
+            "no_good": 16
+          },
+          "polygons": {
+            "good": 32,
+            "no_good": 16
+          }
+        }
+      }
+    },
+    "solder": {
+      "views": [
+        "V2",
+        "V2.1"
+      ],
+      "labels": [
+        "exc_solder",
+        "good",
+        "poor_solder",
+        "spike"
+      ],
+      "source_boards": [
+        "CS1",
+        "CS2",
+        "CS6"
+      ],
+      "all_annotations": {
+        "images": 200,
+        "images_with_label": {
+          "exc_solder": 141,
+          "good": 67,
+          "poor_solder": 51,
+          "spike": 114
+        },
+        "polygons": {
+          "exc_solder": 182,
+          "good": 74,
+          "poor_solder": 57,
+          "spike": 130
+        }
+      },
+      "by_board": {
+        "CS1": {
+          "images": 60,
+          "images_with_label": {
+            "exc_solder": 32,
+            "good": 28,
+            "poor_solder": 33,
+            "spike": 26
+          },
+          "polygons": {
+            "exc_solder": 40,
+            "good": 30,
+            "poor_solder": 37,
+            "spike": 26
+          }
+        },
+        "CS2": {
+          "images": 56,
+          "images_with_label": {
+            "exc_solder": 33,
+            "good": 11,
+            "poor_solder": 5,
+            "spike": 50
+          },
+          "polygons": {
+            "exc_solder": 36,
+            "good": 12,
+            "poor_solder": 6,
+            "spike": 65
+          }
+        },
+        "CS6": {
+          "images": 84,
+          "images_with_label": {
+            "exc_solder": 76,
+            "good": 28,
+            "poor_solder": 13,
+            "spike": 38
+          },
+          "polygons": {
+            "exc_solder": 106,
+            "good": 32,
+            "poor_solder": 14,
+            "spike": 39
+          }
+        }
+      }
+    }
+  },
+  "folds": [
+    {
+      "task": "position",
+      "fold": "position-holdout-cs1",
+      "held_out_board": "CS1",
+      "train_boards": [
+        "CS2",
+        "CS3",
+        "CS4",
+        "CS5",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS1"
+      ],
+      "train": {
+        "images": 198,
+        "images_with_label": {
+          "good": 104,
+          "no_good": 94
+        },
+        "polygons": {
+          "good": 104,
+          "no_good": 94
+        }
+      },
+      "test": {
+        "images": 30,
+        "images_with_label": {
+          "good": 8,
+          "no_good": 22
+        },
+        "polygons": {
+          "good": 8,
+          "no_good": 22
+        }
+      }
+    },
+    {
+      "task": "position",
+      "fold": "position-holdout-cs2",
+      "held_out_board": "CS2",
+      "train_boards": [
+        "CS1",
+        "CS3",
+        "CS4",
+        "CS5",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS2"
+      ],
+      "train": {
+        "images": 188,
+        "images_with_label": {
+          "good": 92,
+          "no_good": 96
+        },
+        "polygons": {
+          "good": 92,
+          "no_good": 96
+        }
+      },
+      "test": {
+        "images": 40,
+        "images_with_label": {
+          "good": 20,
+          "no_good": 20
+        },
+        "polygons": {
+          "good": 20,
+          "no_good": 20
+        }
+      }
+    },
+    {
+      "task": "position",
+      "fold": "position-holdout-cs3",
+      "held_out_board": "CS3",
+      "train_boards": [
+        "CS1",
+        "CS2",
+        "CS4",
+        "CS5",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS3"
+      ],
+      "train": {
+        "images": 198,
+        "images_with_label": {
+          "good": 97,
+          "no_good": 101
+        },
+        "polygons": {
+          "good": 97,
+          "no_good": 101
+        }
+      },
+      "test": {
+        "images": 30,
+        "images_with_label": {
+          "good": 15,
+          "no_good": 15
+        },
+        "polygons": {
+          "good": 15,
+          "no_good": 15
+        }
+      }
+    },
+    {
+      "task": "position",
+      "fold": "position-holdout-cs4",
+      "held_out_board": "CS4",
+      "train_boards": [
+        "CS1",
+        "CS2",
+        "CS3",
+        "CS5",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS4"
+      ],
+      "train": {
+        "images": 188,
+        "images_with_label": {
+          "good": 94,
+          "no_good": 94
+        },
+        "polygons": {
+          "good": 94,
+          "no_good": 94
+        }
+      },
+      "test": {
+        "images": 40,
+        "images_with_label": {
+          "good": 18,
+          "no_good": 22
+        },
+        "polygons": {
+          "good": 18,
+          "no_good": 22
+        }
+      }
+    },
+    {
+      "task": "position",
+      "fold": "position-holdout-cs5",
+      "held_out_board": "CS5",
+      "train_boards": [
+        "CS1",
+        "CS2",
+        "CS3",
+        "CS4",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS5"
+      ],
+      "train": {
+        "images": 188,
+        "images_with_label": {
+          "good": 93,
+          "no_good": 95
+        },
+        "polygons": {
+          "good": 93,
+          "no_good": 95
+        }
+      },
+      "test": {
+        "images": 40,
+        "images_with_label": {
+          "good": 19,
+          "no_good": 21
+        },
+        "polygons": {
+          "good": 19,
+          "no_good": 21
+        }
+      }
+    },
+    {
+      "task": "position",
+      "fold": "position-holdout-cs6",
+      "held_out_board": "CS6",
+      "train_boards": [
+        "CS1",
+        "CS2",
+        "CS3",
+        "CS4",
+        "CS5"
+      ],
+      "test_boards": [
+        "CS6"
+      ],
+      "train": {
+        "images": 180,
+        "images_with_label": {
+          "good": 80,
+          "no_good": 100
+        },
+        "polygons": {
+          "good": 80,
+          "no_good": 100
+        }
+      },
+      "test": {
+        "images": 48,
+        "images_with_label": {
+          "good": 32,
+          "no_good": 16
+        },
+        "polygons": {
+          "good": 32,
+          "no_good": 16
+        }
+      }
+    },
+    {
+      "task": "solder",
+      "fold": "solder-holdout-cs1",
+      "held_out_board": "CS1",
+      "train_boards": [
+        "CS2",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS1"
+      ],
+      "train": {
+        "images": 140,
+        "images_with_label": {
+          "exc_solder": 109,
+          "good": 39,
+          "poor_solder": 18,
+          "spike": 88
+        },
+        "polygons": {
+          "exc_solder": 142,
+          "good": 44,
+          "poor_solder": 20,
+          "spike": 104
+        }
+      },
+      "test": {
+        "images": 60,
+        "images_with_label": {
+          "exc_solder": 32,
+          "good": 28,
+          "poor_solder": 33,
+          "spike": 26
+        },
+        "polygons": {
+          "exc_solder": 40,
+          "good": 30,
+          "poor_solder": 37,
+          "spike": 26
+        }
+      }
+    },
+    {
+      "task": "solder",
+      "fold": "solder-holdout-cs2",
+      "held_out_board": "CS2",
+      "train_boards": [
+        "CS1",
+        "CS6"
+      ],
+      "test_boards": [
+        "CS2"
+      ],
+      "train": {
+        "images": 144,
+        "images_with_label": {
+          "exc_solder": 108,
+          "good": 56,
+          "poor_solder": 46,
+          "spike": 64
+        },
+        "polygons": {
+          "exc_solder": 146,
+          "good": 62,
+          "poor_solder": 51,
+          "spike": 65
+        }
+      },
+      "test": {
+        "images": 56,
+        "images_with_label": {
+          "exc_solder": 33,
+          "good": 11,
+          "poor_solder": 5,
+          "spike": 50
+        },
+        "polygons": {
+          "exc_solder": 36,
+          "good": 12,
+          "poor_solder": 6,
+          "spike": 65
+        }
+      }
+    },
+    {
+      "task": "solder",
+      "fold": "solder-holdout-cs6",
+      "held_out_board": "CS6",
+      "train_boards": [
+        "CS1",
+        "CS2"
+      ],
+      "test_boards": [
+        "CS6"
+      ],
+      "train": {
+        "images": 116,
+        "images_with_label": {
+          "exc_solder": 65,
+          "good": 39,
+          "poor_solder": 38,
+          "spike": 76
+        },
+        "polygons": {
+          "exc_solder": 76,
+          "good": 42,
+          "poor_solder": 43,
+          "spike": 91
+        }
+      },
+      "test": {
+        "images": 84,
+        "images_with_label": {
+          "exc_solder": 76,
+          "good": 28,
+          "poor_solder": 13,
+          "spike": 38
+        },
+        "polygons": {
+          "exc_solder": 106,
+          "good": 32,
+          "poor_solder": 14,
+          "spike": 39
+        }
+      }
+    }
+  ],
+  "source_manifest": "data\\soldef-audit-v1\\annotations.jsonl",
+  "source_manifest_sha256": "b4d6b526909ce6ca5a862e18266658be868fb9bf92c37916dadd11a8dafb6d84",
+  "source_annotation_images": 428,
+  "citation": "Fontana et al., J. Manuf. Mater. Process. 8(3), 117 (2024), DOI: 10.3390/jmmp8030117"
+}
