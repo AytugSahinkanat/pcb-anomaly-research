@@ -1,10 +1,12 @@
 # Projenin durumu ve araştırma hedefi
 
-17 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
+25 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
 
 Son güncelleme: [ortak ön işleme ve eşit yama belleği deneyi tamamlandı](visa-controlled.tr.md). İki omurga × iki ön işleme × iki bütçe × beş referans seçimi × dört kategori = 160 sonuç (140 yeni, 20 doğrulanarak yeniden kullanılan koşul). Aynı merkez kırpma ve 19,60 MiB yama belleğinde AUROC ResNet18'de %94,84, WideResNet50'de %95,73: eşlenmiş fark yalnızca 0,89 ± 0,28 puan. Küçük 1,96 MiB bankada fark 3,31 ± 1,13 puan. Önceki 8,24 puanlık farkın büyük kısmı omurga dışındaki ayarlara bağlıydı; etkiler etkileşiyor ve tek bir toplamsal neden payı yok. Büyük bankada kusur yakalama %78,90 / %82,10, yanlış alarm %6,57 / %7,16; eşit test yanlış alarmında bir karşılaştırma henüz yapılmadı. 48 birim test ve bütün deney doğrulamaları geçti. Toplam model RAM'i eşitlenmedi; aynı 802 test görüntüsü yeniden kullanıldı.
 
-Önceki [beş referans çalışması](visa-five-seeds.tr.md) ve [ilk tek-seed çalışma](visa-benchmark.tr.md) tarihsel başlangıç sonuçları olarak korunuyor. Yeni öncelik, güçlü ResNet18 tabanını ve küçük bankalı WideResNet50'yi koruyarak yanlış alarm/kalibrasyon, kadraj/çözünürlük ve bağımsız doğrulamayı incelemek.
+Yeni [kalibrasyon eşiği ve hata incelemesi](visa-operating-points.tr.md) tamamlandı. %5 kalibrasyon hedefinde büyük bankalı ResNet18 ve küçük bankalı WideResNet50 testte %6,57 yanlış alarm ve yaklaşık %78 kusur yakalama veriyor. Büyük WRN %82,1 kusur yakalıyor, %7,16 yanlış alarm veriyor. İki büyük bankalı modelin 400 kusurdan 29 ortak kalıcı kaçırması var; küçük anotasyonlar ve PCB3 daha zor. Sonraki adım daha fazla normal kalibrasyon görüntüsü ve fiziksel kart/oturum bazında ayrılmış bağımsız test. Bu test kümesi eşik seçimi ya da yeni performans iddiası için kullanılmamalı.
+
+Önceki [beş referans çalışması](visa-five-seeds.tr.md) ve [ilk tek-seed çalışma](visa-benchmark.tr.md) tarihsel başlangıç sonuçları olarak korunuyor.
 
 [Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı; fiziksel örnek/açı grupları netleşene kadar bölme yapılmadı.
 
@@ -69,3 +71,5 @@ Mevcut gözlemden çıkarılabilecek çalışma hipotezi: temsil değişmezliği
 7. Maliyet, sınırlamalar ve sonuç.
 
 Öncelik, mevcut veri üstünde sınırsız küçük denemeler yapmak yerine temsil aşamasını kapatıp gerçek kusur değerlendirmesine geçmektir.
+
+Ayrıntılı eşik tablosu ve görsel hata galerisi: [kalibrasyon işletim noktaları](visa-operating-points.tr.md).

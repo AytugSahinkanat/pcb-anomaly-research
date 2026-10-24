@@ -113,7 +113,7 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 
 1. Extend sampled visual review to physical identities, layout families and near duplicates.
 2. Inspect category-specific feature neighborhoods and collect independent defect labels.
-3. Extend the completed matched-preprocessing/memory study with independent validation and controlled false-alarm operating points.
+3. Validate the matched operating-point analysis on independent, board-separated images and more calibration normals.
 4. Compare corrected ResNet18+kNN, PatchCore, EfficientAD and AnomalyDINO.
 5. Measure the effect of board context at controlled false-alarm budgets.
 
@@ -192,4 +192,16 @@ python -m pcb_anomaly.controlled_report
 
 Requires the completed previous study and cached data/weights. Use a fresh `--output` for a new plan; rerun `run` to continue interrupted evaluations from atomic checkpoints. New bank indices/hashes and all predictions remain local. All 160 first-query checks agree exactly with upstream full prediction; 24,040 nested-bank distance checks and 48 unit tests pass. Timing is not an isolated speed benchmark.
 
-Raw data, weights, local analyses and original project reports are excluded from Git. Selected numerical summaries and attributed research figures are versioned. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.
+## Calibration operating points and missed defects
+
+Existing scores were recalibrated at nominal 1%, 5% and 10% false-alarm quantiles using 100 normal calibration images/category. At the 5% target (4% empirical calibration alarms), large-bank crop ResNet18 and small-bank crop WideResNet50-2 both have 6.57% observed test FPR and 78.9%/78.2% defect recall. Large-bank WideResNet50-2 reaches 82.1% recall at 7.16% FPR. These are measurements on the previously examined test images, not independent validation.
+
+At the same 5% threshold, 43/400 defects are persistently missed by each large-bank model, with 29 shared misses. The smallest defect-mask quartile contains most persistent misses; PCB3 remains hardest. See the [operating-point and error report (Turkish)](docs/visa-operating-points.tr.md), [threshold plot](docs/figures/visa-operating-points.png), [miss gallery](docs/figures/visa-operating-points-misses.png), and [full result/provenance file](reports/visa-operating-points-v1.json).
+
+```console
+python -m pcb_anomaly.operating_points --output data/visa-operating-points-v2
+```
+
+This reads the completed `visa-controlled-v1` output, VisA manifest and defect masks. It recomputes thresholds from calibration scores and produces descriptive error reports without model inference.
+
+Raw data and weights stay outside Git. Numerical summaries and attributed research figures are versioned. Dataset terms are separate from code licensing. A code license and citation metadata have not yet been selected; public visibility alone does not grant an open-source license.

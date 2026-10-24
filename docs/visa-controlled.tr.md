@@ -66,6 +66,8 @@ ResNet18 + ortak PatchCore + crop + büyük banka güçlü ve daha az parametrel
 
 Makale iddiası “büyük omurga çok daha iyi” olmamalı. Bu deney, ön işleme ve bellek kontrol edilmeden yapılan karşılaştırmanın omurga kazancını abartabildiğini gösteriyor. Sonraki adım, önceden sabitlenmiş protokolle yanlış alarm kontrolünü ve çözünürlük/kadraj etkisini bağımsız doğrulamada incelemek; yalnızca yeni model eklemek henüz temel sorunu çözmüyor.
 
+Kalibrasyon eşiklerini değiştirerek işletim noktasını ve kaçırılan kusurları incelediğimiz [devam analizi](visa-operating-points.tr.md) daha sonra tamamlandı. Aynı incelenmiş test verisinde büyük bankalı RN ile küçük bankalı WRN, %5 kalibrasyon hedefinde çok benzer yakalama/yanlış alarm dengesi veriyor. Büyük bankalı WRN daha çok kusur yakalıyor ama daha fazla normal görüntüde alarm veriyor. Küçük maskeli kusurlar ve PCB3 ek hata incelemesi gerektiriyor.
+
 ## Soru ve deney düzeni
 
 Önceki [beş referans seçimi deneyinde](visa-five-seeds.tr.md) ResNet18 varyantı ile resmî WideResNet50 ayarı arasında ortalama 8,24 yüzde puan AUROC farkı vardı. Ancak omurga, ön işleme, özellik birleştirme, coreset örnekleyicisi ve yama belleği birlikte değişiyordu. Bu nedenle farkı yalnızca WideResNet50'ye atfetmek mümkün değildi.
