@@ -1,16 +1,16 @@
 # Projenin durumu ve araştırma hedefi
 
-25 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
+26 Ekim 2026. Bu belge mevcut kanıtı, hedefi ve henüz gösterilmemiş iddiaları ayırır.
 
 Son güncelleme: [ortak ön işleme ve eşit yama belleği deneyi tamamlandı](visa-controlled.tr.md). İki omurga × iki ön işleme × iki bütçe × beş referans seçimi × dört kategori = 160 sonuç (140 yeni, 20 doğrulanarak yeniden kullanılan koşul). Aynı merkez kırpma ve 19,60 MiB yama belleğinde AUROC ResNet18'de %94,84, WideResNet50'de %95,73: eşlenmiş fark yalnızca 0,89 ± 0,28 puan. Küçük 1,96 MiB bankada fark 3,31 ± 1,13 puan. Önceki 8,24 puanlık farkın büyük kısmı omurga dışındaki ayarlara bağlıydı; etkiler etkileşiyor ve tek bir toplamsal neden payı yok. Büyük bankada kusur yakalama %78,90 / %82,10, yanlış alarm %6,57 / %7,16; eşit test yanlış alarmında bir karşılaştırma henüz yapılmadı. 48 birim test ve bütün deney doğrulamaları geçti. Toplam model RAM'i eşitlenmedi; aynı 802 test görüntüsü yeniden kullanıldı.
 
 Yeni [kalibrasyon eşiği ve hata incelemesi](visa-operating-points.tr.md) tamamlandı. %5 kalibrasyon hedefinde büyük bankalı ResNet18 ve küçük bankalı WideResNet50 testte %6,57 yanlış alarm ve yaklaşık %78 kusur yakalama veriyor. Büyük WRN %82,1 kusur yakalıyor, %7,16 yanlış alarm veriyor. İki büyük bankalı modelin 400 kusurdan 29 ortak kalıcı kaçırması var; küçük anotasyonlar ve PCB3 daha zor. Sonraki adım daha fazla normal kalibrasyon görüntüsü ve fiziksel kart/oturum bazında ayrılmış bağımsız test. Bu test kümesi eşik seçimi ya da yeni performans iddiası için kullanılmamalı.
 
-SolDef_AI'da bu planı kullanan ilk donmuş ResNet18 ROI sınıflandırması da tamamlandı: kart dışarıda bırakmalı OOF dengeli doğruluk konumda %57,4, lehimde %52,3; eğitim çoğunluk sınıfı kontrolü %42,6 / %17,9. Bunlar anotasyonlu poligon sınıflandırmasıdır; tam görüntü kusur tespiti veya bağımsız son doğrulama değildir. [Yöntem ve fold ayrıntıları](soldef-resnet18.tr.md).
+SolDef_AI'da kart dışarıda bırakmalı ROI karşılaştırması tamamlandı: ResNet18 dengeli doğruluk konumda %57,4 ve lehimde %52,3; HOG %55,1 ve %42,8. Konum sınıfı hataları yöntemler arasında dengesi değişiyor; lehimde ResNet18 daha iyi. Bunlar anotasyonlu poligon sınıflandırmasıdır, tam görüntü kusur tespiti veya bağımsız son doğrulama değildir. [Yöntem, sınıflar ve hata görselleri](soldef-resnet18.tr.md).
 
 Önceki [beş referans çalışması](visa-five-seeds.tr.md) ve [ilk tek-seed çalışma](visa-benchmark.tr.md) tarihsel başlangıç sonuçları olarak korunuyor.
 
-[Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı. `CS1`–`CS6` PCB gruplarıyla konum için 6, lehim için 3 fold hazır; ilk ResNet18 sonuçları [kart ayrımlı baseline raporunda](soldef-resnet18.tr.md).
+[Kusur veri denetimi](defect-data.tr.md): VisA PCB1–PCB4 için 4.416 görüntü ve 400 kusur maskesi hazır; resmi test ayrımı korunarak normal eğitimden kalibrasyon ayrıldı, birebir RGB kopyası bulunmadı. SolDef_AI arşivinde 428 anotasyonlu görüntü ve 671 poligon doğrulandı. `CS1`–`CS6` PCB gruplarıyla konum için 6, lehim için 3 fold üzerinde ResNet18 ve HOG ilk kez karşılaştırıldı ([rapor](soldef-resnet18.tr.md)).
 
 ## Bugün elimizde ne var?
 

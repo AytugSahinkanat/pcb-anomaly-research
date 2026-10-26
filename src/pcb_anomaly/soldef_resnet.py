@@ -8,7 +8,7 @@ import time
 import zipfile
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from .crops import sha256
 
@@ -116,6 +116,45 @@ def embed(samples, cache, batch_size=32, threads=4):
                     "preprocessing": "polygon bounding box with 20% relative context; aspect-ratio-preserving 224x224 letterbox RGB(124,116,104); ImageNet normalization; L2-normalized 512D embedding"}
 
 
+def hog_descriptor(image, cell_size=16, bins=9):
+    """Deterministic unsigned HOG with L2-Hys normalized 2x2-cell blocks."""
+    gray = np.asarray(image.convert("L"), dtype=np.float32) / 255.0
+    gx = np.zeros_like(gray)
+    gy = np.zeros_like(gray)
+    gx[:, 1:-1] = (gray[:, 2:] - gray[:, :-2]) * 0.5
+    gx[:, 0] = gray[:, 1] - gray[:, 0]
+    gx[:, -1] = gray[:, -1] - gray[:, -2]
+    gy[1:-1, :] = (gray[2:, :] - gray[:-2, :]) * 0.5
+    gy[0, :] = gray[1, :] - gray[0, :]
+    gy[-1, :] = gray[-1, :] - gray[-2, :]
+    magnitude = np.hypot(gx, gy)
+    orientation = np.mod(np.arctan2(gy, gx), np.pi) * (bins / np.pi)
+    lower = np.floor(orientation).astype(np.int32) % bins
+    fraction = orientation - np.floor(orientation)
+    height, width = gray.shape
+    cells_y, cells_x = height // cell_size, width // cell_size
+    hist = np.zeros((cells_y, cells_x, bins), dtype=np.float32)
+    for cy in range(cells_y):
+        ys = slice(cy * cell_size, (cy + 1) * cell_size)
+        for cx in range(cells_x):
+            xs = slice(cx * cell_size, (cx + 1) * cell_size)
+            low = lower[ys, xs].ravel()
+            frac = fraction[ys, xs].ravel()
+            mag = magnitude[ys, xs].ravel()
+            hist[cy, cx] = (np.bincount(low, weights=mag * (1.0 - frac), minlength=bins)
+                            + np.bincount((low + 1) % bins, weights=mag * frac, minlength=bins))
+    descriptors = []
+    for y in range(cells_y - 1):
+        for x in range(cells_x - 1):
+            block = hist[y:y + 2, x:x + 2].reshape(-1).copy()
+            block /= np.sqrt(float(np.dot(block, block)) + 1e-6)
+            block = np.minimum(block, 0.2)
+            block /= np.sqrt(float(np.dot(block, block)) + 1e-6)
+            descriptors.append(block)
+    feature = np.concatenate(descriptors)
+    return feature / max(float(np.linalg.norm(feature)), 1e-12)
+
+
 def metrics(y_true, y_pred, labels):
     matrix = np.zeros((len(labels), len(labels)), dtype=np.int64)
     index = {label: i for i, label in enumerate(labels)}
@@ -136,6 +175,40 @@ def metrics(y_true, y_pred, labels):
             "macro_f1": float(np.mean(list(f1s.values()))), "recall_by_class": recalls,
             "f1_by_class": f1s, "confusion_matrix_labels": list(labels),
             "confusion_matrix": matrix.tolist()}
+
+
+def write_error_gallery(samples, predictions, destination, per_panel=5):
+    """Make a deterministic, error-directed crop sheet for human inspection."""
+    sample_by_id = {row["sample_id"]: row for row in samples}
+    panels = [(task, method) for task in ("position", "solder")
+              for method in ("resnet18", "hog")]
+    tile_w, tile_h, image_size = 260, 270, 224
+    header_h = 42
+    canvas = Image.new("RGB", (tile_w * len(panels), header_h + tile_h * per_panel), "white")
+    draw = ImageDraw.Draw(canvas)
+    for col, (task, method) in enumerate(panels):
+        draw.text((col * tile_w + 8, 12), f"{task} | {method}", fill="black")
+        grouped = defaultdict(list)
+        for row in predictions:
+            if (row["task"] == task and row["method"] == method
+                    and row["true"] != row["predicted"]):
+                grouped[row["board"]].append(row)
+        for rows in grouped.values():
+            rows.sort(key=lambda row: row["sample_id"])
+        errors = []
+        while len(errors) < per_panel and any(grouped.values()):
+            for board in sorted(grouped):
+                if grouped[board] and len(errors) < per_panel:
+                    errors.append(grouped[board].pop(0))
+        for row_idx, pred in enumerate(errors):
+            sample = sample_by_id[pred["sample_id"]]
+            x, y = col * tile_w + 8, header_h + row_idx * tile_h
+            canvas.paste(sample["crop"].resize((image_size, image_size)), (x, y))
+            draw.text((x, y + image_size + 4),
+                      f"{pred['board']} | {pred['true']} → {pred['predicted']}", fill="black")
+            draw.text((x, y + image_size + 21), Path(pred["image"]).name[:34], fill="#555555")
+    Path(destination).parent.mkdir(parents=True, exist_ok=True)
+    canvas.save(destination)
 
 
 def run(split_manifest, archive_path, output, cache, batch_size=32, threads=4):
@@ -162,6 +235,7 @@ def run(split_manifest, archive_path, output, cache, batch_size=32, threads=4):
     with zipfile.ZipFile(archive_path) as archive:
         samples = extract_crops(archive, list(partitions.values()))
     features, model_info = embed(samples, cache, batch_size, threads)
+    hog_features = np.stack([hog_descriptor(row["crop"]) for row in samples])
     by_task_image = defaultdict(list)
     for i, row in enumerate(samples):
         by_task_image[(row["task"], row["image"])].append(i)
@@ -172,6 +246,7 @@ def run(split_manifest, archive_path, output, cache, batch_size=32, threads=4):
         task_folds = sorted({row["fold"] for row in task_rows})
         fold_metrics = []
         majority_predictions = []
+        hog_predictions = []
         for fold in task_folds:
             train_keys = {(r["task"], r["image"]) for r in task_rows if r["fold"] == fold and r["partition"] == "train"}
             test_keys = {(r["task"], r["image"]) for r in task_rows if r["fold"] == fold and r["partition"] == "test"}
@@ -193,42 +268,72 @@ def run(split_manifest, archive_path, output, cache, batch_size=32, threads=4):
             majority_label = max(labels, key=lambda label: train_counts[label])
             majority_pred = [majority_label] * len(y_true)
             majority_result = metrics(y_true, majority_pred, labels)
+            hog_prototypes = []
+            for label in labels:
+                selected = [i for i in train_idx if samples[i]["label"] == label]
+                center = hog_features[selected].mean(axis=0)
+                hog_prototypes.append(center / max(float(np.linalg.norm(center)), 1e-12))
+            hog_similarities = hog_features[test_idx] @ np.stack(hog_prototypes, axis=1)
+            hog_pred = [labels[int(j)] for j in hog_similarities.argmax(axis=1)]
+            hog_result = metrics(y_true, hog_pred, labels)
             held_out = sorted({samples[i]["board"] for i in test_idx})
             fold_metrics.append({"fold": fold, "held_out_boards": held_out,
                                  "training_majority_label": majority_label,
                                  "training_class_counts": train_counts,
-                                 "majority_control": majority_result, **fold_result})
+                                 "majority_control": majority_result,
+                                 "hog": hog_result, "resnet18": fold_result})
             majority_predictions.extend(majority_pred)
+            hog_predictions.extend(hog_pred)
             for i, truth, pred, scores in zip(test_idx, y_true, y_pred, similarities):
-                predictions.append({"task": task, "fold": fold, "sample_id": samples[i]["sample_id"],
+                predictions.append({"method": "resnet18", "task": task, "fold": fold,
+                                    "sample_id": samples[i]["sample_id"],
+                                    "board": samples[i]["board"], "image": samples[i]["image"],
+                                    "shape_index": samples[i]["shape_index"], "true": truth,
+                                    "predicted": pred, "cosine_scores": dict(zip(labels, map(float, scores)))})
+            for i, truth, pred, scores in zip(test_idx, y_true, hog_pred, hog_similarities):
+                predictions.append({"method": "hog", "task": task, "fold": fold,
+                                    "sample_id": samples[i]["sample_id"],
                                     "board": samples[i]["board"], "image": samples[i]["image"],
                                     "shape_index": samples[i]["shape_index"], "true": truth,
                                     "predicted": pred, "cosine_scores": dict(zip(labels, map(float, scores)))})
         task_sample_count = sum(len(indices) for (name, _), indices in by_task_image.items() if name == task)
-        if sum(row["task"] == task for row in predictions) != task_sample_count:
+        if sum(row["task"] == task and row["method"] == "resnet18" for row in predictions) != task_sample_count:
             raise ValueError(f"Incomplete held-out predictions for {task}")
         task_predictions = [row for row in predictions if row["task"] == task]
-        task_gt = [row["true"] for row in task_predictions]
-        task_pred = [row["predicted"] for row in task_predictions]
-        if len(majority_predictions) != len(task_gt):
-            raise ValueError(f"Incomplete majority-control predictions for {task}")
-        fold_bacc = [row["balanced_accuracy"] for row in fold_metrics]
-        fold_f1 = [row["macro_f1"] for row in fold_metrics]
-        results[task] = {"out_of_fold": metrics(task_gt, task_pred, labels),
-                         "majority_control_out_of_fold": metrics(task_gt, majority_predictions, labels),
+        resnet_rows = [row for row in task_predictions if row["method"] == "resnet18"]
+        hog_rows = [row for row in task_predictions if row["method"] == "hog"]
+        resnet_gt = [row["true"] for row in resnet_rows]
+        resnet_pred = [row["predicted"] for row in resnet_rows]
+        hog_gt = [row["true"] for row in hog_rows]
+        if len(majority_predictions) != len(resnet_gt) or len(hog_gt) != len(resnet_gt):
+            raise ValueError(f"Incomplete held-out predictions for {task}")
+        fold_bacc = [row["resnet18"]["balanced_accuracy"] for row in fold_metrics]
+        fold_f1 = [row["resnet18"]["macro_f1"] for row in fold_metrics]
+        results[task] = {"resnet18_out_of_fold": metrics(resnet_gt, resnet_pred, labels),
+                         "hog_out_of_fold": metrics(hog_gt, [r["predicted"] for r in hog_rows], labels),
+                         "majority_control_out_of_fold": metrics(resnet_gt, majority_predictions, labels),
                          "folds": fold_metrics,
                          "fold_mean_balanced_accuracy": float(np.mean(fold_bacc)),
                          "fold_sd_balanced_accuracy": float(np.std(fold_bacc, ddof=1)) if len(fold_bacc) > 1 else 0.0,
                          "fold_mean_macro_f1": float(np.mean(fold_f1)),
-                         "fold_sd_macro_f1": float(np.std(fold_f1, ddof=1)) if len(fold_f1) > 1 else 0.0}
+                         "fold_sd_macro_f1": float(np.std(fold_f1, ddof=1)) if len(fold_f1) > 1 else 0.0,
+                         "hog_fold_mean_balanced_accuracy": float(np.mean([row["hog"]["balanced_accuracy"] for row in fold_metrics])),
+                         "hog_fold_sd_balanced_accuracy": float(np.std([row["hog"]["balanced_accuracy"] for row in fold_metrics], ddof=1)) if len(fold_metrics) > 1 else 0.0,
+                         "hog_fold_mean_macro_f1": float(np.mean([row["hog"]["macro_f1"] for row in fold_metrics])),
+                         "hog_fold_sd_macro_f1": float(np.std([row["hog"]["macro_f1"] for row in fold_metrics], ddof=1)) if len(fold_metrics) > 1 else 0.0}
 
     output.mkdir(parents=True)
     (output / "predictions.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in predictions), encoding="utf-8")
+    write_error_gallery(samples, predictions, output / "error-gallery.png")
     summary = {"status": "complete_descriptive_board_held_out_baseline",
                "split_manifest": str(split_manifest), "split_manifest_sha256": sha256(split_manifest),
                "source_archive_sha256": sha256(archive_path), "unique_polygons": len(samples),
                "runner_sha256": sha256(Path(__file__)),
-               "model": model_info, "classifier": "cosine nearest class centroid fit on each fold's training-board embeddings; no hyperparameter tuning",
+               "model": model_info,
+               "classifiers": {"resnet18": "cosine nearest class centroid fit on each fold's training-board embeddings; no hyperparameter tuning",
+                               "hog": "custom 9-bin unsigned HOG; 16-pixel cells; L2-Hys normalized 2x2-cell blocks; cosine nearest class centroid; no hyperparameter tuning"},
+               "hog_descriptor": {"cell_size": 16, "orientation_bins": 9,
+                                  "block": "2x2 cells; L2-Hys; final L2 normalization"},
                "tasks": results, "elapsed_seconds": round(time.perf_counter() - started, 2),
                "limits": ["Three solder-board groups provide only a pilot estimate.",
                           "All held-out folds are used for the cross-validated summary; selecting methods on these scores requires a new independent test.",
@@ -236,7 +341,10 @@ def run(split_manifest, archive_path, output, cache, batch_size=32, threads=4):
     (output / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({"status": summary["status"], "output": str(output),
                       "unique_polygons": len(samples), "elapsed_seconds": summary["elapsed_seconds"],
-                      "tasks": {k: v["out_of_fold"] for k, v in results.items()}},
+                      "tasks": {k: {"resnet18": v["resnet18_out_of_fold"],
+                                     "hog": v["hog_out_of_fold"],
+                                     "majority": v["majority_control_out_of_fold"]}
+                                for k, v in results.items()}},
                      indent=2, ensure_ascii=False), flush=True)
     return summary
 

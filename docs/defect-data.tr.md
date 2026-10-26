@@ -77,12 +77,12 @@ python -m pcb_anomaly.soldef audit --root data/soldef-ai --output data/soldef-au
 
 Güncelleme: aşağıda tarif edilen ilk görüntü düzeyi karşılaştırması [tamamlandı ve raporlandı](visa-benchmark.tr.md). 64 referans/kategori, global ResNet18 ve PatchCore–ResNet18 varyantı kullanıldı; lokalizasyon ve daha güçlü omurga karşılaştırması bekliyor.
 
-SolDef_AI anotasyonları için konum görevi altı, lehim görevi üç kaynak-PCB-dışarıda fold ile [bölme taslağı](soldef-board-splits.tr.md) hazırlandı. Bu bölmelerle henüz model eğitilmedi; anotasyonsuz görüntüler normal sayılmadı.
+SolDef_AI anotasyonları için konum görevi altı, lehim görevi üç kaynak-PCB-dışarıda fold ile [bölme taslağı](soldef-board-splits.tr.md) hazırlandı. İlk ResNet18/HOG ROI karşılaştırması [raporlandı](soldef-resnet18.tr.md); anotasyonsuz görüntüler normal sayılmadı.
 
 Önce VisA'da sabit bir ResNet18 başlangıç sonucu ve yama tabanlı PatchCore karşılaştırması kurulmalı. Referans bütçesi, giriş çözünürlüğü ve dönüşümler test skorları görülmeden sabitlenmeli. Kalibrasyon yalnızca normal veride eşik belirler; testte görüntü AUROC/AP, eşikte duyarlılık ve gerçekleşen yanlış alarm oranı raporlanır. Yüz normal kalibrasyon örneğiyle %1 yanlış alarm hedefi çok kaba ve belirsizdir; garanti olarak sunulmaz. Lokalizasyon için piksel değerlendirmesi ayrıca gerekir.
 
-SolDef_AI, komponent/lehim odaklı ikinci değerlendirme için uygundur; ancak fiziksel örnek/açı grupları ve etiket semantiği çözülmeden rastgele görüntü bölmesiyle sonuç üretilmemeli. Dört yönelim ve çok çözünürlüklü referans yaklaşımının kusurları da benzerleştirerek gizleyip gizlemediği bu bağımsız etiketlerle sınanmalı.
+SolDef_AI, komponent/lehim odaklı ikinci değerlendirmeye uygun; kart gruplarıyla bölme mevcut olsa da görünüş adlarının ve anotasyon semantiğinin bazı ayrıntıları sınırlı. Dört yönelim ve çok çözünürlüklü referans yaklaşımının kusurları da benzerleştirerek gizleyip gizlemediği ayrı ve bağımsız etiketlerle sınanmalı.
 
-Güncelleme: `CS1`–`CS6` kaynak PCB kimliklerini koruyan [kart ayrımlı bölme planı](soldef-board-splits.tr.md) ve bunun üzerinde ilk [donmuş ResNet18 ROI baseline'ı](soldef-resnet18.tr.md) üretildi. Bu sonuçlar anotasyon poligon sınıflandırmasıdır; VisA görüntü düzeyi anomalisiyle aynı görev değildir.
+Güncelleme: `CS1`–`CS6` kaynak PCB kimliklerini koruyan [kart ayrımlı bölme planı](soldef-board-splits.tr.md) ve üzerinde ilk [ResNet18/HOG ROI karşılaştırması](soldef-resnet18.tr.md) üretildi. Bu sonuçlar anotasyon poligon sınıflandırmasıdır; VisA görüntü düzeyi anomalisiyle aynı görev değildir.
 
 Özellikle kartın kameraya göre dönmesiyle, komponentin karta göre yanlış yönde monte edilmesi aynı durum değildir. Komponent kırpmasını yönelimden bağımsız yapmak ikinci kusurun sinyalini silebilir. Bu nedenle yönelim kararlılığı tek başına kalite ölçütü olmamalı; kart bağlamı ve kusur türüne göre duyarlılık ayrıca incelenmeli.

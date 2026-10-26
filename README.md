@@ -12,6 +12,7 @@ See the [project status and research roadmap (Turkish)](docs/project-status.tr.m
 - Quoted multi-word category parsing and unique annotation IDs.
 - Reproducible candidate board-group splits with class coverage reports.
 - Task-specific leave-one-source-PCB-out split manifests for SolDef_AI annotations.
+- Board-held-out frozen ResNet18 and HOG ROI classification baselines for SolDef_AI.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
@@ -133,9 +134,9 @@ python -m pcb_anomaly.soldef_split --manifest data/soldef-audit-v1/annotations.j
 python -m pcb_anomaly.soldef_resnet --split-manifest data/soldef-board-splits-v1/manifest.jsonl --archive data/soldef-ai/archive.zip --output data/soldef-resnet18-new
 ```
 
-VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal. A task-specific source-PCB split plan and first frozen ResNet18 ROI-classification baseline are available. See the [board-separated split report](docs/soldef-board-splits.tr.md) and [first results (Turkish)](docs/soldef-resnet18.tr.md).
+VisA preserves the official test split and holds out 100 normal training images per PCB category for calibration. Image/mask geometry and cross-split exact RGB duplicates are checked. Physical-board independence is not established. SolDef inventories raw polygon labels and repeated files without assuming unlabeled images are normal. Task-specific source-PCB splits and frozen ResNet18/HOG ROI-classification baselines are available. See the [board-separated split report](docs/soldef-board-splits.tr.md) and [first results (Turkish)](docs/soldef-resnet18.tr.md).
 
-The initial board-held-out baseline reaches 57.4% / 52.3% pooled balanced accuracy for position / solder classification. It is a small descriptive result, not full-image anomaly detection or independent final validation. See the [fold and class metrics](docs/soldef-resnet18.tr.md).
+ResNet18 reaches 57.4% / 52.3% pooled balanced accuracy for position / solder classification; HOG reaches 55.1% / 42.8%. These are small descriptive ROI results, not full-image anomaly detection or independent final validation. See the [fold and class metrics](docs/soldef-resnet18.tr.md).
 
 ## First real-defect benchmark
 
