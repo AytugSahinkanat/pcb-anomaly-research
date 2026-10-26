@@ -125,6 +125,8 @@ Kuo, Ashmore, Huggins and Kira, *Data-Efficient Graph Embedding Learning for PCB
 
 Defect-data preparation is implemented for [VisA / SPot-the-Difference](https://github.com/amazon-science/spot-diff) PCB1–PCB4 and an annotation inventory for [SolDef_AI](https://www.kaggle.com/datasets/mauriziocalabrese/soldef-ai-pcb-dataset-for-defect-detection). See the [data audit and evaluation protocol (Turkish)](docs/defect-data.tr.md).
 
+An external-data review records candidate datasets, access conditions and task mismatches in the [independent defect-data review (Turkish)](docs/independent-data-review.tr.md). No new independent SMD solder validation result has been produced yet.
+
 ```console
 python -m pcb_anomaly.visa acquire --root data/visa-pcb-v2 --archive data/downloads/VisA_20220922.tar
 python -m pcb_anomaly.visa audit --root data/visa-pcb-v2 --output data/visa-audit-v1
