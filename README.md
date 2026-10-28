@@ -2,7 +2,7 @@
 
 Reproducible data auditing and evaluation utilities for PCB component anomaly research.
 
-**Status:** research infrastructure. No trained detector or validated real-defect benchmark is provided yet.
+**Status:** research code and controlled real-defect benchmark results. No production-validated detector is provided.
 
 See the [project status and research roadmap (Turkish)](docs/project-status.tr.md) for completed evidence, missing validation and publication goals.
 
@@ -13,6 +13,7 @@ See the [project status and research roadmap (Turkish)](docs/project-status.tr.m
 - Reproducible candidate board-group splits with class coverage reports.
 - Task-specific leave-one-source-PCB-out split manifests for SolDef_AI annotations.
 - Board-held-out frozen ResNet18 and HOG ROI classification baselines for SolDef_AI.
+- Reproducible PCB-AoI archive/XML audit and board-held-out frozen-feature defect-type ROI baseline.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
@@ -124,6 +125,8 @@ See the [measured reference-bank results (Turkish)](docs/scale-bank.tr.md). Cate
 Kuo, Ashmore, Huggins and Kira, *Data-Efficient Graph Embedding Learning for PCB Component Detection*, WACV 2019. [Paper](https://arxiv.org/abs/1811.06994).
 
 Defect-data preparation is implemented for [VisA / SPot-the-Difference](https://github.com/amazon-science/spot-diff) PCB1–PCB4 and an annotation inventory for [SolDef_AI](https://www.kaggle.com/datasets/mauriziocalabrese/soldef-ai-pcb-dataset-for-defect-detection). See the [data audit and evaluation protocol (Turkish)](docs/defect-data.tr.md).
+
+The public [PCB-AoI SPI dataset](https://kaggle.com/datasets/kubeedgeianvs/pcb-aoi) now has an archive/XML audit and an official board-held-out ROI class baseline. Its test contains no normal images, so it is not used as a false-alarm or one-class anomaly benchmark. See the [PCB-AoI report (Turkish)](docs/pcb-aoi-classifier.tr.md).
 
 An external-data review records candidate datasets, access conditions and task mismatches in the [independent defect-data review (Turkish)](docs/independent-data-review.tr.md). No new independent SMD solder validation result has been produced yet.
 

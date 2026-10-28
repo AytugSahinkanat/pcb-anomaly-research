@@ -1,0 +1,248 @@
+{
+  "status": "complete",
+  "plan": {
+    "status": "protocol_frozen_before_scoring",
+    "dataset": "KubeEdge-Ianvs PCB-AoI Public Dataset, Kaggle version 5",
+    "archive_sha256": "e41ff47069070de284ed11c73db15d9b442da8fb9cafa08da110878c43759da2",
+    "audit_manifest_sha256": "5d89f192d5baccda2bad295f67749d53053074c1e419f69c6056740a0db5928e",
+    "task": "classify the defect type inside ground-truth bounding boxes",
+    "official_split": "raw train_data for references/prototypes; test_data once for held-out board evaluation",
+    "excluded_data": "train_data_augmentation is not counted as independent training samples",
+    "exact_duplicate_policy": "within raw training pixels, keep the annotation XML with the greatest object count; ties use lexicographic path; never merge train/test",
+    "crop": "VOC box to zero-based half-open coordinates; add 20% context; aspect-preserving 224x224 letterbox RGB(124,116,104)",
+    "methods": [
+      "frozen torchvision ResNet18 ImageNet-1K V1 512D cosine nearest class centroid",
+      "unsigned 9-bin HOG, 16px cells, 2x2-cell L2-Hys blocks, cosine nearest class centroid",
+      "training-majority class baseline"
+    ],
+    "selection": "no test-driven tuning; fixed protocol inherited from the earlier SolDef ROI comparison",
+    "metrics": [
+      "balanced accuracy",
+      "macro F1",
+      "accuracy",
+      "per-class recall"
+    ],
+    "uncertainty": "2,000 image/board-cluster bootstrap replicates, seed 42, percentile 95% interval",
+    "forbidden_interpretations": [
+      "not object detection mAP",
+      "not pixel localization",
+      "no false-alarm rate because test split has no normal images",
+      "not a PatchCore or one-class anomaly benchmark"
+    ],
+    "train_roi_counts": {
+      "Bad_podu": 531,
+      "Bad_qiaojiao": 143
+    },
+    "test_roi_counts": {
+      "Bad_podu": 295,
+      "Bad_qiaojiao": 37
+    },
+    "train_unique_images": 171,
+    "test_images": 60,
+    "duplicate_train_images_collapsed": [
+      {
+        "sha256": "99bed41a820e4945237cf120865be930b1fce413ee1b7b18cf506bdba4bc6f5f",
+        "selected_annotation": "train_data/Annotations/20161219-SPI-AOI-16.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161219-SPI-AOI-10.xml"
+        ],
+        "object_counts": [
+          4,
+          3
+        ]
+      },
+      {
+        "sha256": "edaf1788116d24b1b2e3205cd81dd65508ce6fd8b89f0837edd8b1f7428075f8",
+        "selected_annotation": "train_data/Annotations/20161201-SPI-AOI-3.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161201-SPI-AOI-5.xml"
+        ],
+        "object_counts": [
+          2,
+          2
+        ]
+      }
+    ],
+    "created_utc_date": "2026-10-29"
+  },
+  "model": {
+    "architecture": "torchvision ResNet18, fc=Identity, frozen global-average-pooled features",
+    "weights": "ResNet18_Weights.IMAGENET1K_V1",
+    "weights_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "torch": "2.10.0+cpu",
+    "torchvision": "0.25.0+cpu",
+    "python": "3.12.14",
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 32,
+    "preprocessing": "polygon bounding box with 20% relative context; aspect-ratio-preserving 224x224 letterbox RGB(124,116,104); ImageNet normalization; L2-normalized 512D embedding"
+  },
+  "counts": {
+    "train_raw_images_before_dedup": 173,
+    "train_unique_images": 171,
+    "train_roi": 674,
+    "test_images": 60,
+    "test_roi": 332,
+    "train_class_counts": {
+      "Bad_podu": 531,
+      "Bad_qiaojiao": 143
+    },
+    "test_class_counts": {
+      "Bad_podu": 295,
+      "Bad_qiaojiao": 37
+    }
+  },
+  "results": {
+    "resnet18": {
+      "n": 332,
+      "accuracy": 0.9879518072289156,
+      "balanced_accuracy": 0.9577645442052223,
+      "macro_f1": 0.9688438438438439,
+      "recall_by_class": {
+        "Bad_podu": 0.9966101694915255,
+        "Bad_qiaojiao": 0.918918918918919
+      },
+      "f1_by_class": {
+        "Bad_podu": 0.9932432432432433,
+        "Bad_qiaojiao": 0.9444444444444445
+      },
+      "confusion_matrix_labels": [
+        "Bad_podu",
+        "Bad_qiaojiao"
+      ],
+      "confusion_matrix": [
+        [
+          294,
+          1
+        ],
+        [
+          3,
+          34
+        ]
+      ],
+      "cluster_bootstrap_95": {
+        "balanced_accuracy": {
+          "lower_95": 0.9016215321416934,
+          "upper_95": 1.0,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        },
+        "macro_f1": {
+          "lower_95": 0.9270443958674934,
+          "upper_95": 1.0,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        },
+        "accuracy": {
+          "lower_95": 0.9700986730857223,
+          "upper_95": 1.0,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        }
+      }
+    },
+    "hog": {
+      "n": 332,
+      "accuracy": 0.8885542168674698,
+      "balanced_accuracy": 0.6300045808520385,
+      "macro_f1": 0.6558621655694075,
+      "recall_by_class": {
+        "Bad_podu": 0.9627118644067797,
+        "Bad_qiaojiao": 0.2972972972972973
+      },
+      "f1_by_class": {
+        "Bad_podu": 0.9388429752066116,
+        "Bad_qiaojiao": 0.3728813559322034
+      },
+      "confusion_matrix_labels": [
+        "Bad_podu",
+        "Bad_qiaojiao"
+      ],
+      "confusion_matrix": [
+        [
+          284,
+          11
+        ],
+        [
+          26,
+          11
+        ]
+      ],
+      "cluster_bootstrap_95": {
+        "balanced_accuracy": {
+          "lower_95": 0.49953796597880007,
+          "upper_95": 0.7826023809523809,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        },
+        "macro_f1": {
+          "lower_95": 0.484209777094617,
+          "upper_95": 0.7928517029068043,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        },
+        "accuracy": {
+          "lower_95": 0.8156287551386108,
+          "upper_95": 0.9441037055554488,
+          "replicates": 2000,
+          "resampling_unit": "held-out image/board"
+        }
+      }
+    },
+    "majority": {
+      "n": 332,
+      "accuracy": 0.8885542168674698,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.4704944178628389,
+      "recall_by_class": {
+        "Bad_podu": 1.0,
+        "Bad_qiaojiao": 0.0
+      },
+      "f1_by_class": {
+        "Bad_podu": 0.9409888357256778,
+        "Bad_qiaojiao": 0.0
+      },
+      "confusion_matrix_labels": [
+        "Bad_podu",
+        "Bad_qiaojiao"
+      ],
+      "confusion_matrix": [
+        [
+          295,
+          0
+        ],
+        [
+          37,
+          0
+        ]
+      ],
+      "cluster_bootstrap_95": null
+    }
+  },
+  "paired_resnet18_minus_hog": {
+    "balanced_accuracy": {
+      "mean_difference": 0.3296445301791716,
+      "lower_95": 0.18944896331738428,
+      "upper_95": 0.45777834612105706,
+      "replicates": 2000,
+      "resampling_unit": "paired held-out image/board"
+    },
+    "macro_f1": {
+      "mean_difference": 0.32227142733164615,
+      "lower_95": 0.18413585066284455,
+      "upper_95": 0.4705499377328891,
+      "replicates": 2000,
+      "resampling_unit": "paired held-out image/board"
+    },
+    "accuracy": {
+      "mean_difference": 0.09989288197553352,
+      "lower_95": 0.04983113378976156,
+      "upper_95": 0.16615726227795183,
+      "replicates": 2000,
+      "resampling_unit": "paired held-out image/board"
+    }
+  },
+  "runtime_seconds": 52.32010839999998,
+  "interpretation": "External board-held-out defect-type ROI classification on PCB-AoI only; not an anomaly detector evaluation."
+}

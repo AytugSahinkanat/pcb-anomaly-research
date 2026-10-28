@@ -1,0 +1,53 @@
+{
+  "status": "complete",
+  "dataset": "PCB-AoI Public Dataset",
+  "archive_bytes": 103054569,
+  "archive_sha256": "e41ff47069070de284ed11c73db15d9b442da8fb9cafa08da110878c43759da2",
+  "counts": {
+    "train": 173,
+    "test": 60,
+    "train_augmentation": 1211
+  },
+  "instances_by_split_and_class": {
+    "train": {
+      "Bad_podu": 535,
+      "Bad_qiaojiao": 144
+    },
+    "test": {
+      "Bad_podu": 295,
+      "Bad_qiaojiao": 37
+    },
+    "train_augmentation": {
+      "Bad_podu": 3745,
+      "Bad_qiaojiao": 1008
+    }
+  },
+  "annotated_images_by_split_and_class": {
+    "train": {
+      "Bad_podu": 154,
+      "Bad_qiaojiao": 88
+    },
+    "test": {
+      "Bad_podu": 53,
+      "Bad_qiaojiao": 14
+    },
+    "train_augmentation": {
+      "Bad_podu": 1078,
+      "Bad_qiaojiao": 616
+    }
+  },
+  "exact_train_test_duplicate_pairs": 0,
+  "exact_duplicates_within_raw_train_extra_files": 2,
+  "issues": [],
+  "warnings": [
+    {
+      "issue": "exact_duplicates_within_train",
+      "extra_files": 2
+    }
+  ],
+  "interpretation": [
+    "Use train_data as the raw training set; train_data_augmentation is derived from training images and is not extra independent data.",
+    "The official test split contains defective images only; no normal images were found, so false-alarm rate and one-class PatchCore evaluation are unsupported.",
+    "This is solder-paste inspection (SPI), not post-reflow solder-joint inspection."
+  ]
+}
