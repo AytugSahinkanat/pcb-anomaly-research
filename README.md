@@ -14,6 +14,7 @@ See the [project status and research roadmap (Turkish)](docs/project-status.tr.m
 - Task-specific leave-one-source-PCB-out split manifests for SolDef_AI annotations.
 - Board-held-out frozen ResNet18 and HOG ROI classification baselines for SolDef_AI.
 - Reproducible PCB-AoI archive/XML audit and board-held-out frozen-feature defect-type ROI baseline.
+- Fixed torchvision Faster R-CNN baseline and AP evaluation on the official PCB-AoI board split.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
@@ -126,7 +127,7 @@ Kuo, Ashmore, Huggins and Kira, *Data-Efficient Graph Embedding Learning for PCB
 
 Defect-data preparation is implemented for [VisA / SPot-the-Difference](https://github.com/amazon-science/spot-diff) PCB1–PCB4 and an annotation inventory for [SolDef_AI](https://www.kaggle.com/datasets/mauriziocalabrese/soldef-ai-pcb-dataset-for-defect-detection). See the [data audit and evaluation protocol (Turkish)](docs/defect-data.tr.md).
 
-The public [PCB-AoI SPI dataset](https://kaggle.com/datasets/kubeedgeianvs/pcb-aoi) now has an archive/XML audit and an official board-held-out ROI class baseline. Its test contains no normal images, so it is not used as a false-alarm or one-class anomaly benchmark. See the [PCB-AoI report (Turkish)](docs/pcb-aoi-classifier.tr.md).
+The public [PCB-AoI SPI dataset](https://kaggle.com/datasets/kubeedgeianvs/pcb-aoi) now has an archive/XML audit, board-held-out ROI class baseline, and end-to-end detector pilot. Its test contains no normal images, so false-alarm or one-class anomaly performance cannot be estimated. See the [ROI classification report](docs/pcb-aoi-classifier.tr.md) and [full-box detection report](docs/pcb-aoi-detector.tr.md) (Turkish).
 
 An external-data review records candidate datasets, access conditions and task mismatches in the [independent defect-data review (Turkish)](docs/independent-data-review.tr.md). No new independent SMD solder validation result has been produced yet.
 

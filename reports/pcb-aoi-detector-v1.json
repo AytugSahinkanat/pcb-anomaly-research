@@ -1,0 +1,185 @@
+{
+  "status": "complete",
+  "plan": {
+    "status": "protocol_frozen_before_training",
+    "dataset": "PCB-AoI public dataset, Kaggle v5",
+    "archive_sha256": "e41ff47069070de284ed11c73db15d9b442da8fb9cafa08da110878c43759da2",
+    "audit_manifest_sha256": "5d89f192d5baccda2bad295f67749d53053074c1e419f69c6056740a0db5928e",
+    "official_test": "60 source boards; used once after fixed validation-based epoch selection",
+    "train_deduplication": "exact train image hashes collapsed; keep XML with most boxes; ties by lexical annotation path",
+    "fit_validation": "171 unique raw training images split 80/20 by image/board using numpy RNG seed 42; ensure both classes occur in each",
+    "train_augmentation": "excluded; only raw train_data used",
+    "architecture": "torchvision Faster R-CNN MobileNetV3-Large FPN 320, COCO V1 initialization, 3 classes including background",
+    "training": {
+      "epochs": 10,
+      "batch_size": 2,
+      "optimizer": "SGD",
+      "learning_rate": 0.0025,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "step_lr": {
+        "step_size": 5,
+        "gamma": 0.1
+      },
+      "seed": 42,
+      "data_augmentation": "none"
+    },
+    "selection": "checkpoint with highest validation mAP50:95; ties choose earliest epoch",
+    "inference": {
+      "score_threshold_for_AP": 0.001,
+      "nms_threshold": 0.5,
+      "max_detections_per_image": 100
+    },
+    "metrics": "per-class AP50 and AP50:95; macro mAP; 101-point interpolated AP",
+    "normal_data": "none in official test; false-alarm rate cannot be estimated",
+    "model_weights": {
+      "name": "FasterRCNN_MobileNet_V3_Large_320_FPN_Weights.COCO_V1",
+      "url": "https://download.pytorch.org/models/fasterrcnn_mobilenet_v3_large_320_fpn-907ea3f9.pth"
+    },
+    "torch": "2.10.0+cpu",
+    "torchvision": "0.25.0+cpu",
+    "python": "3.12.14",
+    "device": "cpu",
+    "threads": 4,
+    "train_images": 137,
+    "validation_images": 34,
+    "test_images": 60,
+    "duplicate_train_groups": [
+      {
+        "sha256": "99bed41a820e4945237cf120865be930b1fce413ee1b7b18cf506bdba4bc6f5f",
+        "selected_annotation": "train_data/Annotations/20161219-SPI-AOI-16.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161219-SPI-AOI-10.xml"
+        ],
+        "object_counts": [
+          4,
+          3
+        ]
+      },
+      {
+        "sha256": "edaf1788116d24b1b2e3205cd81dd65508ce6fd8b89f0837edd8b1f7428075f8",
+        "selected_annotation": "train_data/Annotations/20161201-SPI-AOI-3.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161201-SPI-AOI-5.xml"
+        ],
+        "object_counts": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "selected_epoch": 9,
+  "selected_validation_map50_95": 0.004103953004386004,
+  "validation_history": [
+    {
+      "epoch": 1,
+      "mean_train_loss": 0.26740016302336816,
+      "validation_map50": 0.001834273043998721,
+      "validation_map50_95": 0.0003922682511211569,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 2,
+      "mean_train_loss": 0.2183178848978402,
+      "validation_map50": 0.005774877228132072,
+      "validation_map50_95": 0.0015577692870661903,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 3,
+      "mean_train_loss": 0.23488964485949365,
+      "validation_map50": 0.023890450226301728,
+      "validation_map50_95": 0.003313470272104731,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 4,
+      "mean_train_loss": 0.2414597299867782,
+      "validation_map50": 0.005578722610224031,
+      "validation_map50_95": 0.0012772358915385115,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 5,
+      "mean_train_loss": 0.2563723462863245,
+      "validation_map50": 0.013052860285668523,
+      "validation_map50_95": 0.002817349652810345,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 6,
+      "mean_train_loss": 0.2592088035915209,
+      "validation_map50": 0.021719469566628416,
+      "validation_map50_95": 0.0031952999069572645,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 7,
+      "mean_train_loss": 0.25525921345620917,
+      "validation_map50": 0.020337200868170348,
+      "validation_map50_95": 0.0031324942700223894,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 8,
+      "mean_train_loss": 0.2495412651611411,
+      "validation_map50": 0.015214484219895203,
+      "validation_map50_95": 0.003944900306326139,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 9,
+      "mean_train_loss": 0.24496405949627142,
+      "validation_map50": 0.02039140100491728,
+      "validation_map50_95": 0.004103953004386004,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 10,
+      "mean_train_loss": 0.25889048325842706,
+      "validation_map50": 0.012307123130759528,
+      "validation_map50_95": 0.0031297241271493947,
+      "learning_rate": 2.5e-05
+    }
+  ],
+  "test": {
+    "map50": 0.017732766240352495,
+    "map50_95": 0.0037880175918094854,
+    "by_class": {
+      "Bad_podu": {
+        "ap50": 0.024515603981208233,
+        "ap50_95": 0.005309228994273468
+      },
+      "Bad_qiaojiao": {
+        "ap50": 0.010949928499496758,
+        "ap50_95": 0.0022668061893455025
+      }
+    },
+    "iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "ap_interpolation": "101-point interpolated precision-recall AP"
+  },
+  "counts": {
+    "fit_boards": 137,
+    "validation_boards": 34,
+    "test_boards": 60,
+    "test_instances": 332,
+    "test_class_counts": {
+      "Bad_podu": 295,
+      "Bad_qiaojiao": 37
+    }
+  },
+  "runtime_seconds": 398.09096279999994,
+  "interpretation": "Supervised box detection on held-out defective PCB-AoI boards; no normal-board false-alarm estimate."
+}
