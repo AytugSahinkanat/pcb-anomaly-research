@@ -1,0 +1,159 @@
+{
+  "status": "complete_validation_only",
+  "plan": {
+    "status": "protocol_frozen_before_training",
+    "dataset": "PCB-AoI public dataset, Kaggle v5",
+    "archive_sha256": "e41ff47069070de284ed11c73db15d9b442da8fb9cafa08da110878c43759da2",
+    "audit_manifest_sha256": "5d89f192d5baccda2bad295f67749d53053074c1e419f69c6056740a0db5928e",
+    "official_test": "not evaluated in this exploratory validation-only run",
+    "train_deduplication": "exact train image hashes collapsed; keep XML with most boxes; ties by lexical annotation path",
+    "fit_validation": "171 unique raw training images split 80/20 by image/board using numpy RNG seed 42; ensure both classes occur in each",
+    "train_augmentation": "excluded; only raw train_data used",
+    "architecture": "torchvision Faster R-CNN MobileNetV3-Large FPN initialized from COCO V1, runtime min/max size 640",
+    "anchor_configuration": "one small-object scale per feature level: [8,16,32] px; aspect ratios [0.5,1,2]",
+    "validation_only": true,
+    "training": {
+      "epochs": 10,
+      "batch_size": 2,
+      "optimizer": "SGD",
+      "learning_rate": 0.0025,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "step_lr": {
+        "step_size": 5,
+        "gamma": 0.1
+      },
+      "seed": 42,
+      "data_augmentation": "none"
+    },
+    "selection": "checkpoint with highest validation mAP50:95; ties choose earliest epoch",
+    "inference": {
+      "score_threshold_for_AP": 0.001,
+      "nms_threshold": 0.5,
+      "max_detections_per_image": 100
+    },
+    "metrics": "per-class AP50 and AP50:95; macro mAP; 101-point interpolated AP",
+    "normal_data": "none in official test; false-alarm rate cannot be estimated",
+    "model_weights": {
+      "name": "FasterRCNN_MobileNet_V3_Large_320_FPN_Weights.COCO_V1",
+      "url": "https://download.pytorch.org/models/fasterrcnn_mobilenet_v3_large_320_fpn-907ea3f9.pth"
+    },
+    "torch": "2.10.0+cpu",
+    "torchvision": "0.25.0+cpu",
+    "python": "3.12.14",
+    "device": "cpu",
+    "threads": 4,
+    "train_images": 137,
+    "validation_images": 34,
+    "test_images": 60,
+    "duplicate_train_groups": [
+      {
+        "sha256": "99bed41a820e4945237cf120865be930b1fce413ee1b7b18cf506bdba4bc6f5f",
+        "selected_annotation": "train_data/Annotations/20161219-SPI-AOI-16.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161219-SPI-AOI-10.xml"
+        ],
+        "object_counts": [
+          4,
+          3
+        ]
+      },
+      {
+        "sha256": "edaf1788116d24b1b2e3205cd81dd65508ce6fd8b89f0837edd8b1f7428075f8",
+        "selected_annotation": "train_data/Annotations/20161201-SPI-AOI-3.xml",
+        "discarded_annotations": [
+          "train_data/Annotations/20161201-SPI-AOI-5.xml"
+        ],
+        "object_counts": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  "selected_epoch": 4,
+  "selected_validation_map50_95": 0.0005231536417310801,
+  "validation_history": [
+    {
+      "epoch": 1,
+      "mean_train_loss": 0.7005963890232901,
+      "validation_map50": 0.000393763335631367,
+      "validation_map50_95": 9.487816166157929e-05,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 2,
+      "mean_train_loss": 0.5593230714616568,
+      "validation_map50": 0.0013531718234302827,
+      "validation_map50_95": 0.00024771558714870414,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 3,
+      "mean_train_loss": 0.5936383079143538,
+      "validation_map50": 0.0016725862250603065,
+      "validation_map50_95": 0.0003425536676925377,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 4,
+      "mean_train_loss": 0.559962956747715,
+      "validation_map50": 0.0037317691199822045,
+      "validation_map50_95": 0.0005231536417310801,
+      "learning_rate": 0.0025
+    },
+    {
+      "epoch": 5,
+      "mean_train_loss": 0.539346482226814,
+      "validation_map50": 0.002026895274546826,
+      "validation_map50_95": 0.0005131656318074257,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 6,
+      "mean_train_loss": 0.5515042038067527,
+      "validation_map50": 0.0022977007191663248,
+      "validation_map50_95": 0.000515317788693281,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 7,
+      "mean_train_loss": 0.5343185486137003,
+      "validation_map50": 0.002381526854257804,
+      "validation_map50_95": 0.000508653736422278,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 8,
+      "mean_train_loss": 0.5485472315787405,
+      "validation_map50": 0.002314955367669074,
+      "validation_map50_95": 0.0004963244512692998,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 9,
+      "mean_train_loss": 0.5263742864455866,
+      "validation_map50": 0.002291594051871846,
+      "validation_map50_95": 0.0005015896930932209,
+      "learning_rate": 0.00025
+    },
+    {
+      "epoch": 10,
+      "mean_train_loss": 0.538290357892064,
+      "validation_map50": 0.0023004610370825724,
+      "validation_map50_95": 0.0004707673272548998,
+      "learning_rate": 2.5e-05
+    }
+  ],
+  "validation": {
+    "map50": 0.0037317691199822045,
+    "map50_95": 0.0005231536417310801
+  },
+  "counts": {
+    "fit_boards": 137,
+    "validation_boards": 34,
+    "test_evaluated": false
+  },
+  "runtime_seconds": 1199.8084833000003,
+  "interpretation": "Exploratory model selection on the fixed training-derived validation split; official test was not evaluated."
+}

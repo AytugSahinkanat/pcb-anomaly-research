@@ -195,7 +195,8 @@ def _write_review(archive_path, records, predictions, destination):
     canvas.save(destination, quality=92)
 
 
-def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4):
+def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4,
+        min_size=320, small_anchors=False, validation_only=False):
     import torch
     import torchvision
     from torch.utils.data import DataLoader
@@ -204,13 +205,14 @@ def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4):
         fasterrcnn_mobilenet_v3_large_320_fpn,
     )
     from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+    from torchvision.models.detection.anchor_utils import AnchorGenerator
 
     archive_path, audit_manifest, output, cache = map(Path,
                                                        (archive_path, audit_manifest, output, cache))
     if output.exists():
         raise FileExistsError(f'Output already exists: {output}')
-    if epochs < 1 or threads < 1:
-        raise ValueError('epochs and threads must be positive')
+    if epochs < 1 or threads < 1 or min_size < 320:
+        raise ValueError('epochs/threads must be positive and min_size must be at least 320')
     audit_rows = _read_manifest(audit_manifest)
     train_all, duplicate_groups = _unique_train_images(audit_rows)
     fit_records, validation_records = _split_train(train_all)
@@ -231,11 +233,14 @@ def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4):
             'dataset': 'PCB-AoI public dataset, Kaggle v5',
             'archive_sha256': sha256(archive_path),
             'audit_manifest_sha256': sha256(audit_manifest),
-            'official_test': '60 source boards; used once after fixed validation-based epoch selection',
+            'official_test': ('not evaluated in this exploratory validation-only run' if validation_only else
+                              '60 source boards; used once after fixed validation-based epoch selection'),
             'train_deduplication': 'exact train image hashes collapsed; keep XML with most boxes; ties by lexical annotation path',
             'fit_validation': '171 unique raw training images split 80/20 by image/board using numpy RNG seed 42; ensure both classes occur in each',
             'train_augmentation': 'excluded; only raw train_data used',
-            'architecture': 'torchvision Faster R-CNN MobileNetV3-Large FPN 320, COCO V1 initialization, 3 classes including background',
+            'architecture': f'torchvision Faster R-CNN MobileNetV3-Large FPN initialized from COCO V1, runtime min/max size {min_size}',
+            'anchor_configuration': ('one small-object scale per feature level: [8,16,32] px; aspect ratios [0.5,1,2]' if small_anchors else 'torchvision COCO defaults'),
+            'validation_only': validation_only,
             'training': {'epochs': epochs, 'batch_size': 2, 'optimizer': 'SGD',
                          'learning_rate': 0.0025, 'momentum': 0.9, 'weight_decay': 0.0005,
                          'step_lr': {'step_size': 5, 'gamma': 0.1}, 'seed': 42,
@@ -255,6 +260,14 @@ def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4):
     cache.mkdir(parents=True, exist_ok=True)
     torch.hub.set_dir(str(cache.resolve()))
     model = fasterrcnn_mobilenet_v3_large_320_fpn(weights=weights)
+    model.transform.min_size = (min_size,)
+    model.transform.max_size = min_size
+    if small_anchors:
+        model.rpn.anchor_generator = AnchorGenerator(
+            # Keep one scale per feature level so the pretrained RPN head's
+            # three aspect-ratio outputs remain shape-compatible.
+            sizes=((8,), (16,), (32,)),
+            aspect_ratios=((0.5, 1.0, 2.0),) * 3)
     in_features = model.roi_heads.box_predictor.cls_score.in_features
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, len(LABELS) + 1)
     model.roi_heads.score_thresh = 0.001
@@ -301,6 +314,24 @@ def run(archive_path, audit_manifest, output, cache, epochs=10, threads=4):
         raise RuntimeError('No validation checkpoint was selected')
     model.load_state_dict(best_state)
     torch.save(best_state, output / 'selected_model.pth')
+    if validation_only:
+        result = {'status': 'complete_validation_only', 'plan': plan,
+                  'selected_epoch': best_epoch,
+                  'selected_validation_map50_95': best_ap,
+                  'validation_history': history,
+                  'validation': {'map50': history[best_epoch - 1]['validation_map50'],
+                                 'map50_95': best_ap},
+                  'counts': {'fit_boards': len(fit_records),
+                             'validation_boards': len(validation_records),
+                             'test_evaluated': False},
+                  'runtime_seconds': time.perf_counter() - started,
+                  'interpretation': 'Exploratory model selection on the fixed training-derived validation split; official test was not evaluated.'}
+        (output / 'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
+        print(json.dumps({'status': result['status'], 'output': str(output),
+                          'selected_epoch': best_epoch,
+                          'validation': result['validation'],
+                          'runtime_seconds': result['runtime_seconds']}, indent=2), flush=True)
+        return result
     test_result, test_predictions = _evaluate(model, test_dataset, test_records, device, torch)
     for pred in test_predictions:
         pred['image_name'] = pred.pop('image')
@@ -332,8 +363,12 @@ def main():
     parser.add_argument('--cache', type=Path, default=Path('data/torch-cache'))
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--threads', type=int, default=4)
+    parser.add_argument('--min-size', type=int, default=320)
+    parser.add_argument('--small-anchors', action='store_true')
+    parser.add_argument('--validation-only', action='store_true')
     args = parser.parse_args()
-    run(args.archive, args.audit_manifest, args.output, args.cache, args.epochs, args.threads)
+    run(args.archive, args.audit_manifest, args.output, args.cache, args.epochs,
+        args.threads, args.min_size, args.small_anchors, args.validation_only)
 
 
 if __name__ == '__main__':
