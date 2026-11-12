@@ -1,0 +1,797 @@
+{
+  "category_seed_results": [
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9934545679739931,
+      "pixel_average_precision": 0.7975592993967472,
+      "aupro_fpr_0_30": 0.9136010810677363,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9940449472395151,
+      "pixel_average_precision": 0.8001862456998721,
+      "aupro_fpr_0_30": 0.9199961259284833,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9945707176903215,
+      "pixel_average_precision": 0.804039343162466,
+      "aupro_fpr_0_30": 0.9108162211442787,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9936964377497073,
+      "pixel_average_precision": 0.7928259266324054,
+      "aupro_fpr_0_30": 0.912976217996555,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9941733696472878,
+      "pixel_average_precision": 0.8052059946137486,
+      "aupro_fpr_0_30": 0.9241639862837944,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9660611265016676,
+      "pixel_average_precision": 0.1584010070645097,
+      "aupro_fpr_0_30": 0.8381836251254157,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9714819375243308,
+      "pixel_average_precision": 0.1631901779140435,
+      "aupro_fpr_0_30": 0.854383760134563,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9719091815999946,
+      "pixel_average_precision": 0.1595875277501003,
+      "aupro_fpr_0_30": 0.8557950646643352,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9711287242653965,
+      "pixel_average_precision": 0.1565919368551365,
+      "aupro_fpr_0_30": 0.8466396420124966,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 46,
+      "pixel_auroc": 0.970357464247641,
+      "pixel_average_precision": 0.15703466098613503,
+      "aupro_fpr_0_30": 0.8402726944140942,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9878258755280721,
+      "pixel_average_precision": 0.4560733648010806,
+      "aupro_fpr_0_30": 0.7876872412102887,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9868216958766006,
+      "pixel_average_precision": 0.4486369410194768,
+      "aupro_fpr_0_30": 0.7638416993434894,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9881328413510805,
+      "pixel_average_precision": 0.4553901774333115,
+      "aupro_fpr_0_30": 0.79755914523345,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9870402862845977,
+      "pixel_average_precision": 0.4488809686991485,
+      "aupro_fpr_0_30": 0.7655111795444268,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 46,
+      "pixel_auroc": 0.987456293001893,
+      "pixel_average_precision": 0.4447808226352525,
+      "aupro_fpr_0_30": 0.8078932183725286,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9629799569611327,
+      "pixel_average_precision": 0.38695286838814735,
+      "aupro_fpr_0_30": 0.7706027057421201,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9617506341992771,
+      "pixel_average_precision": 0.35281315589336704,
+      "aupro_fpr_0_30": 0.7718097729773773,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9601889394849629,
+      "pixel_average_precision": 0.37110230940737615,
+      "aupro_fpr_0_30": 0.7739312427108016,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 45,
+      "pixel_auroc": 0.967241208267349,
+      "pixel_average_precision": 0.3956776674115588,
+      "aupro_fpr_0_30": 0.8029750447241453,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "rn18",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9609024868183681,
+      "pixel_average_precision": 0.3758568250511674,
+      "aupro_fpr_0_30": 0.7740608559799247,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9954459597541304,
+      "pixel_average_precision": 0.8817052393360804,
+      "aupro_fpr_0_30": 0.9147840455937573,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 43,
+      "pixel_auroc": 0.995667316167578,
+      "pixel_average_precision": 0.8825296920978017,
+      "aupro_fpr_0_30": 0.9236189322649077,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9954631303105119,
+      "pixel_average_precision": 0.8816523036475689,
+      "aupro_fpr_0_30": 0.9244392504971618,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9954136092672397,
+      "pixel_average_precision": 0.8784049923254724,
+      "aupro_fpr_0_30": 0.9200831976027046,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb1",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9951556227339075,
+      "pixel_average_precision": 0.8801213716377229,
+      "aupro_fpr_0_30": 0.9210578257834999,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 79777,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9807091420118589,
+      "pixel_average_precision": 0.18540311141684274,
+      "aupro_fpr_0_30": 0.8705545036537068,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9812774494067829,
+      "pixel_average_precision": 0.18930606219555357,
+      "aupro_fpr_0_30": 0.8803791093735679,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9805196811493022,
+      "pixel_average_precision": 0.186339611033432,
+      "aupro_fpr_0_30": 0.8852437164848539,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9799600439790719,
+      "pixel_average_precision": 0.182178710001115,
+      "aupro_fpr_0_30": 0.8715021135018619,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb2",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9805468757024526,
+      "pixel_average_precision": 0.18311211324507648,
+      "aupro_fpr_0_30": 0.8742350370322435,
+      "test_images": 200,
+      "anomaly_images": 100,
+      "positive_pixels": 33713,
+      "pixel_count": 10035200,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9885631639751439,
+      "pixel_average_precision": 0.4705809884376745,
+      "aupro_fpr_0_30": 0.8461166619010948,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9883632573784366,
+      "pixel_average_precision": 0.4600812674328652,
+      "aupro_fpr_0_30": 0.824990080314812,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 44,
+      "pixel_auroc": 0.9890458820731857,
+      "pixel_average_precision": 0.4703639449393926,
+      "aupro_fpr_0_30": 0.8434574689189355,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9887226598671225,
+      "pixel_average_precision": 0.46219240019524854,
+      "aupro_fpr_0_30": 0.8415647545390003,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb3",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9881788318910517,
+      "pixel_average_precision": 0.4567534916906406,
+      "aupro_fpr_0_30": 0.8394757885638295,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 47061,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 42,
+      "pixel_auroc": 0.9767476444214941,
+      "pixel_average_precision": 0.46253674677727613,
+      "aupro_fpr_0_30": 0.8297649373857457,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 43,
+      "pixel_auroc": 0.9738535829706209,
+      "pixel_average_precision": 0.42219712740202753,
+      "aupro_fpr_0_30": 0.8282992557903602,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 44,
+      "pixel_auroc": 0.975460564254697,
+      "pixel_average_precision": 0.4511050513883313,
+      "aupro_fpr_0_30": 0.8138546743280594,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 45,
+      "pixel_auroc": 0.9786079045324859,
+      "pixel_average_precision": 0.4660979444951449,
+      "aupro_fpr_0_30": 0.8481504868994751,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    },
+    {
+      "backbone": "wrn50",
+      "preprocessing": "official Resize(256)+CenterCrop(224)",
+      "category": "pcb4",
+      "reference_seed": 46,
+      "pixel_auroc": 0.9759032615140883,
+      "pixel_average_precision": 0.4523192743343115,
+      "aupro_fpr_0_30": 0.8229304201081982,
+      "test_images": 201,
+      "anomaly_images": 100,
+      "positive_pixels": 106413,
+      "pixel_count": 10085376,
+      "mask_policy": "nearest-neighbour resize; same geometric transform as RGB",
+      "map_policy": "upstream PatchCore 28x28 patch distances, bilinear 224x224, Gaussian sigma=4"
+    }
+  ],
+  "category_summary": [
+    {
+      "backbone": "rn18",
+      "category": "pcb1",
+      "pixel_auroc": {
+        "mean": 0.9939880080601651,
+        "sd": 0.0004320656989041938
+      },
+      "pixel_average_precision": {
+        "mean": 0.7999633619010478,
+        "sd": 0.005021727713898282
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.9163107264841696,
+        "sd": 0.005565666460798097
+      }
+    },
+    {
+      "backbone": "rn18",
+      "category": "pcb2",
+      "pixel_auroc": {
+        "mean": 0.9701876868278061,
+        "sd": 0.002376000056429896
+      },
+      "pixel_average_precision": {
+        "mean": 0.15896106211398503,
+        "sd": 0.0026417473904347924
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.847054957270181,
+        "sd": 0.007983936042475983
+      }
+    },
+    {
+      "backbone": "rn18",
+      "category": "pcb3",
+      "pixel_auroc": {
+        "mean": 0.9874553984084488,
+        "sd": 0.0005408511836037304
+      },
+      "pixel_average_precision": {
+        "mean": 0.450752454917654,
+        "sd": 0.004833704685731238
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.7844984967408367,
+        "sd": 0.01946331885621995
+      }
+    },
+    {
+      "backbone": "rn18",
+      "category": "pcb4",
+      "pixel_auroc": {
+        "mean": 0.9626126451462179,
+        "sd": 0.0027883941636285426
+      },
+      "pixel_average_precision": {
+        "mean": 0.3764805652303233,
+        "sd": 0.01633752442857677
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.7786759244268738,
+        "sd": 0.013661798968633348
+      }
+    },
+    {
+      "backbone": "wrn50",
+      "category": "pcb1",
+      "pixel_auroc": {
+        "mean": 0.9954291276466736,
+        "sd": 0.00018249591083612546
+      },
+      "pixel_average_precision": {
+        "mean": 0.8808827198089293,
+        "sd": 0.001635550358260995
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.9207966503484062,
+        "sd": 0.0038066538594872944
+      }
+    },
+    {
+      "backbone": "wrn50",
+      "category": "pcb2",
+      "pixel_auroc": {
+        "mean": 0.9806026384498937,
+        "sd": 0.0004716014970033775
+      },
+      "pixel_average_precision": {
+        "mean": 0.18526792157840394,
+        "sd": 0.002813543671404855
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.8763828960092468,
+        "sd": 0.00626277403140417
+      }
+    },
+    {
+      "backbone": "wrn50",
+      "category": "pcb3",
+      "pixel_auroc": {
+        "mean": 0.9885747590369881,
+        "sd": 0.0003337129277946147
+      },
+      "pixel_average_precision": {
+        "mean": 0.46399441853916434,
+        "sd": 0.006223841516888417
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.8391209508475346,
+        "sd": 0.008269294867586723
+      }
+    },
+    {
+      "backbone": "wrn50",
+      "category": "pcb4",
+      "pixel_auroc": {
+        "mean": 0.9761145915386773,
+        "sd": 0.0017465635867214833
+      },
+      "pixel_average_precision": {
+        "mean": 0.4508512288794183,
+        "sd": 0.01726478193033631
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.8285999549023678,
+        "sd": 0.012582108622065656
+      }
+    }
+  ],
+  "aggregate": {
+    "rn18": {
+      "pixel_auroc": {
+        "macro_category_mean": 0.9785609346106595,
+        "sd_across_seed_macro_category_means": 0.0008023165223747319
+      },
+      "pixel_average_precision": {
+        "macro_category_mean": 0.4465393610407526,
+        "sd_across_seed_macro_category_means": 0.003324109717013272
+      },
+      "aupro_fpr_0_30": {
+        "macro_category_mean": 0.8316350262305153,
+        "sd_across_seed_macro_category_means": 0.004096125795944844
+      }
+    },
+    "wrn50": {
+      "pixel_auroc": {
+        "macro_category_mean": 0.9851802791680582,
+        "sd_across_seed_macro_category_means": 0.00035023023435834603
+      },
+      "pixel_average_precision": {
+        "macro_category_mean": 0.49524907220147896,
+        "sd_across_seed_macro_category_means": 0.004509816020844663
+      },
+      "aupro_fpr_0_30": {
+        "macro_category_mean": 0.8662251130268889,
+        "sd_across_seed_macro_category_means": 0.002489711031903661
+      }
+    }
+  },
+  "protocol": {
+    "models": "Controlled PatchCore ResNet18 and WideResNet50-2, pretrained ImageNet1K V1",
+    "bank_bytes": 20549632,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "test_images_total": 802,
+    "threshold_selection": "none; ranking metrics",
+    "aupro": "200 thresholds, FPR truncated at 0.30, normalized area"
+  },
+  "elapsed_seconds": 1135.8650632999997,
+  "provenance": {
+    "device": "CPU",
+    "torch_threads": 4,
+    "runner_sha256": "c44653d8677127e4a2979854157247223095969a2d9de5823551a32b993381a7",
+    "audit_manifest_sha256": "59f23ef87e8dafc5f85d8731c879200f5700d1356c0b6886fc8fa709029e66d2",
+    "weights_sha256": {
+      "resnet18-f37072fd.pth": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+      "wide_resnet50_2-95faca4d.pth": "95faca4d11227dddf8633dbb5ff6c8a9003c1aa5b8945c73834b8007b10950b8"
+    },
+    "versions": {
+      "torch": "2.10.0+cpu",
+      "torchvision": "0.25.0+cpu",
+      "faiss-cpu": "1.15.1",
+      "numpy": "2.5.2",
+      "Pillow": "12.3.0",
+      "scipy": "1.18.1"
+    }
+  }
+}

@@ -5,6 +5,9 @@ Reproducible data auditing and evaluation utilities for PCB component anomaly re
 **Status:** research code and controlled real-defect benchmark results. No production-validated detector is provided.
 
 See the [project status and research roadmap (Turkish)](docs/project-status.tr.md) for completed evidence, missing validation and publication goals.
+The English [working paper draft](docs/paper-draft.en.md) is underway. VisA image-level and pixel-level results are available in the [localization report (Turkish)](docs/visa-localization.tr.md) and [`reports/visa-localization-v1.json`](reports/visa-localization-v1.json). The [paper-readiness review (Turkish)](docs/paper-readiness.tr.md) explains what evidence remains before submission.
+AnomalyDINO and WideResNet50 PatchCore have both been evaluated with the same 16 reference images over four categories and five selections. See the [paired 16-shot comparison (Turkish)](docs/visa-16shot-comparison.tr.md), [AnomalyDINO report](docs/visa-anomalydino.tr.md), [pinned plan](docs/anomalydino-baseline-plan.tr.md), and [machine-readable results](reports/visa-anomalydino-v1.json) / [PatchCore results](reports/visa-patchcore-16shot-v1.json). The runs match source-image count, not feature-bank bytes or all pipeline steps.
+The [Siemens–NVIDIA industrial use case and follow-on research direction](docs/siemens-nvidia-research-direction.tr.md) connects our current evidence to digital-twin-based AOI preparation while documenting what data our project still lacks.
 
 ## Implemented
 
@@ -15,7 +18,9 @@ See the [project status and research roadmap (Turkish)](docs/project-status.tr.m
 - Board-held-out frozen ResNet18 and HOG ROI classification baselines for SolDef_AI.
 - Reproducible PCB-AoI archive/XML audit and board-held-out frozen-feature defect-type ROI baseline.
 - Fixed torchvision Faster R-CNN baseline and AP evaluation on the official PCB-AoI board split.
+- RobustAD-PCB integrity audit and five-selection WideResNet50-2 PatchCore domain-shift baseline.
 - Reference/calibration/test leakage checks, self-excluding kNN and threshold calibration.
+- Controlled ResNet18/WideResNet50-2 PatchCore comparisons with VisA pixel AUROC/AP/AUPRO localization.
 - Visual review sheets, lossless component crops and frozen ResNet18 features.
 - Calibration-to-reference neighbor galleries with cross-board filtering.
 - Paired rotation/resolution sensitivity with a fixed reference bank.
@@ -129,7 +134,27 @@ Defect-data preparation is implemented for [VisA / SPot-the-Difference](https://
 
 The public [PCB-AoI SPI dataset](https://kaggle.com/datasets/kubeedgeianvs/pcb-aoi) now has an archive/XML audit, board-held-out ROI class baseline, and end-to-end detector pilot. Its test contains no normal images, so false-alarm or one-class anomaly performance cannot be estimated. The detector report also records an exploratory 640 px/small-anchor validation run; the official test was not reused. See the [ROI classification report](docs/pcb-aoi-classifier.tr.md) and [full-box detection report](docs/pcb-aoi-detector.tr.md) (Turkish).
 
-An external-data review records candidate datasets, access conditions and task mismatches in the [independent defect-data review (Turkish)](docs/independent-data-review.tr.md). No new independent SMD solder validation result has been produced yet.
+An external-data review records candidate datasets, access conditions and task mismatches in the [independent defect-data review (Turkish)](docs/independent-data-review.tr.md). RobustAD-PCB has been downloaded at a pinned revision, audited, and evaluated with three methods across five shared 16-normal-reference selections. On the five shifted capture domains, the image AUROC macro means were 44.84% for WideResNet50-2 PatchCore, 37.35% for ResNet18 PatchCore and 43.52% for the AnomalyDINO pipeline; AnomalyDINO had higher pixel AP and AUPRO, with a much larger memory bank. See the [three-method report](docs/robustad-pcb-method-comparison.tr.md), [PatchCore report](docs/robustad-pcb-patchcore.tr.md), [AnomalyDINO runner](src/pcb_anomaly/robustad_anomalydino.py), and [machine-readable comparison](reports/robustad-pcb-method-comparison-v1.json). These are capture-domain results, not an unseen-board test; physical board IDs are absent, and source resolution correlates with the normal/anomaly label.
+
+To reproduce the RobustAD-PCB baselines, obtain the dataset from [Amazon Science](https://huggingface.co/datasets/AmazonScience/RobustAD) at revision `82c642b2d18be60f2dab104f8dd4dea1f4ccfacb` and place its PCB subset at `data/robustad-pcb-v1/PCB`. Install the benchmark dependencies and acquire the pinned PatchCore and DINOv2 sources. The DINOv2 checkpoint is listed in the [official model repository](https://github.com/facebookresearch/dinov2):
+
+```powershell
+python -m pip install -e ".[features,benchmark]"
+python -m pcb_anomaly.upstream_patchcore --output data/vendor/patchcore-inspection
+git clone https://github.com/facebookresearch/dinov2.git data/torch-cache/facebookresearch_dinov2_7764ea0f912e53c92e82eb78a2a1631e92725fc8
+git -C data/torch-cache/facebookresearch_dinov2_7764ea0f912e53c92e82eb78a2a1631e92725fc8 checkout 7764ea0f912e53c92e82eb78a2a1631e92725fc8
+New-Item -ItemType Directory -Force data/torch-cache/checkpoints | Out-Null
+Invoke-WebRequest https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth -OutFile data/torch-cache/checkpoints/dinov2_vits14_pretrain.pth
+python -m pcb_anomaly.audit_robustad_pcb
+python -m pcb_anomaly.robustad_patchcore
+python -m pcb_anomaly.robustad_patchcore --backbone rn18
+python -m pcb_anomaly.robustad_anomalydino
+python -m pcb_anomaly.robustad_anomalydino
+```
+
+PatchCore runs use CPU, download ImageNet weights on first use and cache about 3.5 GiB of features. AnomalyDINO writes about 2.3 GiB of features. These caches are ignored by Git. Only summaries and exact reference selections are tracked; test domains are not used to tune the detector or choose a threshold. See the [three-method protocol and results](docs/robustad-pcb-method-comparison.tr.md).
+
+The Ulger et al. solder-joint crop dataset has unresolved count and board-mapping issues. A second 2023 solder-ROI dataset reports 93 source PCBs but is available only from its corresponding author upon request. Neither is treated as independent solder-joint validation until board groups and reuse terms are verified.
 
 ```console
 python -m pcb_anomaly.visa acquire --root data/visa-pcb-v2 --archive data/downloads/VisA_20220922.tar

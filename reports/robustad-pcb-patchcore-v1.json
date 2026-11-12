@@ -1,0 +1,918 @@
+{
+  "dataset": "AmazonScience/RobustAD PCB",
+  "dataset_revision": "82c642b2d18be60f2dab104f8dd4dea1f4ccfacb",
+  "backbone": "WideResNet50-2",
+  "duplicate_image_groups": [
+    {
+      "split": "pcb_data_dir_test4",
+      "image_sha256": "c45b41295102d2e727938a03df59739fe50179ede3de44499e83efac27d4c548",
+      "records": [
+        "anomaly/Test_PCB_Position_10%_Soldering Melt_3.jpg",
+        "anomaly/Test_PCB_Position_10%_Scratch_3.jpg"
+      ],
+      "mask_paths": [
+        "C:\\Users\\User\\Documents\\ChatGPT\\pcb\\data\\robustad-pcb-v1\\PCB\\pcb_data_dir_test4\\masks\\Test_PCB_Position_10%_Scratch_3.png",
+        "C:\\Users\\User\\Documents\\ChatGPT\\pcb\\data\\robustad-pcb-v1\\PCB\\pcb_data_dir_test4\\masks\\Test_PCB_Position_10%_Soldering Melt_3.png"
+      ],
+      "record_mask_pairs": [
+        {
+          "image": "anomaly/Test_PCB_Position_10%_Soldering Melt_3.jpg",
+          "mask_path": "C:\\Users\\User\\Documents\\ChatGPT\\pcb\\data\\robustad-pcb-v1\\PCB\\pcb_data_dir_test4\\masks\\Test_PCB_Position_10%_Soldering Melt_3.png"
+        },
+        {
+          "image": "anomaly/Test_PCB_Position_10%_Scratch_3.jpg",
+          "mask_path": "C:\\Users\\User\\Documents\\ChatGPT\\pcb\\data\\robustad-pcb-v1\\PCB\\pcb_data_dir_test4\\masks\\Test_PCB_Position_10%_Scratch_3.png"
+        }
+      ],
+      "policy": "one image observation; binary union of all referenced masks"
+    }
+  ],
+  "category_scope": "binary normal-versus-anomaly; defect subclasses are reported as dataset composition only",
+  "domain_results": [
+    {
+      "split": "pcb_data_dir_test0",
+      "domain": "source_test",
+      "image_auroc": {
+        "mean": 0.9635111111111112,
+        "sd_across_five_reference_selections": 0.016666407405390906
+      },
+      "image_average_precision": {
+        "mean": 0.8862671287766284,
+        "sd_across_five_reference_selections": 0.05847351280874015
+      },
+      "pixel_auroc": {
+        "mean": 0.9620262477926733,
+        "sd_across_five_reference_selections": 0.0022571721416142303
+      },
+      "pixel_average_precision": {
+        "mean": 0.006922272222401317,
+        "sd_across_five_reference_selections": 0.0011677209486200561
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.8715260014749727,
+        "sd_across_five_reference_selections": 0.010798848777013858
+      }
+    },
+    {
+      "split": "pcb_data_dir_test1",
+      "domain": "lighting",
+      "image_auroc": {
+        "mean": 0.40066666666666667,
+        "sd_across_five_reference_selections": 0.04284508493578938
+      },
+      "image_average_precision": {
+        "mean": 0.4354591085801471,
+        "sd_across_five_reference_selections": 0.030527264300577568
+      },
+      "pixel_auroc": {
+        "mean": 0.8851845689641846,
+        "sd_across_five_reference_selections": 0.007883301284137164
+      },
+      "pixel_average_precision": {
+        "mean": 0.08661316236232537,
+        "sd_across_five_reference_selections": 0.01821031984746819
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.4650262802765516,
+        "sd_across_five_reference_selections": 0.022857168709382557
+      }
+    },
+    {
+      "split": "pcb_data_dir_test2",
+      "domain": "white_balance",
+      "image_auroc": {
+        "mean": 0.5363888888888889,
+        "sd_across_five_reference_selections": 0.1368616988576334
+      },
+      "image_average_precision": {
+        "mean": 0.42999128863209946,
+        "sd_across_five_reference_selections": 0.12135005585095161
+      },
+      "pixel_auroc": {
+        "mean": 0.8847821106195649,
+        "sd_across_five_reference_selections": 0.01390127363787557
+      },
+      "pixel_average_precision": {
+        "mean": 0.002032060302352535,
+        "sd_across_five_reference_selections": 0.00026821526296605093
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.5506514882457608,
+        "sd_across_five_reference_selections": 0.05053924042459099
+      }
+    },
+    {
+      "split": "pcb_data_dir_test3",
+      "domain": "rotation",
+      "image_auroc": {
+        "mean": 0.3944583333333334,
+        "sd_across_five_reference_selections": 0.04003161727865169
+      },
+      "image_average_precision": {
+        "mean": 0.41515142408988215,
+        "sd_across_five_reference_selections": 0.02941273458339077
+      },
+      "pixel_auroc": {
+        "mean": 0.9126684104662977,
+        "sd_across_five_reference_selections": 0.005885611605238689
+      },
+      "pixel_average_precision": {
+        "mean": 0.06863398635942257,
+        "sd_across_five_reference_selections": 0.01798192420567232
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.606387126144679,
+        "sd_across_five_reference_selections": 0.033544506452545544
+      }
+    },
+    {
+      "split": "pcb_data_dir_test4",
+      "domain": "position",
+      "image_auroc": {
+        "mean": 0.4311016949152542,
+        "sd_across_five_reference_selections": 0.11437003097806517
+      },
+      "image_average_precision": {
+        "mean": 0.4732998459811208,
+        "sd_across_five_reference_selections": 0.0656309711162858
+      },
+      "pixel_auroc": {
+        "mean": 0.8314285284642364,
+        "sd_across_five_reference_selections": 0.010700309800091986
+      },
+      "pixel_average_precision": {
+        "mean": 0.10920974333248619,
+        "sd_across_five_reference_selections": 0.012240977280218349
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.4671609886426779,
+        "sd_across_five_reference_selections": 0.027037828340240884
+      }
+    },
+    {
+      "split": "pcb_data_dir_test5",
+      "domain": "shadow_background",
+      "image_auroc": {
+        "mean": 0.479375,
+        "sd_across_five_reference_selections": 0.007402432501849952
+      },
+      "image_average_precision": {
+        "mean": 0.40437489392149234,
+        "sd_across_five_reference_selections": 0.006233807950279898
+      },
+      "pixel_auroc": {
+        "mean": 0.8439099803366297,
+        "sd_across_five_reference_selections": 0.0019060034554530354
+      },
+      "pixel_average_precision": {
+        "mean": 0.004617346716857517,
+        "sd_across_five_reference_selections": 0.00046063011899955317
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.3527830114379492,
+        "sd_across_five_reference_selections": 0.016520429609008663
+      }
+    }
+  ],
+  "shifted_domain_macro_mean_test1_test5": {
+    "image_auroc": 0.44839811676082864,
+    "image_average_precision": 0.43165531224094833,
+    "pixel_auroc": 0.8715947197701827,
+    "pixel_average_precision": 0.05422125981468884,
+    "aupro_fpr_0_30": 0.48840177894952375
+  },
+  "test4_duplicate_policy_sensitivity": {
+    "primary_union_deduplicated": {
+      "split": "pcb_data_dir_test4",
+      "domain": "position",
+      "image_auroc": {
+        "mean": 0.4311016949152542,
+        "sd_across_five_reference_selections": 0.11437003097806517
+      },
+      "image_average_precision": {
+        "mean": 0.4732998459811208,
+        "sd_across_five_reference_selections": 0.0656309711162858
+      },
+      "pixel_auroc": {
+        "mean": 0.8314285284642364,
+        "sd_across_five_reference_selections": 0.010700309800091986
+      },
+      "pixel_average_precision": {
+        "mean": 0.10920974333248619,
+        "sd_across_five_reference_selections": 0.012240977280218349
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.4671609886426779,
+        "sd_across_five_reference_selections": 0.027037828340240884
+      }
+    },
+    "separate_metadata_rows": {
+      "image_auroc": {
+        "mean": 0.4285416666666667,
+        "sd_across_five_reference_selections": 0.11598517475905655
+      },
+      "image_average_precision": {
+        "mean": 0.47413130176168217,
+        "sd_across_five_reference_selections": 0.06575716291150478
+      },
+      "pixel_auroc": {
+        "mean": 0.8315716792066331,
+        "sd_across_five_reference_selections": 0.010763468620370444
+      },
+      "pixel_average_precision": {
+        "mean": 0.10909714783488467,
+        "sd_across_five_reference_selections": 0.012229456132290503
+      },
+      "aupro_fpr_0_30": {
+        "mean": 0.4667639761134807,
+        "sd_across_five_reference_selections": 0.028423377549090106
+      }
+    },
+    "per_reference_selection": [
+      {
+        "reference_seed": 42,
+        "image_count": 140,
+        "anomaly_images": 60,
+        "image_auroc": 0.4841666666666667,
+        "image_average_precision": 0.5448584848158655,
+        "pixel_auroc": 0.8145821031605849,
+        "pixel_average_precision": 0.10084831232276556,
+        "aupro_fpr_0_30": 0.46424921372998845,
+        "policy": "keep both identical-image metadata rows; use each row's own mask"
+      },
+      {
+        "reference_seed": 43,
+        "image_count": 140,
+        "anomaly_images": 60,
+        "image_auroc": 0.27625,
+        "image_average_precision": 0.4022802448512345,
+        "pixel_auroc": 0.828302807618688,
+        "pixel_average_precision": 0.12051067097180776,
+        "aupro_fpr_0_30": 0.41855085774354706,
+        "policy": "keep both identical-image metadata rows; use each row's own mask"
+      },
+      {
+        "reference_seed": 44,
+        "image_count": 140,
+        "anomaly_images": 60,
+        "image_auroc": 0.3883333333333333,
+        "image_average_precision": 0.43387898223278076,
+        "pixel_auroc": 0.8392877536868281,
+        "pixel_average_precision": 0.09200700876244784,
+        "aupro_fpr_0_30": 0.4836191520628223,
+        "policy": "keep both identical-image metadata rows; use each row's own mask"
+      },
+      {
+        "reference_seed": 45,
+        "image_count": 140,
+        "anomaly_images": 60,
+        "image_auroc": 0.5879166666666666,
+        "image_average_precision": 0.5430628704363492,
+        "pixel_auroc": 0.8342453358159435,
+        "pixel_average_precision": 0.11372592422999084,
+        "aupro_fpr_0_30": 0.4790663382944368,
+        "policy": "keep both identical-image metadata rows; use each row's own mask"
+      },
+      {
+        "reference_seed": 46,
+        "image_count": 140,
+        "anomaly_images": 60,
+        "image_auroc": 0.4060416666666667,
+        "image_average_precision": 0.4465759264721808,
+        "pixel_auroc": 0.8414403957511206,
+        "pixel_average_precision": 0.1183938228874113,
+        "aupro_fpr_0_30": 0.48833431873660876,
+        "policy": "keep both identical-image metadata rows; use each row's own mask"
+      }
+    ]
+  },
+  "seed_results": [
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "source_test",
+      "split": "pcb_data_dir_test0",
+      "image_count": 195,
+      "anomaly_images": 75,
+      "image_auroc": 0.9491111111111111,
+      "image_average_precision": 0.8236371180043868,
+      "pixel_auroc": 0.9602877143233132,
+      "pixel_average_precision": 0.0053175389486530295,
+      "aupro_fpr_0_30": 0.8849595089548494,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "lighting",
+      "split": "pcb_data_dir_test1",
+      "image_count": 210,
+      "anomaly_images": 90,
+      "image_auroc": 0.45666666666666667,
+      "image_average_precision": 0.4872899646416696,
+      "pixel_auroc": 0.8800496965381087,
+      "pixel_average_precision": 0.08951162498225244,
+      "aupro_fpr_0_30": 0.4722886327268771,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "white_balance",
+      "split": "pcb_data_dir_test2",
+      "image_count": 180,
+      "anomaly_images": 60,
+      "image_auroc": 0.6852777777777778,
+      "image_average_precision": 0.6190787318155891,
+      "pixel_auroc": 0.8834304475129751,
+      "pixel_average_precision": 0.0021648600869923675,
+      "aupro_fpr_0_30": 0.5283843424860173,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "rotation",
+      "split": "pcb_data_dir_test3",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.42791666666666667,
+      "image_average_precision": 0.4538605610240166,
+      "pixel_auroc": 0.9175311262126666,
+      "pixel_average_precision": 0.0714777091885353,
+      "aupro_fpr_0_30": 0.5936299108004854,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "position",
+      "split": "pcb_data_dir_test4",
+      "image_count": 139,
+      "anomaly_images": 59,
+      "image_auroc": 0.48559322033898306,
+      "image_average_precision": 0.5446400838649372,
+      "pixel_auroc": 0.814561432078491,
+      "pixel_average_precision": 0.10095865096106439,
+      "aupro_fpr_0_30": 0.4662564762947591,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 42,
+      "domain": "shadow_background",
+      "split": "pcb_data_dir_test5",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.47875,
+      "image_average_precision": 0.4055066222847546,
+      "pixel_auroc": 0.8429913589288983,
+      "pixel_average_precision": 0.004402247967721746,
+      "aupro_fpr_0_30": 0.34309193561689155,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "source_test",
+      "split": "pcb_data_dir_test0",
+      "image_count": 195,
+      "anomaly_images": 75,
+      "image_auroc": 0.9707777777777777,
+      "image_average_precision": 0.9028566203297446,
+      "pixel_auroc": 0.9619387327172884,
+      "pixel_average_precision": 0.0073241292682281285,
+      "aupro_fpr_0_30": 0.8572936180598547,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "lighting",
+      "split": "pcb_data_dir_test1",
+      "image_count": 210,
+      "anomaly_images": 90,
+      "image_auroc": 0.3625,
+      "image_average_precision": 0.4217255566428313,
+      "pixel_auroc": 0.8738314396418534,
+      "pixel_average_precision": 0.08386074033136628,
+      "aupro_fpr_0_30": 0.4245902814530638,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "white_balance",
+      "split": "pcb_data_dir_test2",
+      "image_count": 180,
+      "anomaly_images": 60,
+      "image_auroc": 0.3125,
+      "image_average_precision": 0.28248041529392787,
+      "pixel_auroc": 0.8620705505589212,
+      "pixel_average_precision": 0.001554598308536184,
+      "aupro_fpr_0_30": 0.474571289921139,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "rotation",
+      "split": "pcb_data_dir_test3",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.410625,
+      "image_average_precision": 0.4313884436532103,
+      "pixel_auroc": 0.906064757273168,
+      "pixel_average_precision": 0.09233528865691976,
+      "aupro_fpr_0_30": 0.5567492161364895,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "position",
+      "split": "pcb_data_dir_test4",
+      "image_count": 139,
+      "anomaly_images": 59,
+      "image_auroc": 0.2807203389830508,
+      "image_average_precision": 0.4017027821706674,
+      "pixel_auroc": 0.8281101657854844,
+      "pixel_average_precision": 0.12062846216894162,
+      "aupro_fpr_0_30": 0.4206702430906109,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 43,
+      "domain": "shadow_background",
+      "split": "pcb_data_dir_test5",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.46770833333333334,
+      "image_average_precision": 0.3949377656692037,
+      "pixel_auroc": 0.8423444297608998,
+      "pixel_average_precision": 0.004504143699266423,
+      "aupro_fpr_0_30": 0.35478700766040316,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "source_test",
+      "split": "pcb_data_dir_test0",
+      "image_count": 195,
+      "anomaly_images": 75,
+      "image_auroc": 0.947,
+      "image_average_precision": 0.8506094885941722,
+      "pixel_auroc": 0.9637816119597135,
+      "pixel_average_precision": 0.006358300893005639,
+      "aupro_fpr_0_30": 0.8759587959733316,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "lighting",
+      "split": "pcb_data_dir_test1",
+      "image_count": 210,
+      "anomaly_images": 90,
+      "image_auroc": 0.42898148148148146,
+      "image_average_precision": 0.4343677024996266,
+      "pixel_auroc": 0.8899642061936216,
+      "pixel_average_precision": 0.05701468412392457,
+      "aupro_fpr_0_30": 0.4807476433295837,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "white_balance",
+      "split": "pcb_data_dir_test2",
+      "image_count": 180,
+      "anomaly_images": 60,
+      "image_auroc": 0.5790277777777778,
+      "image_average_precision": 0.4133068487043328,
+      "pixel_auroc": 0.8950126390096916,
+      "pixel_average_precision": 0.0021868767834979934,
+      "aupro_fpr_0_30": 0.5693195428502362,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "rotation",
+      "split": "pcb_data_dir_test3",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.34270833333333334,
+      "image_average_precision": 0.3811046214598659,
+      "pixel_auroc": 0.9128568525310423,
+      "pixel_average_precision": 0.044588514968985055,
+      "aupro_fpr_0_30": 0.6165794917733056,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "position",
+      "split": "pcb_data_dir_test4",
+      "image_count": 139,
+      "anomaly_images": 59,
+      "image_auroc": 0.3923728813559322,
+      "image_average_precision": 0.4332169478417685,
+      "pixel_auroc": 0.8391110948218355,
+      "pixel_average_precision": 0.09209876962470151,
+      "aupro_fpr_0_30": 0.48522116660896836,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 44,
+      "domain": "shadow_background",
+      "split": "pcb_data_dir_test5",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.4866666666666667,
+      "image_average_precision": 0.40824495572390607,
+      "pixel_auroc": 0.8443230183580912,
+      "pixel_average_precision": 0.0043815396391775376,
+      "aupro_fpr_0_30": 0.35849855444749185,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "source_test",
+      "split": "pcb_data_dir_test0",
+      "image_count": 195,
+      "anomaly_images": 75,
+      "image_auroc": 0.9875555555555555,
+      "image_average_precision": 0.9764625122562685,
+      "pixel_auroc": 0.9647322963764202,
+      "pixel_average_precision": 0.008453265334973191,
+      "aupro_fpr_0_30": 0.8750563933891957,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "lighting",
+      "split": "pcb_data_dir_test1",
+      "image_count": 210,
+      "anomaly_images": 90,
+      "image_auroc": 0.39861111111111114,
+      "image_average_precision": 0.4260857258563716,
+      "pixel_auroc": 0.8900545092806762,
+      "pixel_average_precision": 0.10075068456873883,
+      "aupro_fpr_0_30": 0.4748785944106548,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "white_balance",
+      "split": "pcb_data_dir_test2",
+      "image_count": 180,
+      "anomaly_images": 60,
+      "image_auroc": 0.5405555555555556,
+      "image_average_precision": 0.3975246630438437,
+      "pixel_auroc": 0.8969427047576024,
+      "pixel_average_precision": 0.002136014438488783,
+      "aupro_fpr_0_30": 0.604808012615242,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "rotation",
+      "split": "pcb_data_dir_test3",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.4297916666666667,
+      "image_average_precision": 0.4173670831335585,
+      "pixel_auroc": 0.919363561120626,
+      "pixel_average_precision": 0.07581781262403295,
+      "aupro_fpr_0_30": 0.6467681877390836,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "position",
+      "split": "pcb_data_dir_test4",
+      "image_count": 139,
+      "anomaly_images": 59,
+      "image_auroc": 0.5883474576271186,
+      "image_average_precision": 0.5413959169136286,
+      "pixel_auroc": 0.8341237788824909,
+      "pixel_average_precision": 0.11384640662015155,
+      "aupro_fpr_0_30": 0.4801663620537123,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 45,
+      "domain": "shadow_background",
+      "split": "pcb_data_dir_test5",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.4847916666666667,
+      "image_average_precision": 0.41108075620817375,
+      "pixel_auroc": 0.8470575587334885,
+      "pixel_average_precision": 0.00543555580843988,
+      "aupro_fpr_0_30": 0.3756680321886803,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "source_test",
+      "split": "pcb_data_dir_test0",
+      "image_count": 195,
+      "anomaly_images": 75,
+      "image_auroc": 0.9631111111111111,
+      "image_average_precision": 0.8777699046985699,
+      "pixel_auroc": 0.9593908835866317,
+      "pixel_average_precision": 0.007158126667146595,
+      "aupro_fpr_0_30": 0.864361690997632,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "lighting",
+      "split": "pcb_data_dir_test1",
+      "image_count": 210,
+      "anomaly_images": 90,
+      "image_auroc": 0.3565740740740741,
+      "image_average_precision": 0.4078265932602367,
+      "pixel_auroc": 0.8920229931666638,
+      "pixel_average_precision": 0.10192807780534471,
+      "aupro_fpr_0_30": 0.4726262494625788,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "white_balance",
+      "split": "pcb_data_dir_test2",
+      "image_count": 180,
+      "anomaly_images": 60,
+      "image_auroc": 0.5645833333333333,
+      "image_average_precision": 0.4375657843028038,
+      "pixel_auroc": 0.886454211258634,
+      "pixel_average_precision": 0.0021179518942473453,
+      "aupro_fpr_0_30": 0.5761742533561699,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "rotation",
+      "split": "pcb_data_dir_test3",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.36125,
+      "image_average_precision": 0.3920364111787591,
+      "pixel_auroc": 0.9075257551939848,
+      "pixel_average_precision": 0.05895060635863983,
+      "aupro_fpr_0_30": 0.618208824274031,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "position",
+      "split": "pcb_data_dir_test4",
+      "image_count": 139,
+      "anomaly_images": 59,
+      "image_auroc": 0.40847457627118644,
+      "image_average_precision": 0.44554349911460256,
+      "pixel_auroc": 0.8412361707528806,
+      "pixel_average_precision": 0.1185164272875718,
+      "aupro_fpr_0_30": 0.48349069516533877,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    },
+    {
+      "method": "upstream PatchCore WideResNet50-2",
+      "reference_seed": 46,
+      "domain": "shadow_background",
+      "split": "pcb_data_dir_test5",
+      "image_count": 140,
+      "anomaly_images": 60,
+      "image_auroc": 0.4789583333333333,
+      "image_average_precision": 0.4021043697214238,
+      "pixel_auroc": 0.8428335359017702,
+      "pixel_average_precision": 0.0043632464696819985,
+      "aupro_fpr_0_30": 0.3318695272762793,
+      "reference_images": 16,
+      "reference_patch_count": 1254,
+      "reference_bank_bytes": 5136384,
+      "duplicate_policy": "deduplicate exact test images within split; union referenced masks"
+    }
+  ],
+  "protocol": {
+    "backbone": "torchvision WideResNet50-2 ImageNet1K V1",
+    "implementation": "upstream PatchCore",
+    "patchcore_commit": "fcaa92f124fb1ad74a7acf56726decd4b27cbcad",
+    "weights_sha256": "95faca4d11227dddf8633dbb5ff6c8a9003c1aa5b8945c73834b8007b10950b8",
+    "references": "16 normal images sampled only from the 180 pcb_data_dir_train normal images; five fixed SHA-256-ranked selections",
+    "training_anomalies_used": 0,
+    "preprocessing": "full-frame square resize to 224x224; bilinear RGB, nearest-neighbour binary masks; ImageNet normalization",
+    "patchcore": "layer2+layer3, 3x3 patches, Euclidean 1-NN, approximate greedy 10% coreset, 128D projection",
+    "test_splits": "test0 source condition; test1 lighting; test2 white balance; test3 rotation; test4 position; test5 shadow/background",
+    "duplicate_policy": "within each test split, exact duplicate JPEGs are one image observation; referenced masks are unioned",
+    "threshold_selection": "none; all reported metrics are threshold-free ranking metrics",
+    "pixel_map": "upstream PatchCore bilinear map upsampling and Gaussian sigma=4",
+    "seed_summary": "mean and sample standard deviation across five reference selections; describes selection variability, not a confidence interval"
+  },
+  "provenance": {
+    "runner_sha256": "4046a44e6e5bb410b15294b4e059d7494638706ff737fe584057d7a2fd86aedb",
+    "torch": "2.10.0+cpu",
+    "torchvision": "0.25.0+cpu",
+    "numpy": "1.26.4",
+    "pillow": "12.3.0",
+    "device": "CPU",
+    "elapsed_seconds": 181.16531419999956,
+    "weights_sha256": "95faca4d11227dddf8633dbb5ff6c8a9003c1aa5b8945c73834b8007b10950b8"
+  },
+  "reference_selections": {
+    "42": [
+      "normal/Train_PCB_resized_None_None_Normal_Set1_174.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_62.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_105.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_8.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_155.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_93.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_140.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_39.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_3.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_147.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_29.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_42.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_76.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_84.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_31.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_135.jpg"
+    ],
+    "43": [
+      "normal/Train_PCB_resized_None_None_Normal_Set1_25.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_174.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_85.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_73.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_154.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_36.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_12.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_59.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_134.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_32.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_100.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_67.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_56.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_7.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_46.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_5.jpg"
+    ],
+    "44": [
+      "normal/Train_PCB_resized_None_None_Normal_Set1_67.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_76.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_105.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_2.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_11.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_137.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_94.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_53.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_64.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_8.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_52.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_99.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_36.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_20.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_14.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_139.jpg"
+    ],
+    "45": [
+      "normal/Train_PCB_resized_None_None_Normal_Set1_29.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_52.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_142.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_8.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_108.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_90.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_132.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_65.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_17.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_112.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_157.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_46.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_105.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_152.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_59.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_14.jpg"
+    ],
+    "46": [
+      "normal/Train_PCB_resized_None_None_Normal_Set1_75.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_170.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_70.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_3.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_41.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_83.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_71.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_77.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_20.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_51.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_79.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_68.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_106.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_47.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_7.jpg",
+      "normal/Train_PCB_resized_None_None_Normal_Set1_163.jpg"
+    ]
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "dataset": "AmazonScience/RobustAD",
+  "revision": "82c642b2d18be60f2dab104f8dd4dea1f4ccfacb",
+  "license": "CC BY 4.0 (dataset card)",
+  "root": "C:\\Users\\User\\Documents\\ChatGPT\\pcb\\data\\robustad-pcb-v1\\PCB",
+  "file_count": 1747,
+  "total_bytes": 6179226271,
+  "total_images_verified": 1260,
+  "total_anomaly_masks_verified": 480,
+  "metadata_fields": [
+    "file_name",
+    "label",
+    "mask"
+  ],
+  "split_reports": [
+    {
+      "split": "pcb_data_dir_train",
+      "domain": "source_train",
+      "metadata_rows": 255,
+      "image_count": 255,
+      "labels": {
+        "0": 180,
+        "1": 75
+      },
+      "defect_types": {
+        "Soldering Melt": 25,
+        "Missing Component": 25,
+        "Scratch": 25
+      },
+      "mask_count": 75,
+      "image_dimensions": {
+        "(2560, 2560)": 180,
+        "(2048, 2048)": 75
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2560, 2560)": 180
+        },
+        "1": {
+          "(2048, 2048)": 75
+        }
+      },
+      "image_modes": {
+        "RGB": 255
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 75
+      },
+      "mask_modes": {
+        "L": 75
+      },
+      "mask_value_sets": {
+        "0,255": 75
+      },
+      "mask_positive_pixels_min": 213,
+      "mask_positive_pixels_max": 34754,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test0",
+      "domain": "source_test",
+      "metadata_rows": 195,
+      "image_count": 195,
+      "labels": {
+        "0": 120,
+        "1": 75
+      },
+      "defect_types": {
+        "Soldering Melt": 25,
+        "Missing Component": 25,
+        "Scratch": 25
+      },
+      "mask_count": 75,
+      "image_dimensions": {
+        "(2560, 2560)": 120,
+        "(2048, 2048)": 75
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2560, 2560)": 120
+        },
+        "1": {
+          "(2048, 2048)": 75
+        }
+      },
+      "image_modes": {
+        "RGB": 195
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 75
+      },
+      "mask_modes": {
+        "L": 75
+      },
+      "mask_value_sets": {
+        "0,255": 75
+      },
+      "mask_positive_pixels_min": 302,
+      "mask_positive_pixels_max": 11297,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test1",
+      "domain": "lighting",
+      "metadata_rows": 210,
+      "image_count": 210,
+      "labels": {
+        "0": 120,
+        "1": 90
+      },
+      "defect_types": {
+        "Soldering Melt": 30,
+        "Missing Component": 30,
+        "Scratch": 30
+      },
+      "mask_count": 90,
+      "image_dimensions": {
+        "(2048, 2048)": 210
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2048, 2048)": 120
+        },
+        "1": {
+          "(2048, 2048)": 90
+        }
+      },
+      "image_modes": {
+        "RGB": 210
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 90
+      },
+      "mask_modes": {
+        "L": 90
+      },
+      "mask_value_sets": {
+        "0,255": 90
+      },
+      "mask_positive_pixels_min": 433,
+      "mask_positive_pixels_max": 30801,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test2",
+      "domain": "white_balance",
+      "metadata_rows": 180,
+      "image_count": 180,
+      "labels": {
+        "0": 120,
+        "1": 60
+      },
+      "defect_types": {
+        "Soldering Melt": 30,
+        "Scratch": 30
+      },
+      "mask_count": 60,
+      "image_dimensions": {
+        "(2048, 2048)": 180
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2048, 2048)": 120
+        },
+        "1": {
+          "(2048, 2048)": 60
+        }
+      },
+      "image_modes": {
+        "RGB": 180
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 60
+      },
+      "mask_modes": {
+        "L": 60
+      },
+      "mask_value_sets": {
+        "0,255": 60
+      },
+      "mask_positive_pixels_min": 315,
+      "mask_positive_pixels_max": 10425,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test3",
+      "domain": "rotation",
+      "metadata_rows": 140,
+      "image_count": 140,
+      "labels": {
+        "0": 80,
+        "1": 60
+      },
+      "defect_types": {
+        "Scratch": 20,
+        "Soldering Melt": 20,
+        "Missing Component": 20
+      },
+      "mask_count": 60,
+      "image_dimensions": {
+        "(2048, 2048)": 140
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2048, 2048)": 80
+        },
+        "1": {
+          "(2048, 2048)": 60
+        }
+      },
+      "image_modes": {
+        "RGB": 140
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 60
+      },
+      "mask_modes": {
+        "L": 60
+      },
+      "mask_value_sets": {
+        "0,255": 60
+      },
+      "mask_positive_pixels_min": 308,
+      "mask_positive_pixels_max": 33615,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test4",
+      "domain": "position",
+      "metadata_rows": 140,
+      "image_count": 140,
+      "labels": {
+        "0": 80,
+        "1": 60
+      },
+      "defect_types": {
+        "Missing Component": 20,
+        "Scratch": 20,
+        "Soldering Melt": 20
+      },
+      "mask_count": 60,
+      "image_dimensions": {
+        "(2048, 2048)": 140
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2048, 2048)": 80
+        },
+        "1": {
+          "(2048, 2048)": 60
+        }
+      },
+      "image_modes": {
+        "RGB": 140
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 60
+      },
+      "mask_modes": {
+        "L": 60
+      },
+      "mask_value_sets": {
+        "0,255": 60
+      },
+      "mask_positive_pixels_min": 202,
+      "mask_positive_pixels_max": 31250,
+      "unlisted_image_count": 0
+    },
+    {
+      "split": "pcb_data_dir_test5",
+      "domain": "shadow_background",
+      "metadata_rows": 140,
+      "image_count": 140,
+      "labels": {
+        "0": 80,
+        "1": 60
+      },
+      "defect_types": {
+        "Soldering Melt": 20,
+        "Scratch": 20,
+        "Missing Component": 20
+      },
+      "mask_count": 60,
+      "image_dimensions": {
+        "(2048, 2048)": 140
+      },
+      "image_dimensions_by_label": {
+        "0": {
+          "(2048, 2048)": 80
+        },
+        "1": {
+          "(2048, 2048)": 60
+        }
+      },
+      "image_modes": {
+        "RGB": 140
+      },
+      "mask_dimensions": {
+        "(2048, 2048)": 60
+      },
+      "mask_modes": {
+        "L": 60
+      },
+      "mask_value_sets": {
+        "0,255": 60
+      },
+      "mask_positive_pixels_min": 358,
+      "mask_positive_pixels_max": 34972,
+      "unlisted_image_count": 0
+    }
+  ],
+  "exact_duplicate_image_groups": [
+    [
+      "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Soldering Melt_3.jpg",
+      "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Scratch_3.jpg"
+    ]
+  ],
+  "exact_duplicate_annotation_reviews": [
+    {
+      "identical_image_paths": [
+        "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Soldering Melt_3.jpg",
+        "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Scratch_3.jpg"
+      ],
+      "labels": [
+        1,
+        1
+      ],
+      "mask_paths": [
+        "PCB/pcb_data_dir_test4/masks/Test_PCB_Position_10%_Soldering Melt_3.png",
+        "PCB/pcb_data_dir_test4/masks/Test_PCB_Position_10%_Scratch_3.png"
+      ],
+      "mask_iou": 0.0779777206512425,
+      "mask_overlap": {
+        "intersection_pixels": 182,
+        "union_pixels": 2334,
+        "mask_a_pixels": 2314,
+        "mask_b_pixels": 202,
+        "a_fraction_inside_b": 0.07865168539325842,
+        "b_fraction_inside_a": 0.900990099009901
+      },
+      "review_required": true
+    }
+  ],
+  "issues": [
+    {
+      "type": "exact_duplicate_images",
+      "identical_image_paths": [
+        "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Soldering Melt_3.jpg",
+        "pcb_data_dir_test4/anomaly/Test_PCB_Position_10%_Scratch_3.jpg"
+      ],
+      "labels": [
+        1,
+        1
+      ],
+      "mask_paths": [
+        "PCB/pcb_data_dir_test4/masks/Test_PCB_Position_10%_Soldering Melt_3.png",
+        "PCB/pcb_data_dir_test4/masks/Test_PCB_Position_10%_Scratch_3.png"
+      ],
+      "mask_iou": 0.0779777206512425,
+      "mask_overlap": {
+        "intersection_pixels": 182,
+        "union_pixels": 2334,
+        "mask_a_pixels": 2314,
+        "mask_b_pixels": 202,
+        "a_fraction_inside_b": 0.07865168539325842,
+        "b_fraction_inside_a": 0.900990099009901
+      },
+      "review_required": true
+    }
+  ],
+  "dataset_identity_note": "metadata fields include file_name, label, mask only; no explicit physical board or board-design ID"
+}
