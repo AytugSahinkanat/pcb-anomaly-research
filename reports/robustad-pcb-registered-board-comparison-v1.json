@@ -1,0 +1,661 @@
+{
+  "dataset": "AmazonScience/RobustAD PCB",
+  "dataset_revision": "82c642b2d18be60f2dab104f8dd4dea1f4ccfacb",
+  "protocol": "Paired full-frame vs SIFT-registered fixed-board-crop PatchCore; same five normal-reference selections, feature backbone, 16 references, 10% coreset, and test labels/masks.",
+  "models": {
+    "wrn50": {
+      "baseline_backbone": "WideResNet50-2",
+      "registered_backbone": "WideResNet50-2",
+      "paired_shifted_macro": [
+        {
+          "metric": "image_auroc",
+          "baseline_mean": 0.44839811676082864,
+          "registered_mean": 0.6279098556183302,
+          "delta_mean": 0.17951173885750163,
+          "delta_sd_across_five_reference_selections": 0.05737053734634912,
+          "baseline_seed_macro": [
+            0.5068408662900188,
+            0.36681073446327683,
+            0.4459514281230383,
+            0.48841949152542374,
+            0.4339680634023854
+          ],
+          "registered_seed_macro": [
+            0.6764920747018205,
+            0.6199016007532957,
+            0.6306666666666667,
+            0.5822247332077841,
+            0.6302642027620842
+          ],
+          "paired_seed_delta": [
+            0.1696512084118017,
+            0.25309086629001887,
+            0.18471523854362842,
+            0.09380524168236037,
+            0.19629613935969875
+          ]
+        },
+        {
+          "metric": "image_average_precision",
+          "baseline_mean": 0.4316553122409484,
+          "registered_mean": 0.563081562400057,
+          "delta_mean": 0.13142625015910858,
+          "delta_sd_across_five_reference_selections": 0.025125527452286963,
+          "baseline_seed_macro": [
+            0.5020751927261935,
+            0.3864469926859681,
+            0.41404821524589996,
+            0.4386908290311152,
+            0.4170153315155652
+          ],
+          "registered_seed_macro": [
+            0.6220743684148791,
+            0.5483606997120486,
+            0.5480057668473499,
+            0.5345664643030948,
+            0.5624005127229125
+          ],
+          "paired_seed_delta": [
+            0.11999917568868557,
+            0.1619137070260805,
+            0.13395755160144995,
+            0.09587563527197962,
+            0.14538518120734728
+          ]
+        },
+        {
+          "metric": "pixel_auroc",
+          "baseline_mean": 0.8715947197701827,
+          "registered_mean": 0.8974662061573333,
+          "delta_mean": 0.0258714863871506,
+          "delta_sd_across_five_reference_selections": 0.007685046041659073,
+          "baseline_seed_macro": [
+            0.8677128122542279,
+            0.8624842686040654,
+            0.8762535621828564,
+            0.8775084225549769,
+            0.8740145332547867
+          ],
+          "registered_seed_macro": [
+            0.9030646294685455,
+            0.894113369387633,
+            0.8971213895692086,
+            0.9024939609265733,
+            0.8905376814347059
+          ],
+          "paired_seed_delta": [
+            0.03535181721431757,
+            0.03162910078356762,
+            0.020867827386352178,
+            0.02498553837159645,
+            0.016523148179919178
+          ]
+        },
+        {
+          "metric": "pixel_average_precision",
+          "baseline_mean": 0.05422125981468883,
+          "registered_mean": 0.18137498200817267,
+          "delta_mean": 0.12715372219348386,
+          "delta_sd_across_five_reference_selections": 0.00733642051935353,
+          "baseline_seed_macro": [
+            0.05370301863731325,
+            0.060576646633006055,
+            0.040054077028057335,
+            0.059597294811970396,
+            0.057175261963097135
+          ],
+          "registered_seed_macro": [
+            0.18865478198022623,
+            0.18097366616412344,
+            0.16885403038060265,
+            0.17824803546834328,
+            0.19014439604756783
+          ],
+          "paired_seed_delta": [
+            0.13495176334291298,
+            0.1203970195311174,
+            0.12879995335254532,
+            0.11865074065637288,
+            0.1329691340844707
+          ]
+        },
+        {
+          "metric": "aupro_fpr_0_30",
+          "baseline_mean": 0.48840177894952375,
+          "registered_mean": 0.5581848704255514,
+          "delta_mean": 0.06978309147602765,
+          "delta_sd_across_five_reference_selections": 0.017413635285544963,
+          "baseline_seed_macro": [
+            0.4807302595850061,
+            0.4462736076523413,
+            0.5020732798019172,
+            0.5164578378014746,
+            0.49647390990687956
+          ],
+          "registered_seed_macro": [
+            0.576464156544387,
+            0.5183825366980016,
+            0.565548628701459,
+            0.5865032794578682,
+            0.5440257507260412
+          ],
+          "paired_seed_delta": [
+            0.09573389695938089,
+            0.0721089290456603,
+            0.06347534889954187,
+            0.07004544165639359,
+            0.04755184081916164
+          ]
+        }
+      ],
+      "domain_means": [
+        {
+          "split": "pcb_data_dir_test1",
+          "domain": "lighting",
+          "image_auroc": {
+            "baseline_mean": 0.40066666666666667,
+            "registered_mean": 0.6322314814814814,
+            "delta": 0.23156481481481478
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.43545910858014714,
+            "registered_mean": 0.6018917140602853,
+            "delta": 0.16643260548013816
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8851845689641847,
+            "registered_mean": 0.8927460280965788,
+            "delta": 0.007561459132394033
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.08661316236232537,
+            "registered_mean": 0.23057647832980832,
+            "delta": 0.14396331596748296
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.46502628027655163,
+            "registered_mean": 0.4980831204775542,
+            "delta": 0.03305684020100258
+          }
+        },
+        {
+          "split": "pcb_data_dir_test2",
+          "domain": "white_balance",
+          "image_auroc": {
+            "baseline_mean": 0.5363888888888889,
+            "registered_mean": 0.6943333333333334,
+            "delta": 0.15794444444444444
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.42999128863209946,
+            "registered_mean": 0.5184080450712965,
+            "delta": 0.088416756439197
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8847821106195649,
+            "registered_mean": 0.8969137942357676,
+            "delta": 0.012131683616202649
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.0020320603023525345,
+            "registered_mean": 0.013339832934553838,
+            "delta": 0.011307772632201304
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.5506514882457609,
+            "registered_mean": 0.5266397777062009,
+            "delta": -0.024011710539560083
+          }
+        },
+        {
+          "split": "pcb_data_dir_test3",
+          "domain": "rotation",
+          "image_auroc": {
+            "baseline_mean": 0.39445833333333336,
+            "registered_mean": 0.6197916666666666,
+            "delta": 0.22533333333333327
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.4151514240898821,
+            "registered_mean": 0.589464517174682,
+            "delta": 0.17431309308479986
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.9126684104662975,
+            "registered_mean": 0.908390342892151,
+            "delta": -0.004278067574146505
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.06863398635942258,
+            "registered_mean": 0.21058243699484228,
+            "delta": 0.1419484506354197
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.606387126144679,
+            "registered_mean": 0.5881117103172094,
+            "delta": -0.01827541582746961
+          }
+        },
+        {
+          "split": "pcb_data_dir_test4",
+          "domain": "position",
+          "image_auroc": {
+            "baseline_mean": 0.43110169491525424,
+            "registered_mean": 0.5715677966101695,
+            "delta": 0.1404661016949153
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.47329984598112085,
+            "registered_mean": 0.5652407472025525,
+            "delta": 0.09194090122143161
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8314285284642364,
+            "registered_mean": 0.8837011625802331,
+            "delta": 0.0522726341159967
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.10920974333248618,
+            "registered_mean": 0.20217408642606327,
+            "delta": 0.0929643430935771
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.4671609886426779,
+            "registered_mean": 0.6238849626935127,
+            "delta": 0.15672397405083477
+          }
+        },
+        {
+          "split": "pcb_data_dir_test5",
+          "domain": "shadow_background",
+          "image_auroc": {
+            "baseline_mean": 0.479375,
+            "registered_mean": 0.621625,
+            "delta": 0.14225
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.4043748939214924,
+            "registered_mean": 0.5404027884914689,
+            "delta": 0.13602789456997655
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8439099803366297,
+            "registered_mean": 0.9055797029819359,
+            "delta": 0.061669722645306235
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.004617346716857517,
+            "registered_mean": 0.25020207535559574,
+            "delta": 0.24558472863873823
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.3527830114379492,
+            "registered_mean": 0.55420478093328,
+            "delta": 0.20142176949533075
+          }
+        }
+      ],
+      "bank_bytes_baseline": 5136384,
+      "bank_bytes_registered": 5136384,
+      "reference_count": 16
+    },
+    "rn18": {
+      "baseline_backbone": "ResNet18",
+      "registered_backbone": "ResNet18",
+      "paired_shifted_macro": [
+        {
+          "metric": "image_auroc",
+          "baseline_mean": 0.37349957627118646,
+          "registered_mean": 0.5186862209667294,
+          "delta_mean": 0.14518664469554302,
+          "delta_sd_across_five_reference_selections": 0.03548638473846273,
+          "baseline_seed_macro": [
+            0.37630790960451976,
+            0.3588673885750157,
+            0.3883825329566855,
+            0.39729252981795354,
+            0.34664752040175767
+          ],
+          "registered_seed_macro": [
+            0.5787726773383554,
+            0.48247591023226616,
+            0.5122531387319523,
+            0.516144146264909,
+            0.5037852322661645
+          ],
+          "paired_seed_delta": [
+            0.2024647677338356,
+            0.12360852165725045,
+            0.12387060577526682,
+            0.11885161644695547,
+            0.15713771186440678
+          ]
+        },
+        {
+          "metric": "image_average_precision",
+          "baseline_mean": 0.40599226070351047,
+          "registered_mean": 0.48546049290693954,
+          "delta_mean": 0.07946823220342907,
+          "delta_sd_across_five_reference_selections": 0.03733435687716834,
+          "baseline_seed_macro": [
+            0.3953535624318387,
+            0.39684722722728955,
+            0.42229409388394695,
+            0.42123346823472674,
+            0.3942329517397504
+          ],
+          "registered_seed_macro": [
+            0.5391134090888584,
+            0.45623988738844207,
+            0.48789145007546114,
+            0.47163378045571214,
+            0.47242393752622397
+          ],
+          "paired_seed_delta": [
+            0.14375984665701969,
+            0.05939266016115252,
+            0.06559735619151419,
+            0.0504003122209854,
+            0.07819098578647354
+          ]
+        },
+        {
+          "metric": "pixel_auroc",
+          "baseline_mean": 0.857080114209752,
+          "registered_mean": 0.8898073415280767,
+          "delta_mean": 0.03272722731832471,
+          "delta_sd_across_five_reference_selections": 0.008718554898080334,
+          "baseline_seed_macro": [
+            0.8645581338134685,
+            0.8494058950256841,
+            0.8623606404821379,
+            0.859249896767614,
+            0.8498260049598557
+          ],
+          "registered_seed_macro": [
+            0.8874191678479275,
+            0.893883270554807,
+            0.8891573937360527,
+            0.8975561792027523,
+            0.8810206962988442
+          ],
+          "paired_seed_delta": [
+            0.02286103403445905,
+            0.0444773755291229,
+            0.02679675325391484,
+            0.03830628243513834,
+            0.031194691338988445
+          ]
+        },
+        {
+          "metric": "pixel_average_precision",
+          "baseline_mean": 0.05714753359922414,
+          "registered_mean": 0.15619619277602462,
+          "delta_mean": 0.09904865917680047,
+          "delta_sd_across_five_reference_selections": 0.012589912054171795,
+          "baseline_seed_macro": [
+            0.06634384078521942,
+            0.05088555695124367,
+            0.05434385507366564,
+            0.057984995775939685,
+            0.056179419410052306
+          ],
+          "registered_seed_macro": [
+            0.1443073346113093,
+            0.14823156026057327,
+            0.1635969923618692,
+            0.16205279519812107,
+            0.16279228144825028
+          ],
+          "paired_seed_delta": [
+            0.07796349382608987,
+            0.0973460033093296,
+            0.10925313728820356,
+            0.10406779942218139,
+            0.10661286203819798
+          ]
+        },
+        {
+          "metric": "aupro_fpr_0_30",
+          "baseline_mean": 0.41567212905460915,
+          "registered_mean": 0.4789373392675995,
+          "delta_mean": 0.06326521021299036,
+          "delta_sd_across_five_reference_selections": 0.02349459647553878,
+          "baseline_seed_macro": [
+            0.44023103797266144,
+            0.4101105052948973,
+            0.41167579165470997,
+            0.415343315821776,
+            0.40099999452900115
+          ],
+          "registered_seed_macro": [
+            0.4722383480811397,
+            0.48298913540332356,
+            0.4671983115126772,
+            0.5112848522417762,
+            0.460976049099081
+          ],
+          "paired_seed_delta": [
+            0.03200731010847824,
+            0.07287863010842627,
+            0.055522519857967245,
+            0.0959415364200002,
+            0.05997605457007987
+          ]
+        }
+      ],
+      "domain_means": [
+        {
+          "split": "pcb_data_dir_test1",
+          "domain": "lighting",
+          "image_auroc": {
+            "baseline_mean": 0.2783333333333333,
+            "registered_mean": 0.5868703703703704,
+            "delta": 0.30853703703703705
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.375164069465392,
+            "registered_mean": 0.558164505965372,
+            "delta": 0.18300043649998005
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8623636297101268,
+            "registered_mean": 0.8908531026882621,
+            "delta": 0.02848947297813531
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.08223577980400652,
+            "registered_mean": 0.1790254759421079,
+            "delta": 0.09678969613810139
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.38793846844634355,
+            "registered_mean": 0.4858218409319966,
+            "delta": 0.09788337248565304
+          }
+        },
+        {
+          "split": "pcb_data_dir_test2",
+          "domain": "white_balance",
+          "image_auroc": {
+            "baseline_mean": 0.2758333333333333,
+            "registered_mean": 0.482,
+            "delta": 0.20616666666666666
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.27978806278962925,
+            "registered_mean": 0.33452119212754305,
+            "delta": 0.0547331293379138
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8278779608336263,
+            "registered_mean": 0.8570073362380268,
+            "delta": 0.029129375404400526
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.000818884184768273,
+            "registered_mean": 0.00427086925300528,
+            "delta": 0.003451985068237007
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.4283318148895774,
+            "registered_mean": 0.417829687579155,
+            "delta": -0.010502127310422382
+          }
+        },
+        {
+          "split": "pcb_data_dir_test3",
+          "domain": "rotation",
+          "image_auroc": {
+            "baseline_mean": 0.358875,
+            "registered_mean": 0.46387500000000004,
+            "delta": 0.10500000000000004
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.3846324560614813,
+            "registered_mean": 0.47425129449683495,
+            "delta": 0.08961883843535368
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8890365513079443,
+            "registered_mean": 0.9182296287491352,
+            "delta": 0.029193077441190818
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.029081148699761417,
+            "registered_mean": 0.1838151283527793,
+            "delta": 0.15473397965301788
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.4804814575845934,
+            "registered_mean": 0.490276757520109,
+            "delta": 0.009795299935515644
+          }
+        },
+        {
+          "split": "pcb_data_dir_test4",
+          "domain": "position",
+          "image_auroc": {
+            "baseline_mean": 0.2998728813559322,
+            "registered_mean": 0.4386440677966102,
+            "delta": 0.13877118644067798
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.3870419191031012,
+            "registered_mean": 0.46656030084178196,
+            "delta": 0.07951838173868075
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.8341667045224765,
+            "registered_mean": 0.8787366148345922,
+            "delta": 0.04456991031211566
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.10032513022151071,
+            "registered_mean": 0.1786353411664643,
+            "delta": 0.07831021094495358
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.42947002325246897,
+            "registered_mean": 0.5288764696697372,
+            "delta": 0.09940644641726826
+          }
+        },
+        {
+          "split": "pcb_data_dir_test5",
+          "domain": "shadow_background",
+          "image_auroc": {
+            "baseline_mean": 0.6545833333333333,
+            "registered_mean": 0.6220416666666667,
+            "delta": -0.03254166666666658
+          },
+          "image_average_precision": {
+            "baseline_mean": 0.6033347960979487,
+            "registered_mean": 0.5938051711031658,
+            "delta": -0.009529624994782937
+          },
+          "pixel_auroc": {
+            "baseline_mean": 0.871955724674586,
+            "registered_mean": 0.9042100251303673,
+            "delta": 0.03225430045578126
+          },
+          "pixel_average_precision": {
+            "baseline_mean": 0.0732767250860738,
+            "registered_mean": 0.23523414916576632,
+            "delta": 0.16195742407969252
+          },
+          "aupro_fpr_0_30": {
+            "baseline_mean": 0.3521388811000627,
+            "registered_mean": 0.4718819406369998,
+            "delta": 0.11974305953693709
+          }
+        }
+      ],
+      "bank_bytes_baseline": 5136384,
+      "bank_bytes_registered": 5136384,
+      "reference_count": 16
+    }
+  },
+  "registration": {
+    "minimum_inliers": 50,
+    "minimum_inlier_ratio": 0.25,
+    "minimum_roi_coverage": 0.95,
+    "registered_images": 1184,
+    "failed_images": 0,
+    "mean_inliers": 193.71368243243242,
+    "min_inliers": 73,
+    "mean_roi_coverage": 1.0,
+    "min_roi_coverage": 1.0
+  },
+  "protocol_details": {
+    "registration_template": "pcb_data_dir_train/normal/Train_PCB_resized_None_None_Normal_Set1_1.jpg",
+    "registration_template_role": "one fixed training-normal image used only to estimate geometric alignment; it is outside every 16-image anomaly feature bank",
+    "template_extra_normal_images": 1,
+    "registration_roi_xyxy_on_640_template": [
+      114,
+      141,
+      505,
+      498
+    ],
+    "registration": {
+      "input_raster": "all square images resized to 640x640 with INTER_AREA before alignment",
+      "detector": "SIFT",
+      "sift_max_features": 4000,
+      "lowe_ratio": 0.75,
+      "homography": "query-to-template planar homography with RANSAC reprojection threshold 4 px",
+      "minimum_inliers": 50,
+      "minimum_inlier_ratio": 0.25,
+      "roi_margin": 0.03,
+      "roi_color_mask_hsv_lower": [
+        90,
+        50,
+        40
+      ],
+      "roi_color_mask_hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "roi_mask_source": "fixed training-normal template only"
+    },
+    "registered_model_input": "warp to template, crop fixed board ROI, preserve aspect ratio with ImageNet-mean padding, resize to 224x224",
+    "model": "same torchvision ImageNet-1K backbone; PatchCore layer2+layer3, 3x3 patch aggregation, Euclidean 1-NN, same approximate greedy 10% coreset; image score is max patch distance",
+    "references": "same five SHA-256 selected lists, 16 anomaly-feature reference images per seed (42-46)",
+    "feature_bank_bytes": "4,90 MiB per model/seed; geometry template not stored in the anomaly memory bank",
+    "masks": "same query-to-template homography and board ROI; nearest-neighbor interpolation; test4 exact duplicate image deduplicated and masks unioned as in baseline",
+    "threshold": "none; threshold-free AUROC/AP/AUPRO",
+    "registration_quality": {
+      "minimum_inliers": 50,
+      "minimum_inlier_ratio": 0.25,
+      "minimum_roi_coverage": 0.95,
+      "registered_images": 1184,
+      "failed_images": 0,
+      "mean_inliers": 193.71368243243242,
+      "min_inliers": 73,
+      "mean_roi_coverage": 1.0,
+      "min_roi_coverage": 1.0
+    },
+    "test_usage_note": "A small set of target-condition images was visually inspected to verify alignment feasibility before the fixed pipeline was frozen; test labels and anomaly masks were not used to estimate homographies or select registration parameters. Treat results as exploratory, not untouched confirmation.",
+    "causal_scope": "This paired intervention changes geometric registration, scale normalization, background removal, and ROI crop together; it does not isolate the contribution of each part or prove resolution alone caused the earlier drop."
+  }
+}

@@ -15,7 +15,13 @@ import numpy as np
 from PIL import Image
 
 from .audit_robustad_pcb import DEFECTS, DOMAIN_LABELS, REVISION, SPLITS, _read_rows
-from .crops import sha256
+from .crops import sha256, square_input
+from .robustad_registration import (
+    make_registration_plan,
+    registered_image,
+    registered_mask,
+    registration_lookup,
+)
 from .visa_benchmark import ranking_metrics
 from .visa_localization import binary_ranking_metrics, pro_auc
 
@@ -116,13 +122,19 @@ def select_references(references: list[dict]) -> dict[str, list[str]]:
     return selections
 
 
-def preprocess_image(path: Path, to_tensor, normalize):
-    with Image.open(path) as image:
-        image = image.convert("RGB").resize((IMAGE_SIZE, IMAGE_SIZE), Image.Resampling.BILINEAR)
-        return normalize(to_tensor(image))
+def preprocess_image(path: Path, to_tensor, normalize, transform=None):
+    if transform is None:
+        with Image.open(path) as image:
+            image = image.convert("RGB").resize((IMAGE_SIZE, IMAGE_SIZE), Image.Resampling.BILINEAR)
+    else:
+        image = registered_image(path, transform)
+        image = square_input(image, IMAGE_SIZE)
+    return normalize(to_tensor(image))
 
 
-def preprocess_mask(paths: list[Path]) -> np.ndarray:
+def preprocess_mask(paths: list[Path], transform=None) -> np.ndarray:
+    if transform is not None:
+        return registered_mask(paths, transform, IMAGE_SIZE)
     combined = np.zeros((IMAGE_SIZE, IMAGE_SIZE), dtype=bool)
     for path in paths:
         with Image.open(path) as image:
@@ -131,13 +143,17 @@ def preprocess_mask(paths: list[Path]) -> np.ndarray:
     return combined
 
 
-def embed_records(records, model, pc, torch, to_tensor, normalize, output_path, batch_size=4):
+def embed_records(records, model, pc, torch, to_tensor, normalize, output_path, batch_size=4,
+                  transform_lookup=None):
     embeddings = np.lib.format.open_memmap(
         output_path, mode="w+", dtype="float32", shape=(len(records), PATCH_COUNT, FEATURE_DIM)
     )
     for start in range(0, len(records), batch_size):
         batch = torch.stack([
-            preprocess_image(row["image_path"], to_tensor, normalize)
+            preprocess_image(
+                row["image_path"], to_tensor, normalize,
+                transform_lookup.get(f"{row['split']}/{row['image']}") if transform_lookup else None,
+            )
             for row in records[start:start + batch_size]
         ])
         with torch.inference_mode():
@@ -152,7 +168,8 @@ def embed_records(records, model, pc, torch, to_tensor, normalize, output_path, 
     return embeddings
 
 
-def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name: str = "wrn50") -> dict:
+def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name: str = "wrn50",
+             view_contract: str = "full_frame", registration_plan_path: Path | None = None) -> dict:
     import torch
     from torchvision import models
     from torchvision.transforms.functional import normalize, to_tensor
@@ -160,6 +177,8 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
     output, root, cache, vendor = map(Path, (output, root, cache, vendor))
     if backbone_name not in BACKBONES:
         raise ValueError(f"Unsupported backbone {backbone_name}; choose from {sorted(BACKBONES)}")
+    if view_contract not in {"full_frame", "registered_board"}:
+        raise ValueError(f"Unsupported view contract: {view_contract}")
     backbone = BACKBONES[backbone_name]
     audit_path = Path("reports/robustad-pcb-audit-v1.json")
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
@@ -169,6 +188,13 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
     references, tests, duplicate_groups = load_records(root)
     selections = select_references(references)
     records = references + tests
+    registration_plan = None
+    transform_lookup = None
+    if view_contract == "registered_board":
+        if registration_plan_path is None:
+            registration_plan_path = output.parent / "registration-v1" / "plan.json"
+        registration_plan = make_registration_plan(records, references[0], registration_plan_path)
+        transform_lookup = registration_lookup(registration_plan)
     vendor_provenance = json.loads((vendor / "provenance.json").read_text(encoding="utf-8"))
     if vendor_provenance.get("commit") != PATCHCORE_COMMIT:
         raise ValueError(f"Expected upstream PatchCore commit {PATCHCORE_COMMIT}")
@@ -176,7 +202,13 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
         "dataset_revision": REVISION,
         "embedding_contract": f"{backbone_name}-layer2-layer3-3x3-v1",
         "records": [{"split": row["split"], "image": row["image"], "sha256": sha256(row["image_path"])} for row in records],
-        "transform": "RGB bilinear full-frame resize to 224x224; ImageNet normalization",
+        "transform": (
+            "RGB bilinear full-frame resize to 224x224; ImageNet normalization"
+            if view_contract == "full_frame" else
+            "640px SIFT homography to one training-normal template; fixed training-only PCB ROI with 3% margin; aspect-preserving mean-pad then bilinear resize to 224x224; ImageNet normalization"
+        ),
+        "view_contract": view_contract,
+        "registration_signature": registration_plan["signature"] if registration_plan else None,
         "backbone": f"{backbone['name']} ImageNet1K V1",
         "weights_sha256": backbone["weights"],
         "embedding_shape": [PATCH_COUNT, FEATURE_DIM],
@@ -232,7 +264,8 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
     imagenet_norm = lambda tensor: normalize(tensor, [0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     started = time.perf_counter()
     if features is None:
-        features = embed_records(records, model, pc, torch, to_tensor, imagenet_norm, feature_path)
+        features = embed_records(records, model, pc, torch, to_tensor, imagenet_norm, feature_path,
+                                 transform_lookup=transform_lookup)
         atomic_json(signature_path, signature)
 
     reference_index = {row["image"]: idx for idx, row in enumerate(references)}
@@ -263,7 +296,10 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
             patch_maps.append(pc.anomaly_segmentor.convert_to_segmentation(patch_scores)[0].astype(np.float32))
         patch_maps = np.asarray(patch_maps, dtype=np.float32)
         image_labels = np.asarray([row["label"] for row in tests], dtype=np.uint8)
-        masks = [preprocess_mask(row["mask_paths"]) for row in tests]
+        masks = [preprocess_mask(
+            row["mask_paths"],
+            transform_lookup.get(f"{row['split']}/{row['image']}") if transform_lookup else None,
+        ) for row in tests]
         masks = np.asarray(masks, dtype=bool)
         for split in SPLITS[1:]:
             indices = np.asarray([i for i, row in enumerate(tests) if row["split"] == split], dtype=np.int64)
@@ -390,7 +426,11 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
         "backbone": backbone["name"],
         "duplicate_image_groups": duplicate_groups,
         "reference_selections": selections,
-        "category_scope": "binary normal-versus-anomaly; defect subclasses are reported as dataset composition only",
+        "view_contract": view_contract,
+        "registration_quality": registration_plan["quality_gate"] if registration_plan else None,
+        "registration_template": registration_plan["template"] if registration_plan else None,
+        "registration_roi_xyxy_640": registration_plan["roi_xyxy_640"] if registration_plan else None,
+        "category_scope": "image normal-versus-anomaly by domain; target-domain image normal-versus-one-defect-subtype results are supplementary",
         "domain_results": summary,
         "shifted_domain_macro_mean_test1_test5": shifted_macro,
         "test4_duplicate_policy_sensitivity": {
@@ -407,7 +447,7 @@ def evaluate(output: Path, root: Path, cache: Path, vendor: Path, backbone_name:
             "weights_sha256": backbone["weights"],
             "references": f"{REFERENCE_COUNT} normal images sampled only from the 180 pcb_data_dir_train normal images; five fixed SHA-256-ranked selections",
             "training_anomalies_used": 0,
-            "preprocessing": "full-frame square resize to 224x224; bilinear RGB, nearest-neighbour binary masks; ImageNet normalization",
+            "preprocessing": signature["transform"],
             "patchcore": "layer2+layer3, 3x3 patches, Euclidean 1-NN, approximate greedy 10% coreset, 128D projection",
             "test_splits": "test0 source condition; test1 lighting; test2 white balance; test3 rotation; test4 position; test5 shadow/background",
             "duplicate_policy": "within each test split, exact duplicate JPEGs are one image observation; referenced masks are unioned",
@@ -437,9 +477,13 @@ def main() -> None:
     parser.add_argument("--cache", type=Path, default=Path("data/torch-cache"))
     parser.add_argument("--vendor", type=Path, default=Path("data/vendor/patchcore-inspection"))
     parser.add_argument("--backbone", choices=sorted(BACKBONES), default="wrn50")
+    parser.add_argument("--view-contract", choices=("full_frame", "registered_board"), default="full_frame")
+    parser.add_argument("--registration-plan", type=Path)
     args = parser.parse_args()
-    output = args.output or Path(f"data/robustad-pcb-v1/patchcore-{args.backbone}-v1")
-    result = evaluate(output, args.root, args.cache, args.vendor, args.backbone)
+    suffix = "registered-v1" if args.view_contract == "registered_board" else "v1"
+    output = args.output or Path(f"data/robustad-pcb-v1/patchcore-{args.backbone}-{suffix}")
+    result = evaluate(output, args.root, args.cache, args.vendor, args.backbone,
+                      args.view_contract, args.registration_plan)
     print(json.dumps({"output": str(output / "summary.json"),
                       "domain_results": result["domain_results"],
                       "shifted_domain_macro_mean_test1_test5": result["shifted_domain_macro_mean_test1_test5"]},

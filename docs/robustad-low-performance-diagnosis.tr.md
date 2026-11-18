@@ -30,13 +30,18 @@ Böylece source testte görüntü boyutunu okuyup “2048 ise kusurlu” diyen b
 
 Yerelleştirme metrikleri farklı bir tablo gösteriyor: AnomalyDINO'nun piksel AP'si %7,55 ve AUPRO'su %64,07 ile daha yüksek. Bu, kusurlu bölgeleri sıralamada sinyal bulunduğunu; fakat bu sinyalin tam kartı alarm vermeye yetecek biçimde özetlenmediğini düşündürüyor. Piksel AUROC'ları pozitif piksel oranı çok düşük olduğundan tek başına yeterli değil.
 
+## Belirleyici kontrol deneyi sonucu
+
+1.184 kareyi bir eğitim-normal PCB şablonuna SIFT/RANSAC ile hizalayıp sabit kart ROI'sini kullandık. Aynı beş 16-referans seçimi ve aynı PatchCore bankasıyla kaymış alan makro görüntü AUROC'u WideResNet50-2'de %44,84'ten %62,79'a; ResNet18'de %37,35'ten %51,87'ye çıktı. Piksel AP'si de sırasıyla %5,42→%18,14 ve %5,71→%15,62 oldu. Bu, konum/ölçek/görüş/arka plan değişikliklerinin eski skorların düşüklüğüne katkı verdiği hipotezini destekliyor.
+
+Deney çözünürlük, hizalama, ROI kırpımı ve arka plan etkilerini birlikte değiştirdi; tek başına çözünürlük etkisini izole etmedi. Hizalama için 16 puanlama referansının dışında bir eğitim-normal şablonu kullanıldı. Örnek hedef kareler geliştirme sırasında görsel olarak kontrol edildiği için sonucu keşifsel kabul etmeliyiz. Ayrıntı: [hizalı kart deneyi](robustad-registered-board-experiment.tr.md).
+
 ## Sonraki doğrulama adımları
 
-1. **Boyut/görüş alanı karışıklığını ayır:** fiziksel alanı veya kart sınırlarını eşleyerek normal ve anormal görüntüler için ortak görüş alanı oluştur; aynı modelleri, referansları ve hedef kareleri bu kontrollü ön işlemeyle yeniden değerlendir. Sadece yeniden boyutlandırmayı fiziksel ölçek eşitliği olarak kabul etme.
-2. **Kısa bir veri kontrolü ekle:** her bölüm ve etiket için görüntü boyutu dağılımını denetimde raporla; sınıfla tam çakışma varsa kaynak test sonucunu “karışık/konfounded” diye işaretle.
-3. **Alan başına örnek skorları sakla:** normal ve kusurlu puan dağılımlarını, en yüksek yanlış alarm ve kaçırılan kareleri incele. Yeni eşik veya model seçimini test alanlarında yapma.
-4. **Bağımsız doğrulama edin:** fiziksel kart/oturum ID'si olan, normal ve kusurlu örnekleri benzer çözünürlük ve çekim koşullarında içeren bir test seti kur.
+1. **Bileşenleri ayır:** hizalama, ROI crop, arka plan ve ölçek işlemlerini ablation et; mümkünse aynı normal-görüntü bütçesinde yalnız eğitim normalinden gelen şablonun etkisini de ölç.
+2. **Hataları görsel incele:** alan başına normal/kusurlu skorları, en yüksek yanlış alarm ve kaçırılan örnekleri karşılaştır. Yeni eşik veya model seçimini test alanlarına göre yapma.
+3. **Bağımsız doğrulama edin:** fiziksel kart/oturum ID'si olan, normal ve kusurlu örnekleri benzer çözünürlük ve çekim koşullarında içeren bir test seti kur.
 
-Bugünkü kanıt, “modeller eski olduğu için düşük” sonucunu tek başına desteklemiyor. Daha doğrudan açıklama, kaynak veri ile hedef alanların farklı dağılımları ve kaynak bölümde görüntü boyutunun etiketle tam çakışması. Bu açıklamanın büyüklüğünü ölçmek için ilk sırada kontrollü görüş alanı/ölçek deneyi gerekiyor.
+Bugünkü kanıt, “modeller eski olduğu için düşük” sonucunu tek başına desteklemiyor. Kaynak veri ile hedef alanların farklı dağılımları ve kaynak bölümde görüntü boyutunun etiketle tam çakışması rol oynuyor; hizalı kart deneyi görünüm standardizasyonunun performansı anlamlı ölçüde artırabileceğini gösterdi. Ne kadarının hizalama, kırpım veya ölçekten geldiği ve yeni kartlara taşınıp taşınmayacağı henüz kanıtlanmadı.
 
 Kaynak sonuç tablosu: [üç yöntem raporu](robustad-pcb-method-comparison.tr.md). Veri boyutları: [denetim raporu](robustad-pcb-audit.tr.md).

@@ -40,18 +40,20 @@ Bu alt analiz keşifseldir ve DINO'yu kapsamıyor. Beş referans seçiminin sapm
 
 ## Başarım neden düşük olabilir?
 
-Denetimde kaynak train/test normal karelerinin tamamının 2560×2560, kusurlu karelerin tamamının 2048×2048 olduğu görüldü. Bu nedenle kaynak testte çözünürlük tek başına etiketleri ayırabiliyor; yüksek kaynak AUROC'ları gerçek kusur öğrenmesini tek başına kanıtlamıyor. Hedef test1–test5'te tüm görüntüler 2048×2048 ve ayrıca kamera/çekim koşulları değişiyor. Bu, hedef alanlardaki düşüş için güçlü bir karışıklık ve alan kayması açıklamasıdır; etkisini kesinleştirmek için ortak fiziksel görüş alanıyla kontrol deneyi gerekir. Ayrıntı: [düşük başarım teşhisi](robustad-low-performance-diagnosis.tr.md).
+Denetimde kaynak train/test normal karelerinin tamamının 2560×2560, kusurlu karelerin tamamının 2048×2048 olduğu görüldü. Bu nedenle kaynak testte çözünürlük tek başına etiketleri ayırabiliyor; yüksek kaynak AUROC'ları gerçek kusur öğrenmesini tek başına kanıtlamıyor. Kaymış test1–test5'te tüm görüntüler 2048×2048 ve kamera/çekim koşulları da değişiyor.
+
+Bu şüpheyi sınamak için tüm kareleri eğitim-normal bir şablona hizalayıp sabit kart ROI'siyle iki PatchCore omurgasını tekrar çalıştırdım. Aynı beş referans seçiminde hedef alan görüntü AUROC'u WideResNet50-2'de %44,84'ten %62,79'a, ResNet18'de %37,35'ten %51,87'ye çıktı; piksel AP'si de yaklaşık 10–13 puan arttı. Bu, görünüm hizalamasının yardımcı olduğunu destekliyor; fakat hizalama, arka plan, kırpım ve ölçek katkılarını ayırmıyor. Hizalama için 16 puanlama görüntüsüne ek bir normal şablon kullandım. Sonuç keşifseldir. [Hizalama deneyi](robustad-registered-board-experiment.tr.md) ve [düşük başarım teşhisi](robustad-low-performance-diagnosis.tr.md).
 
 ## Şu anki konum ve plan
 
-1. Önce DINO kusur alt analizini seed başına kaydedilen daha kısa işlerle tamamla; sonra tüm yöntemlerde kaçırılan örnekleri ve yanlış alarmları görsel olarak karşılaştır.
+1. Hizalama, ROI crop ve ek eğitim-normal şablonunun katkılarını ayrı ablation'larla ayır; hata görsellerini karşılaştır.
 2. Model/parametre seçimini test alanlarına göre yapma. Gerekirse eşik protokolünü eğitim verisinden ayrılmış normal kalibrasyon örnekleriyle önceden sabitle.
 3. Bağımsız kart veya oturum kimliği olan kusurlu veri bul; mümkün değilse makale kapsamını açıkça tek veri kümesi üzerindeki kontrollü karşılaştırma ve sınır analiziyle sınırla.
-4. İngilizce makale taslağında metriklerin yanında bellek, kusur yoğunluğu, örnek sayısı ve veri sınırlamalarını raporla.
+4. İngilizce makale taslağında metriklerin yanında bellek, kusur yoğunluğu, örnek sayısı ve veri sınırlamalarını raporla. DINO hizalı kusur alt analizi hâlâ tamamlanmalı.
 
 ## GitHub durumu
 
-Son bilinen başarılı GitHub gönderimi `7b7f5ee` (`Add RobustAD PCB anomaly analysis`), 12 Kasım 2026'da `main` dalına yapıldı. Bu rapor ve README'deki bağlantısı 18 Kasım'da yerel çalışma alanına eklendi; GitHub'a henüz gönderilmedi. Bugünkü kontrolde `github.com` için DNS erişimi olmadığı için uzak dalı yeniden doğrulayamadım. Bunların dışında bekleyen PCB kodu değişikliği yok; çalışma alanında ayrıca ilgisiz bir not defteri ve geçici sunum derleme klasörü bulunuyor.
+Son bilinen başarılı gönderim `0bb921f` (`Explain RobustAD PCB domain-shift results`), 18 Kasım 2026'da `main` dalına yapıldı. Bu hizalama deneyi ve rapor henüz commit edilip gönderilmedi. Çalışma alanında ayrıca ilgisiz bir not defteri ve geçici sunum derleme klasörü bulunuyor.
 
 ## Ayrıntılı kaynaklar
 
@@ -61,3 +63,4 @@ Son bilinen başarılı GitHub gönderimi `7b7f5ee` (`Add RobustAD PCB anomaly a
 - [Makale hazırlık değerlendirmesi](paper-readiness.tr.md)
 - [İngilizce makale taslağı](paper-draft.en.md)
 - [Birleşik makine-okunur sonuçlar](../reports/robustad-pcb-method-comparison-v1.json)
+- [Kart hizalama karşılaştırma JSON'u](../reports/robustad-pcb-registered-board-comparison-v1.json)
