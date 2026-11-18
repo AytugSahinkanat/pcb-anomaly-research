@@ -655,7 +655,7 @@
       "mean_roi_coverage": 1.0,
       "min_roi_coverage": 1.0
     },
-    "test_usage_note": "A small set of target-condition images was visually inspected to verify alignment feasibility before the fixed pipeline was frozen; test labels and anomaly masks were not used to estimate homographies or select registration parameters. Treat results as exploratory, not untouched confirmation.",
+    "test_usage_note": "Before the full run, one defective image per target condition was selected using metadata labels and visually inspected for alignment feasibility. Masks and performance metrics were not used to estimate homographies or tune parameters, but target test images were viewed; results are exploratory, not untouched confirmation.",
     "causal_scope": "This paired intervention changes geometric registration, scale normalization, background removal, and ROI crop together; it does not isolate the contribution of each part or prove resolution alone caused the earlier drop."
   }
 }

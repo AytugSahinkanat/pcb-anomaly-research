@@ -53,7 +53,7 @@ Sonuç, düşük eski skorların **önemli bir bölümünün tam-kare görünüm
 
 Önceki kaynak bölümdeki çözünürlük–etiket çakışması da sürüyor: train ve test0'da normals 2560×2560, anomalies 2048×2048. Kaymış test1–test5'te bütün kareler 2048×2048. Hizalama karşılaştırması hedef alan performansını iyileştirse de fiziksel kart/oturum ID'si bulunmadığı için yeni kart genellemesini kanıtlamıyor.
 
-Bu deney **keşifsel/teşhis amaçlıdır**. Öncesinde birkaç hedef koşul karesi hizalama fizibilitesi için görsel olarak incelendi (test etiketi veya maskesi homografiyi hesaplamada kullanılmadı); mevcut benchmark aynı görüntülerde tekrarlandı. Sonuçları bağımsız ve hiç görülmemiş test başarısı gibi sunmamalıyız.
+Bu deney **keşifsel/teşhis amaçlıdır**. Tam koşudan önce her hedef alandan metadata etiketiyle bir kusurlu örnek seçilip hizalamanın görsel fizibilitesi incelendi; bu kareler maske veya performans metriğiyle parametre ayarı için kullanılmadı. Yine de test görüntüleri görülmüş olduğundan bu, hiç dokunulmamış doğrulama değildir. Mevcut benchmark da aynı görüntülerde tekrarlandı; sonucu bağımsız ve hiç görülmemiş test başarısı gibi sunmamalıyız.
 
 ## Devam planı
 
